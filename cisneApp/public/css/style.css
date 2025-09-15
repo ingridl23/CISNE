@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+:root {
+    --primary-green: #10b981;
+    --light-green: #d1fae5;
+    --soft-green: #a7f3d0;
+    --mint-green: #6ee7b7;
+    --sage-green: #34d399;
+    --forest-green: #059669;
+    --dark-green: #047857;
+    --colortitle: #1f2937;
+    --radius: 0.75rem;
+    --gap: 1rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #d1fae5 100%);
+    color: var(--colortitle);
+    line-height: 1.6;
+}
+
+.text-section-container {
+    text-align: center;
+}
+
+.text-left-aligned {
+    text-align: left;
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--primary-green), var(--forest-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.floating-animation {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.pulse-green {
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+    }
+}
+
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.1);
+}
+
+.admin-gradient {
+    background: linear-gradient(135deg, #1f2937 0%, #374151 50%, #4b5563 100%);
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.grid-profesionales {
+    @apply grid justify-items-center text-center gap-8 mx-auto max-w-7xl;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.prof-card {
+    background: white;
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    border-bottom: #b9e192 1px solid;
+    padding: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.9s ease-out, box-shadow 0.3s ease;
+}
+
+.prof-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.prof-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.prof-card div {
+    flex: 1;
+    padding: 0 2rem;
+}
+
+.prof-card .fotos-prof {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0 auto var(--gap);
+}
+
+.nombre-profesional {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--colortitle);
+    padding-top: 0;
+    margin: 1px;
+}
+
+.especialidad {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    color: var(--colortitle);
+}
+
+.matricula {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.9rem;
+    color: var(--colortitle);
+    font-weight: 200;
+}
+
+
+/******* iconos en footer *******************************/
+
+.btn .btn-light-green {
+    color: var(--sage-green);
+}
