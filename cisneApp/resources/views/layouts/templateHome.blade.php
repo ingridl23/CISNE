@@ -14,7 +14,7 @@
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-        <!-- Core theme CSS (includes Bootstrap)-->
+
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
@@ -30,7 +30,7 @@
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Profesionales</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('noticias') }}">Novedades</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Novedades</a></li>
                         <li class="nav-item"><a class="nav-link" href="#house">Hogares</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                     </ul>
@@ -78,32 +78,32 @@
                 </div>
             </div>
         </section>
-       
-            
-                 
-                
-                
-        
-            
+
+
+
+
+
+
+
         <!-- Team-->
         <section class="page-section" id="team">
-            
-                   
-             
+
+
+
         </section>
-      
-    
+
+
         <!-- Contact-->
         <section class="page-section" id="contact">
-       
+
          @include('layouts.componentFormularioContacto')
-                    
-         
+
+
         </section>
-       
-      
-        
- 
+
+
+
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
