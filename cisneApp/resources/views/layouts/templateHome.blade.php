@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Cisne - Consultorios Interdisciplinarios de Salud Neuroemocional</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -23,7 +23,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="..." /></a>
+            <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.svg" alt="imagen logo" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -36,6 +36,7 @@
                     <li class="nav-item"><a class="nav-link" href="#team">Profesionales</a></li>
                     <li class="nav-item"><a class="nav-link" href="#mapa">Ubicacion</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Novedades</a></li>
                 </ul>
             </div>
         </div>
@@ -53,35 +54,44 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Servicios</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted"> Consultorios Interdisciplinarios de Salud Neuroemociona</h3>
             </div>
+
+            <!--Psicologia -->
             <div class="row text-center">
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        <i class="fas fa-brain fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="my-3">E-Commerce</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="my-3">Consultorios especializados en psicología</h4>
+                    <p class="text-muted"> Ofrecemos terapias individuales y consultorías.
+                        Tu bienestar mental es nuestra prioridad.
+                    </p>
                 </div>
+
+                <!--Psicopedagogia -->
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        <i class="fas  fa-book-open fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="my-3">Responsive Design</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="my-3">Espacios especializados en psicopedagogía</h4>
+                    <p class="text-muted">Acompañamos a niños y adolescentes con terapias personalizadas y consultorías
+                        orientadas a potenciar su aprendizaje, desarrollo y bienestar.
+                    </p>
                 </div>
+
+                <!--Hogares adultos mayores -->
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
                         <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                        <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                        <i class="fas fa-hand-holding-heart fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="my-3">Web Security</h4>
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-                        architecto quo inventore harum ex magni, dicta impedit.</p>
+                    <h4 class="my-3">Atención especializada para adultos mayores</h4>
+                    <p class="text-muted">Brindamos acompañamiento integral en hogares, con terapias y consultorías
+                        diseñadas para favorecer el bienestar emocional, cognitivo y social de las personas mayores..
+                    </p>
                 </div>
             </div>
         </div>
