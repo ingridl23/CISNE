@@ -11,9 +11,8 @@ class ProfesionalController extends Controller
     public function index()
     {
         // Traés los profesionales de la base
-        $profesionales = profesionalesModel::all();
-
-        // Se los pasás a la vista
-        return view("layouts.profesional-card", compact('profesionales'));
+        $profesionales = ProfesionalesModel::showProfesionales();
+        // Pasar la variable a la vista principal (templateHome)
+        return view('layouts.templateHome', compact('profesionales'));
     }
 }

@@ -21,18 +21,15 @@ use App\Models\Constants;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
-class profesionalesModel extends Model
+class ProfesionalesModel extends Model
 {
     use HasFactory;
 
     protected $perPage = 20;
     protected $table = 'Profesional'; // tu tabla real
 
-    protected static function newFactory()
-    {
-        return ProfesionalFactory::new();
-    }
-    use HasFactory;
+
+
 
 
 
@@ -51,7 +48,7 @@ class profesionalesModel extends Model
     public static function showProfesionales()
     {
         //$emprendimientos = emprendedores::select(['id', 'nombre', 'descripcion', 'imagen', 'categoria'])->get();
-        $profesionales = profesionalesModel::all();
+        $profesionales = Self::all();
         if (count($profesionales) > constants::VALORMIN) {
             return  $profesionales;
         }

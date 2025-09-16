@@ -99,7 +99,8 @@
 
     <!-- profesionales que trabajan en el equipo cisne-->
     <section class="page-section bg-light" id="team">
-        @include('layouts.profesional-card')
+        @include('layouts.profesional-card', ['profesionales' => $profesionales])
+
 
 
     </section>
