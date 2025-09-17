@@ -171,3 +171,410 @@ body {
 .btn .btn-light-green {
     color: var(--sage-green);
 }
+
+
+/* ─── UBICACIÓN & REDES ─── */
+
+.map-wrapper {
+    margin-bottom: 3rem;
+    /* espacio entre mapa y título/redes */
+    border-radius: var(--radius);
+}
+
+.map-wrapper iframe {
+    width: 100%;
+    height: 300px;
+    border: 0;
+    border-radius: var(--radius);
+}
+
+
+/* Contenedor de iconos sociales */
+
+
+/* Contenedor de iconos sociales */
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    /* espacio entre iconos */
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    /* que bajen en móviles si no caben */
+}
+
+
+/* Iconos por defecto */
+
+.social-icons img {
+    width: 82px;
+    height: 82px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    /* animación suave */
+    cursor: pointer;
+}
+
+
+/* Efecto hover */
+
+.social-icons img:hover {
+    transform: scale(1.2);
+    /* crece un poco */
+    filter: brightness(1.1);
+    /* opcional: más brillante al pasar el mouse */
+}
+
+
+/* Responsive: pantallas pequeñas */
+
+@media (max-width: 768px) {
+    .social-icons {
+        margin-top: 3rem;
+        padding-top: 3rem;
+    }
+    .map-wrapper iframe {
+        height: 250px;
+    }
+    .social-icons img {
+        width: 70px;
+        height: 70px;
+    }
+    .social-icons {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .social-icons img {
+        width: 60px;
+        height: 60px;
+    }
+    .social-icons {
+        gap: 1.5rem;
+    }
+    .map-wrapper iframe {
+        height: 200px;
+    }
+}
+
+
+/************************* fromularios y modals ***********************************/
+
+
+/********************************estilos modal yform *******************************************/
+
+
+/* ✂ Base: ocultar overlay y modal por defecto */
+
+.modal-overlay,
+.modal {
+    display: none;
+}
+
+
+/* ✂ Mostrar overlay cuando tenga .open */
+
+.modal-overlay.open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 15;
+}
+
+
+/* ✂ Mostrar modal cuando tenga .open */
+
+.modal.open {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem 1.5rem;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 8px 24px rgba(57, 245, 135, 0.1);
+    z-index: 20;
+    text-align: center;
+}
+
+
+/* ─── ESTILO WIRE-FRAME PARA EL MODAL ─── */
+
+.modal {
+    display: none;
+    /* sigue oculto hasta que JS le ponga .open */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 1rem;
+    padding: 2rem 1.5rem 1.5rem;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    text-align: center;
+}
+
+
+/* overlay semitransparente */
+
+.modal-overlay.open {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 15;
+}
+
+
+/* Cabecera del modal */
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-direction: column;
+}
+
+.modal-header img {
+    width: 60px;
+    height: auto;
+}
+
+.modal-header span {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+
+/* Botón de cerrar (X) */
+
+.modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #666;
+}
+
+
+/* Títulos y márgenes */
+
+.modal h2 {
+    margin: 0;
+    /* ya lo cubre .modal-header */
+}
+
+.modal form {
+    margin-top: 0.5rem;
+}
+
+
+/* Inputs y labels (igual que antes, pero centrados) */
+
+.field-group {
+    position: relative;
+    margin: 1.25rem 0;
+}
+
+.field-group input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #71ff6c;
+    padding: 0.5rem 0;
+    background: transparent;
+    outline: none;
+    transition: border-color .3s;
+}
+
+.field-group label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0 .25rem;
+    transition: .2s ease all;
+    color: #999;
+    pointer-events: none;
+}
+
+.field-group input:focus {
+    border-color: green;
+}
+
+.field-group input:focus+label,
+.field-group input:not(:placeholder-shown)+label {
+    top: -1rem;
+    font-size: .85rem;
+    color: var(--primary);
+}
+
+
+/* Fieldset */
+
+form fieldset {
+    border: none;
+    margin: 1rem 0;
+    text-align: left;
+}
+
+form fieldset legend {
+    font-weight: 300;
+    margin-bottom: .5rem;
+    font-size: 16px;
+}
+
+form fieldset label {
+    display: block;
+    margin: .25rem 0;
+    cursor: pointer;
+}
+
+
+/* Botón enviar */
+
+.submit {
+    position: relative;
+    overflow: hidden;
+    padding: .75rem 1.5rem;
+    background: rgb(238, 228, 228);
+    color: green;
+    border: 3px solid var(--primary-color);
+    border-radius: .5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background .3s, color .3s;
+    margin-top: 1rem;
+    max-width: 500rem;
+}
+
+.submit:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+
+/* Ocultar tilde al inicio */
+
+.checkmark,
+.checkmark2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 1.8rem;
+    transition: transform 0.3s ease;
+    pointer-events: none;
+    font-size: 1.05rem;
+}
+
+.checkmark {
+    color: rgb(77, 190, 73);
+}
+
+.checkmark2 {
+    color: rgb(255, 66, 66);
+    /* rojo */
+    font-size: 1.5rem;
+}
+
+
+/* Mostrar tilde */
+
+.submit.click .checkmark {
+    transform: translate(-50%, -50%) scale(2);
+}
+
+
+/* Ocultar texto */
+
+.submit.click .btn-text,
+.submit.error .btn-text {
+    opacity: 0;
+}
+
+
+/* Mostrar cruz roja cuando hay error */
+
+.submit.error .checkmark2 {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+/* Ocultar texto cuando hay animación */
+
+.submit.click .btn-text,
+.submit.error .btn-text {
+    opacity: 0;
+}
+
+.error-msg {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    display: none;
+    text-align: center;
+}
+
+.error-msg.show {
+    display: block;
+}
+
+input.oculto {
+    display: none;
+}
+
+#olvidastepass {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+    text-decoration: none;
+}
+
+
+/******************************************/
+
+
+/************estilos del boton de whatsapp********/
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    /* distancia desde abajo */
+    right: 20px;
+    /* distancia desde el borde derecho */
+    width: 60px;
+    height: 60px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: transform .2s;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp {
+    max-width: 55px;
+}

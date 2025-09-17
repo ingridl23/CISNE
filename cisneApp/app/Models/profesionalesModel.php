@@ -21,11 +21,12 @@ use App\Models\Constants;
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
+
 class ProfesionalesModel extends Model
 {
     use HasFactory;
 
-    protected $perPage = 20;
+    protected $perPage = 12;
     protected $table = 'Profesional'; // tu tabla real
 
 
@@ -44,16 +45,17 @@ class ProfesionalesModel extends Model
     {
         return $this->hasMany(imagesProfesionalesModel::class);
     }
-
+/*
     public static function showProfesionales()
     {
-        //$emprendimientos = emprendedores::select(['id', 'nombre', 'descripcion', 'imagen', 'categoria'])->get();
+
         $profesionales = Self::all();
-        if (count($profesionales) > constants::VALORMIN) {
+        if (count($profesionales) < Self::$perPage) {
             return  $profesionales;
         }
         return null;
     }
+*/
 
     // CRUd para profesionales
 

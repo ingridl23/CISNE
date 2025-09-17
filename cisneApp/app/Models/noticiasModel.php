@@ -26,7 +26,7 @@ class noticiasModel extends Model
      */
 
 
-    protected $perPage = 10;
+    protected $perPage = 20;
     protected $table = "Noticia";
 
     protected static function newFactory()
@@ -52,7 +52,7 @@ class noticiasModel extends Model
     public static function showNoticiasId($id)
     {
         $noticia = noticiasModel::where('noticias.id', $id)->get();
-        if (count($noticia) > constants::VALORMIN) {
+        if (count($noticia) > Self::$perPage) {
             $noticia = $noticia[0];
             return $noticia;
         }
