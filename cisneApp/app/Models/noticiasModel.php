@@ -36,13 +36,14 @@ class noticiasModel extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'titulo',
         'descripcion',
         'categoria',
     ];
 
 
-    public static function getUltimasNoticias($cantidad = 10)
+    public static function getUltimasNoticias($cantidad)
     {
         return noticiasModel::orderBy('created_at', 'desc')
             ->paginate($cantidad);
@@ -57,7 +58,7 @@ class noticiasModel extends Model
             return $noticia;
         }
     }
-    public static function obtenerCategoriasNoticias($cantidad = 10)
+    public static function obtenerCategoriasNoticias($cantidad = 12)
     {
 
         return noticiasModel::with(['categoria']) // relacion
@@ -91,7 +92,7 @@ class noticiasModel extends Model
 
     public function imagenesNoticias()
     {
-        return $this->hasMany(imagesNoticiasModel::class);
+        return $this->hasMany(imagesNoticiasModel::class , 'noticia_id');
     }
 
     // metodos del CRUD para noticias
