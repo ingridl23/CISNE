@@ -7,6 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\profesionalesModel;
 use Database\Factories\ImagenesProfesionalFactory;
 
+
+/**
+ * Class ProfesionalesModel
+ *
+ * @property $img_id
+
+ * @property $profesional_id
+ * @property $url
+ *
+ * @property $created_at
+ * @property $updated_at
+ *
+ * @package App
+ * @mixin \Illuminate\Database\Eloquent\Builder
+ */
+
+
+
 class imagesProfesionalesModel extends Model
 {
     use HasFactory;
@@ -37,11 +55,7 @@ class imagesProfesionalesModel extends Model
     }
 
 
-    public static function find($id_profesional)
-    {
-        $imagenes = imagesProfesionalesModel::where("profesional_id", $id_profesional)->get();
-        return $imagenes;
-    }
+
 
     public static function buscar($id_emprendedor)
     {

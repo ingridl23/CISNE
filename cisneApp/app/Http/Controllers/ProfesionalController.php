@@ -9,5 +9,6 @@ use App\Models\ProfesionalesModel;
 class ProfesionalController extends Controller
 {
 
+
     }
 

@@ -45,7 +45,12 @@ class ProfesionalesModel extends Model
     {
         return $this->hasMany(imagesProfesionalesModel::class);
     }
-/*
+
+
+
+
+
+    /*
     public static function showProfesionales()
     {
 

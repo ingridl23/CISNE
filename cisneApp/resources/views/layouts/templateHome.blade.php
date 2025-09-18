@@ -145,14 +145,24 @@
 
 
 
-
+<?php
 
     <!-- profesionales que trabajan en el equipo cisne-->
     <section class="page-section bg-light" id="team">
         <div class="grid-profesionales">
             @foreach ($profesionales as $profesional)
                 <div class="prof-card visible">
-                    <img src="{{ $profesional->url }}" alt="Foto de {{ $profesional->nombre }}" class="fotos-prof" />
+
+                     @if($profesional->imagenes->isNotEmpty())
+                    <img src="{{ $profesional->imagenes->first()->url }}"
+                         alt="Foto de {{ $profesional->nombre }}"
+                         class="fotos-prof" />
+                @else
+
+                    <img src="https://via.placeholder.com/150"
+                         alt="Sin foto"
+                         class="fotos-prof" />
+                @endif
 
                     <div>
                         <h3 class="nombre-profesional">{{ $profesional->nombre }}</h3>
@@ -162,10 +172,9 @@
                 </div>
             @endforeach
         </div>
-
-
-
     </section>
+
+
 
     <!-- hogares con quienes colabora el consultorio-->
     <section class="page-section bg-light" id="hogares">
