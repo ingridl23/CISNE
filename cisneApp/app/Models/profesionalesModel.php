@@ -43,7 +43,7 @@ class ProfesionalesModel extends Model
 
     public function imagenes()
     {
-        return $this->hasMany(imagesProfesionalesModel::class);
+        return $this->hasMany(imagesProfesionalesModel::class,'profesional_id');
     }
 
 

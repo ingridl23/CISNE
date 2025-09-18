@@ -100,8 +100,14 @@ body {
 }
 
 .grid-profesionales {
-    @apply grid justify-items-center text-center gap-8 mx-auto max-w-7xl;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    justify-items: center;
+    text-align: center;
+    gap: 2rem;
+    /*padding: 0 1rem 4rem;*/
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .prof-card {
@@ -109,8 +115,9 @@ body {
     border-radius: var(--radius);
     width: 100%;
     max-width: 380px;
+    /* 👈 antes estaba en 380px */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     border-bottom: #b9e192 1px solid;

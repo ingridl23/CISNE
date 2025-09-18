@@ -145,273 +145,279 @@
 
 
 
-<?php
+    <php?>
 
-    <!-- profesionales que trabajan en el equipo cisne-->
-    <section class="page-section bg-light" id="team">
-        <div class="grid-profesionales">
-            @foreach ($profesionales as $profesional)
-                <div class="prof-card visible">
-
-                     @if($profesional->imagenes->isNotEmpty())
-                    <img src="{{ $profesional->imagenes->first()->url }}"
-                         alt="Foto de {{ $profesional->nombre }}"
-                         class="fotos-prof" />
-                @else
-
-                    <img src="https://via.placeholder.com/150"
-                         alt="Sin foto"
-                         class="fotos-prof" />
-                @endif
-
-                    <div>
-                        <h3 class="nombre-profesional">{{ $profesional->nombre }}</h3>
-                        <p class="especialidad">{{ $profesional->especialidad }}</p>
-                        <p class="matricula">{{ $profesional->matricula }}</p>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </section>
-
-
-
-    <!-- hogares con quienes colabora el consultorio-->
-    <section class="page-section bg-light" id="hogares">
-        <div class="container">
+        <!-- profesionales que trabajan en el equipo cisne-->
+        <section class="page-section bg-light" id="team">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Hogares</h2>
-
-                <p class="parrafo-instituciones"> En CISNE Consultorios trabajamos mano a mano con residencias
-                    geriátricas, hogares de día y centros
-                    de atención para adultos mayores. Nuestro equipo interdisciplinario de psicólogos y psicopedagogos
-                    lleva la atención neuroemocional directamente a sus instalaciones, ofreciendo intervenciones
-                    centradas
-                    en el bienestar de los residentes y acompañamiento a las familias.
-                <details class="details">
-                    <p> Además, brindamos asesoría y
-                        capacitación al personal de cada institución para implementar prácticas
-                        que fomenten un entorno más saludable y emocionalmente equilibrado. </p>
-                </details>
-                </p>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-sm-6 mb-4">
-                    <!-- Portfolio item 1-->
-                    <div class="portfolio-item">
-                        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                            <div class="portfolio-hover">
-                                <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
-                            </div>
-                            <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..." />
-                        </a>
-                        <div class="portfolio-caption">
-                            <div class="portfolio-caption-heading">Threads</div>
-                            <div class="portfolio-caption-subheading text-muted">Illustration</div>
+            <div class="grid-profesionales">
+                @foreach ($profesionales as $profesional)
+                    <div class="prof-card visible">
+
+                        @if ($profesional->imagenes->isNotEmpty())
+                            <img src="{{ $profesional->imagenes->first()->url }}"
+                                alt="Foto de {{ $profesional->nombre }}" class="fotos-prof" />
+                        @else
+                            <img src="https://via.placeholder.com/150" alt="Sin foto" class="fotos-prof" />
+                        @endif
+
+                        <div>
+                            <h3 class="nombre-profesional">{{ $profesional->nombre }}</h3>
+                            <p class="especialidad">{{ $profesional->especialidad }}</p>
+                            <p class="matricula">{{ $profesional->matricula }}</p>
                         </div>
                     </div>
+                @endforeach
+            </div>
+        </section>
+
+
+
+        <!-- hogares con quienes colabora el consultorio-->
+        <section class="page-section bg-light" id="hogares">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Hogares</h2>
+
+                    <p class="parrafo-instituciones"> En CISNE Consultorios trabajamos mano a mano con residencias
+                        geriátricas, hogares de día y centros
+                        de atención para adultos mayores. Nuestro equipo interdisciplinario de psicólogos y
+                        psicopedagogos
+                        lleva la atención neuroemocional directamente a sus instalaciones, ofreciendo intervenciones
+                        centradas
+                        en el bienestar de los residentes y acompañamiento a las familias.
+                    <details class="details">
+                        <p> Además, brindamos asesoría y
+                            capacitación al personal de cada institución para implementar prácticas
+                            que fomenten un entorno más saludable y emocionalmente equilibrado. </p>
+                    </details>
+                    </p>
                 </div>
-
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Mapa-->
-    <br>
-    <section class="page-section container px-3" id="mapa">
-
-
-
-        <h2 class="section-heading text-uppercase text-center">Donde nos encontramos</h2>
-        <p class="especialidad text-center" style="text-align: center;">Estamos Ubicados en Juan Manuel de Rosas 1763
-            km 41 Virrey
-            del
-            Pino, Arg</p>
-        <div class="map-wrapper  ratio ratio-16x9">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.7245443239767!2d-58.6697974248701!3d-34.86314807124448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcddf945702a29%3A0x4bc61a69a5a3284!2sCONSULTORIO%20CISNE!5e0!3m2!1ses!2sar!4v1750633507242!5m2!1ses!2sar"
-                style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <h2 class="section-heading text-uppercase text-center">Seguinos en nuestras redes sociales</h2>
-        <div class="social-icons">
-
-
-
-            <a href="https://www.instagram.com/consultorioscisne/" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
-            </a>
-
-
-
-
-
-
-            <a href="https://www.facebook.com/CISNEconsultorios/" target="_blank">
-                <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
-            </a>
-
-        </div>
-
-
-    </section>
-
-
-    @include('layouts.whatsapp-button')
-
-    <!-- formulario de contacto-->
-
-    <!-- OVERLAY -->
-    <div class="modal-overlay" id="overlay"></div>
-
-    <!-- MODAL -->
-    <div class="modal" id="modal">
-        <div class="modal-header">
-            <img id="" src="img/logo_cisne_insta-removebg-preview.png" alt="Logo CISNE">
-            <span>CONTACTO</span>
-        </div>
-        <button class="modal-close" id="closeModal">&times;</button>
-
-        <form class="form" novalidate>
-            <div class="field-group">
-                <input type="text" id="name" placeholder=" " required>
-                <label for="name">Nombre y Apellido</label>
-            </div>
-            <div class="field-group">
-                <input type="tel" id="telefono" placeholder=" " required>
-                <label for="telefono">Teléfono</label>
-            </div>
-            <div class="field-group">
-                <input type="email" id="email" placeholder=" " required>
-                <label for="email">Email</label>
-            </div>
-
-            <input type="text" id="oculto"name="oculto" class="oculto" autocomplete="off" value="">
-
-            <fieldset>
-                <legend>¿Porque nos contactas?</legend>
-                <label><input type="radio" name="opcion"> Consulta particular con especialista</label>
-                <label><input type="radio" name="opcion"> Soy profesional y quiero estar en Cisne </label>
-                <label><input type="radio" name="opcion"> Institucion en busqueda de profesionales</label>
-            </fieldset>
-            <button class="submit " type="submit" id="btn">
-                <span class="btn-text">Enviar</span>
-                <span class="checkmark">&#10004;</span>
-                <span class="checkmark2">&#10008;</span>
-            </button>
-            <p class="error-msg">Complete los campos obligatorios</p>
-        </form>
-    </div>
-
-
-    <!-- modal del formulario para el acceso administrativo ---->
-    <!-- OVERLAY -->
-    <div class="modal-overlay" id="overlay-admin"></div>
-
-    <!-- MODAL -->
-    <div class="modal" id="modal-admin">
-        <div class="modal-header">
-            <img id="" src="img/logo_cisne_insta-removebg-preview.png" alt="Logo CISNE">
-            <span>PANEL PARA ADMINISTRADOR</span>
-        </div>
-        <button class="modal-close" id="close-admin">&times;</button>
-
-        <form id="form-admin" class="form" novalidate>
-            <div class="field-group">
-                <input type="email" id="email2" placeholder=" " required>
-                <label for="name">Email</label>
-            </div>
-
-            <div class="field-group">
-                <input type="password" id="password" placeholder=" " required>
-                <label for="email">Contraseña</label>
-            </div>
-
-            <input type="text" id="oculto2"name="oculto" class="oculto" autocomplete="off" value="">
-
-
-            <button class="submit " type="submit" id="btn-admin-send">
-                <span class="btn-text">Loguearse</span>
-                <span class="checkmark">&#10004;</span>
-                <span class="checkmark2">&#10008;</span>
-            </button>
-            <a id="olvidastepass" href="resetlogin.html">¿olvidaste la contraseña?</a>
-            <p class="error-msg">Complete los campos obligatorios</p>
-        </form>
-    </div>
-
-
-
-
-    <!-- Footer-->
-    <footer class="footer py-4">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy;Cisne Consultorios 2025</div>
-                <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-light-green btn-social mx-2" href="#!" aria-label="Email"><i
-                            class="fas fa-envelope"></i></a>
-                    <a class="btn btn-light-green btn-social mx-2" href="https://www.facebook.com/CISNEconsultorios/"
-                        aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-light-green btn-social mx-2" href="https://www.instagram.com/consultorioscisne/"
-                        aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-                <div class="col-lg-4 text-lg-end">
-                    <a class="link-dark text-decoration-none me-3 btn-admin">acceso administracion</a>
-                    <a class="link-dark text-decoration-none" href="#!">Contactanos</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Portfolio Modals-->
-    <!-- Portfolio item 1 modal popup-->
-    <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                        alt="Close modal" /></div>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-8">
-                            <div class="modal-body">
-                                <!-- Project details-->
-                                <h2 class="text-uppercase">Hogar numero uno</h2>
-                                <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg"
-                                    alt="..." />
-                                <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt
-                                    repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae,
-                                    nostrum, reiciendis facere nemo!</p>
-                                <ul class="list-inline">
-                                    <li>
-                                        <strong>Client:</strong>
-                                        Threads
-                                    </li>
-                                    <li>
-                                        <strong>Category:</strong>
-                                        Illustration
-                                    </li>
-                                </ul>
-                                <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                    type="button">
-                                    volver a inicio
-                                </button>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..." />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">Threads</div>
+                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
                             </div>
                         </div>
                     </div>
+
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Mapa-->
+        <br>
+        <section class="page-section container px-3" id="mapa">
+
+
+
+            <h2 class="section-heading text-uppercase text-center">Donde nos encontramos</h2>
+            <p class="especialidad text-center" style="text-align: center;">Estamos Ubicados en Juan Manuel de Rosas
+                1763
+                km 41 Virrey
+                del
+                Pino, Arg</p>
+            <div class="map-wrapper  ratio ratio-16x9">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3273.7245443239767!2d-58.6697974248701!3d-34.86314807124448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcddf945702a29%3A0x4bc61a69a5a3284!2sCONSULTORIO%20CISNE!5e0!3m2!1ses!2sar!4v1750633507242!5m2!1ses!2sar"
+                    style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <h2 class="section-heading text-uppercase text-center">Seguinos en nuestras redes sociales</h2>
+            <div class="social-icons">
+
+
+
+                <a href="https://www.instagram.com/consultorioscisne/" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                </a>
+
+
+
+
+
+
+                <a href="https://www.facebook.com/CISNEconsultorios/" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+        @include('layouts.whatsapp-button')
+
+        <!-- formulario de contacto-->
+
+        <!-- OVERLAY -->
+        <div class="modal-overlay" id="overlay"></div>
+
+        <!-- MODAL -->
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <img id="" src="img/logo_cisne_insta-removebg-preview.png" alt="Logo CISNE">
+                <span>CONTACTO</span>
+            </div>
+            <button class="modal-close" id="closeModal">&times;</button>
+
+            <form class="form" novalidate>
+                <div class="field-group">
+                    <input type="text" id="name" placeholder=" " required>
+                    <label for="name">Nombre y Apellido</label>
+                </div>
+                <div class="field-group">
+                    <input type="tel" id="telefono" placeholder=" " required>
+                    <label for="telefono">Teléfono</label>
+                </div>
+                <div class="field-group">
+                    <input type="email" id="email" placeholder=" " required>
+                    <label for="email">Email</label>
+                </div>
+
+                <input type="text" id="oculto"name="oculto" class="oculto" autocomplete="off" value="">
+
+                <fieldset>
+                    <legend>¿Porque nos contactas?</legend>
+                    <label><input type="radio" name="opcion"> Consulta particular con especialista</label>
+                    <label><input type="radio" name="opcion"> Soy profesional y quiero estar en Cisne </label>
+                    <label><input type="radio" name="opcion"> Institucion en busqueda de profesionales</label>
+                </fieldset>
+                <button class="submit " type="submit" id="btn">
+                    <span class="btn-text">Enviar</span>
+                    <span class="checkmark">&#10004;</span>
+                    <span class="checkmark2">&#10008;</span>
+                </button>
+                <p class="error-msg">Complete los campos obligatorios</p>
+            </form>
+        </div>
+
+
+        <!-- modal del formulario para el acceso administrativo ---->
+        <!-- OVERLAY -->
+        <div class="modal-overlay" id="overlay-admin"></div>
+
+        <!-- MODAL -->
+        <div class="modal" id="modal-admin">
+            <div class="modal-header">
+                <img id="" src="img/logo_cisne_insta-removebg-preview.png" alt="Logo CISNE">
+                <span>PANEL PARA ADMINISTRADOR</span>
+            </div>
+            <button class="modal-close" id="close-admin">&times;</button>
+
+            <form id="form-admin" class="form" novalidate>
+                <div class="field-group">
+                    <input type="email" id="email2" placeholder=" " required>
+                    <label for="name">Email</label>
+                </div>
+
+                <div class="field-group">
+                    <input type="password" id="password" placeholder=" " required>
+                    <label for="email">Contraseña</label>
+                </div>
+
+                <input type="text" id="oculto2"name="oculto" class="oculto" autocomplete="off" value="">
+
+
+                <button class="submit " type="submit" id="btn-admin-send">
+                    <span class="btn-text">Loguearse</span>
+                    <span class="checkmark">&#10004;</span>
+                    <span class="checkmark2">&#10008;</span>
+                </button>
+                <a id="olvidastepass" href="resetlogin.html">¿olvidaste la contraseña?</a>
+                <p class="error-msg">Complete los campos obligatorios</p>
+            </form>
+        </div>
+
+
+
+
+        <!-- Footer-->
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy;Cisne Consultorios 2025</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-light-green btn-social mx-2" href="#!" aria-label="Email"><i
+                                class="fas fa-envelope"></i></a>
+                        <a class="btn btn-light-green btn-social mx-2"
+                            href="https://www.facebook.com/CISNEconsultorios/" aria-label="Facebook"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-light-green btn-social mx-2"
+                            href="https://www.instagram.com/consultorioscisne/" aria-label="Instagram"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3 btn-admin">acceso administracion</a>
+                        <a class="link-dark text-decoration-none" href="#!">Contactanos</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Portfolio Modals-->
+        <!-- Portfolio item 1 modal popup-->
+        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
+                            alt="Close modal" /></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <div class="modal-body">
+                                    <!-- Project details-->
+                                    <h2 class="text-uppercase">Hogar numero uno</h2>
+                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg"
+                                        alt="..." />
+                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
+                                        adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos
+                                        deserunt
+                                        repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores
+                                        repudiandae,
+                                        nostrum, reiciendis facere nemo!</p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <strong>Client:</strong>
+                                            Threads
+                                        </li>
+                                        <li>
+                                            <strong>Category:</strong>
+                                            Illustration
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
+                                        type="button">
+                                        volver a inicio
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
 
 
 </body>
