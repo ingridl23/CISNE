@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Cisne - Novedades</title>
+    <title>Cisne-Novedades</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -16,8 +16,10 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="{{ asset('css/noticias.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/noticiaIndividual.css') }}">
     <link href="{{ asset('css/acordeon.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/styles2.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 
 <body id="page-top">
@@ -46,6 +48,28 @@
 
         </div>
     </header>
+
+    <div class="container px-4 px-lg-5 h-100">
+
+        <div class="col-lg-8 align-self-end">
+            <h1 class="text-white font-weight-bold subtitulo-page">Noticias y Novedades</h1>
+        </div>
+        <div class="col-lg-8 align-self-baseline">
+            <p class="text-white-75 ">
+                Mantente al día con la información más reciente de Consultorios Cisne.
+                En esta sección encontrarás actualizaciones sobre turnos, y
+                oportunidades laborales disponibles en nuestra compañia profesional.
+            </p>
+
+            <p class="text-white-75 ">
+                Un espacio pensado para que puedas acceder a información
+                útil y aprovechar al
+                máximo las iniciativas y recursos que ponemos a tu disposición.
+            </p>
+            <br>
+
+        </div>
+    </div>
 
     <h3 class="tituloFiltroNoticias subtitulo-page">Filtrar noticias según:</h3>
     <div class="accordion" id="accordionExample">
@@ -138,6 +162,7 @@
 
     <!-- barra de navegacion footer -->
     @include('layouts.footer')
+
 
     @if (session('success'))
         <script>
