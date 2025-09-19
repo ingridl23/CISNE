@@ -2972,6 +2972,7 @@ fieldset:disabled .btn {
     color: var(--bs-navbar-brand-color);
     text-decoration: none;
     white-space: nowrap;
+    padding-left: 2rem;
 }
 
 .navbar-brand:hover,
@@ -10552,7 +10553,7 @@ p {
 }
 
 
-/****************seccion principal debajo del nav menu ***************************************************/
+/**************************************** seccion principal debajo del nav menu ***************************************************/
 
 
 /*************************************************************************************************************/

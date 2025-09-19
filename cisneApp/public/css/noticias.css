@@ -1,0 +1,255 @@
+.page-top-news {
+    margin-top: 1rem;
+}
+
+.container-subtitulo-page {
+    margin-top: 5rem;
+}
+
+.search {
+    max-width: 100%;
+    display: flex;
+    align-items: baseline;
+}
+
+.subtitulo-page {
+    color: rgb(55, 163, 149);
+    margin: 1rem;
+}
+
+.subtitulo-page,
+.breadcrumb {
+    margin-left: 3rem;
+}
+
+.inputSearch {
+    padding-right: 0;
+}
+
+#img-lupa {
+    max-width: 25px;
+}
+
+.buttonSearch {
+    border-radius: 46%;
+    padding: 8px;
+    border: 2px solid white;
+}
+
+.buttonSearch:hover {
+    background-color: rgb(212, 203, 203) !important;
+}
+
+.breadcrumb-item {
+    color: rgb(100, 93, 93) !important;
+}
+
+.breadcrumb-item:hover {
+    color: rgb(31, 141, 243) !important;
+}
+
+.card {
+    margin: 3rem !important;
+    max-width: 500px;
+    padding: 1rem;
+}
+
+.container-card {
+    justify-content: center;
+}
+
+.container-vermas {
+    display: flex;
+    align-items: baseline;
+    padding: 1rem;
+}
+
+.text-body-secondary {
+    padding-right: 0.25rem;
+}
+
+.vermas {
+    margin-left: 2rem;
+    border-radius: 10%;
+    font-size: medium;
+    background-color: rgb(118, 224, 189);
+    border: 0;
+    color: rgb(85, 85, 85);
+    padding: 0.40rem;
+    font-size: 16px;
+}
+
+.vermas:hover {
+    background-color: aquamarine;
+}
+
+
+/**** styles para noticia individual ******/
+
+.card-text-noticia {
+    margin: 3rem;
+    padding: 2rem;
+    text-align: justify;
+    font-family: "Nunito", sans-serif;
+    font-weight: 400;
+    color: rgb(63, 61, 61);
+    font-size: large;
+}
+
+.text-secundario {
+    margin-top: 5rem;
+    font-family: "Nunito", sans-serif;
+}
+
+.text-secundario,
+.noticiaTitulo {
+    margin-left: 5rem;
+}
+
+.noticiaTitulo {
+    text-transform: capitalize;
+    color: rgb(55, 163, 149);
+    /*font-weight: 400;*/
+    margin-bottom: 2rem;
+}
+
+.img-noticia {
+    object-fit: cover !important;
+    object-position: top;
+    width: 100%;
+    height: 100%;
+}
+
+#noticias-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+#noticias-container div {
+    width: 100%;
+}
+
+#noticias-container div div.card,
+#noticias-container div div.card-body,
+#noticias-container div div.container-vermas {
+    width: 100%;
+}
+
+.actualizacionFecha {
+    width: 100%;
+}
+
+.container-vermas {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.vermas {
+    margin-left: 0;
+    margin-top: 1rem;
+}
+
+div hr {
+    width: 100%;
+    margin: 0rem 0;
+    opacity: 0.40;
+}
+
+div.card-body.cuerpoNoticia {
+    display: block;
+    max-width: unset;
+}
+
+
+/*Estilo botones*/
+
+.agregarNoticia {
+    padding: 0.75rem;
+    margin-left: 3rem;
+    background-color: #36be7f;
+}
+
+.agregarNoticia a {
+    color: white;
+}
+
+.agregarNoticia:hover {
+    background-color: #164e34;
+}
+
+.agregarNoticia:active {
+    background-color: #0c2c1d;
+    transform: scale(0.95);
+}
+
+@media(min-width: 830px) {
+    #noticias-container div {
+        width: 40%;
+        margin-right: 4rem;
+    }
+}
+
+@media(min-width: 1215px) {
+    #noticias-container div {
+        width: 28%;
+        margin-right: 4rem;
+    }
+}
+
+@media(min-width:992px){
+    header.masthead.headerNoticias{
+        min-height: 35rem;
+    }
+
+    h3.tituloFiltroNoticias{
+        font-size: 2.2rem;
+    }
+}
+
+/* Ajustes responsivos básicos moviles  */
+
+@media (max-width: 768px) {
+    .search {
+        max-width: 350px;
+    }
+    .card {
+        margin: 1rem !important;
+        max-width: 450px;
+        padding: 0.75rem;
+    }
+    .subtitulo-page,
+    .inputSearch,
+    .breadcrumb {
+        margin-left: 3rem;
+    }
+    .search {
+        max-width: 500px;
+        padding-right: 2rem;
+    }
+    .card-text-noticia {
+        margin: 1rem;
+        padding: 2rem;
+        font-size: medium;
+        line-height: 33px;
+        text-align: left;
+        font-weight: 400;
+    }
+}
+
+
+/* Media Query para tablets (entre 769px y 1024px) */
+
+@media (min-width: 769px) {
+    .card {
+        margin: 2rem auto !important;
+        max-width: 600px;
+        padding: 1rem;
+    }
+    .subtitulo-page,
+    .breadcrumb {
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+
+}

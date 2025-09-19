@@ -24,7 +24,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#page-top"><img
+            <a class="navbar-brand" href="#page-top"><img id="logocisne"
                     src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}" alt="imagen logo" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,8 +34,8 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#hogares">Hogares</a></li>
                     <li class="nav-item"><a class="nav-link" href="#team">Profesionales</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hogares">Hogares</a></li>
                     <li class="nav-item"><a class="nav-link" href="#mapa">Ubicacion</a></li>
                     <li class="nav-item"><a class="nav-link btn-contact">Contacto</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('novedades') }}">Novedades</a></li>
@@ -56,7 +56,7 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="section-heading text-uppercase">Servicios</h2>
-                <h3 class="section-subheading text-muted"> Consultorios Interdisciplinarios de Salud Neuroemociona</h3>
+                <h3 class="section-subheading text-muted"> Consultorios Interdisciplinarios de Salud Neuroemocional</h3>
             </div>
 
             <!--Psicologia -->
@@ -92,7 +92,7 @@
                     </span>
                     <h4 class="my-3">Atención especializada para adultos mayores</h4>
                     <p class="text-muted">Brindamos acompañamiento integral en hogares, con terapias y consultorías
-                        diseñadas para favorecer el bienestar emocional, cognitivo y social de las personas mayores..
+                        diseñadas para favorecer el bienestar emocional, cognitivo y social de las personas mayores.
                     </p>
                 </div>
             </div>
@@ -150,7 +150,7 @@
         <!-- profesionales que trabajan en el equipo cisne-->
         <section class="page-section bg-light" id="team">
             <div class="text-center">
-                <h2 class="section-heading text-uppercase">Hogares</h2>
+                <h2 class="section-heading text-uppercase">Profesionales</h2>
             </div>
             <div class="grid-profesionales">
                 @foreach ($profesionales as $profesional)
@@ -265,15 +265,16 @@
         <!-- formulario de contacto-->
 
         <!-- OVERLAY -->
-        <div class="modal-overlay" id="overlay"></div>
+        <div class="custom-modal-overlay" id="overlay"></div>
 
         <!-- MODAL -->
-        <div class="modal" id="modal">
-            <div class="modal-header">
-                <img id="" src="img/logo_cisne_insta-removebg-preview.png" alt="Logo CISNE">
+        <div class="custom-modal" id="modal">
+            <div class="custom-modal-header">
+                <img id="img" src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}"
+                    alt="Logo CISNE">
                 <span>CONTACTO</span>
             </div>
-            <button class="modal-close" id="closeModal">&times;</button>
+            <button class="custom-modal-close" id="closeModal">&times;</button>
 
             <form class="form" novalidate>
                 <div class="field-group">
@@ -309,15 +310,16 @@
 
         <!-- modal del formulario para el acceso administrativo ---->
         <!-- OVERLAY -->
-        <div class="modal-overlay" id="overlay-admin"></div>
+        <div class="custom-modal-overlay" id="overlay-admin"></div>
 
         <!-- MODAL -->
-        <div class="modal" id="modal-admin">
-            <div class="modal-header">
-                <img id="" src="img/logo_cisne_insta-removebg-preview.png" alt="Logo CISNE">
+        <div class="custom-modal" id="modal-admin">
+            <div class="custom-modal-header">
+                <img id="" src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}"
+                    alt="Logo CISNE">
                 <span>PANEL PARA ADMINISTRADOR</span>
             </div>
-            <button class="modal-close" id="close-admin">&times;</button>
+            <button class="custom-modal-close" id="close-admin">&times;</button>
 
             <form id="form-admin" class="form" novalidate>
                 <div class="field-group">
@@ -353,8 +355,8 @@
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="close-modal" data-bs-dismiss="modal"><img src="assets/img/close-icon.svg"
-                            alt="Close modal" /></div>
+                    <button class="custom-modal-close" data-bs-dismiss="modal"> </button>
+
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">

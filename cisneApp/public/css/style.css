@@ -274,15 +274,15 @@ body {
 
 /* ✂ Base: ocultar overlay y modal por defecto */
 
-.modal-overlay,
-.modal {
+.custom-modal-overlay,
+.custom-modal {
     display: none;
 }
 
 
 /* ✂ Mostrar overlay cuando tenga .open */
 
-.modal-overlay.open {
+.custom-modal-overlay.open {
     display: block;
     position: fixed;
     inset: 0;
@@ -293,7 +293,7 @@ body {
 
 /* ✂ Mostrar modal cuando tenga .open */
 
-.modal.open {
+.custom-modal.open {
     display: block;
     position: fixed;
     top: 50%;
@@ -312,7 +312,7 @@ body {
 
 /* ─── ESTILO WIRE-FRAME PARA EL MODAL ─── */
 
-.modal {
+.custom-modal {
     display: none;
     /* sigue oculto hasta que JS le ponga .open */
     position: fixed;
@@ -332,7 +332,7 @@ body {
 
 /* overlay semitransparente */
 
-.modal-overlay.open {
+.custom-modal-overlay.open {
     display: block;
     position: fixed;
     inset: 0;
@@ -343,7 +343,7 @@ body {
 
 /* Cabecera del modal */
 
-.modal-header {
+.custom-modal-header {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -352,12 +352,12 @@ body {
     flex-direction: column;
 }
 
-.modal-header img {
+.custom-modal-header img {
     width: 60px;
     height: auto;
 }
 
-.modal-header span {
+.custom-modal-header span {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--dark);
@@ -366,7 +366,7 @@ body {
 
 /* Botón de cerrar (X) */
 
-.modal-close {
+.custom-modal-close {
     position: absolute;
     top: 0.75rem;
     right: 0.75rem;
@@ -380,12 +380,12 @@ body {
 
 /* Títulos y márgenes */
 
-.modal h2 {
+.custom-modal h2 {
     margin: 0;
     /* ya lo cubre .modal-header */
 }
 
-.modal form {
+.custom-modal form {
     margin-top: 0.5rem;
 }
 
