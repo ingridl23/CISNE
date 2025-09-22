@@ -14,7 +14,7 @@ class Noticias extends Migration
     public function up()
     {
 
-        Schema::create("Noticia", function (Blueprint $table) {
+        Schema::create("noticia", function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->timestamps();
@@ -31,6 +31,6 @@ class Noticias extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists("Noticias");
+        Schema::dropIfExists("noticia");
     }
 }

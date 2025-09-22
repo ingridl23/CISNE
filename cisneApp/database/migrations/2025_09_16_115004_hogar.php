@@ -15,13 +15,21 @@ class Hogar extends Migration
     public function up()
     {
         Schema::create(
-            'HogarMayor',
+            'hogar_mayor',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('nombre');
                 $table->text('descripcion');
-                $table->foreignId('redes_id')->constrained('RedHogar')->onDelete('cascade');
-                $table->foreignId('direccion_id')->constrained('DireccionHogar')->onDelete('cascade');
+                $table->unsignedBigInteger('redes_id');
+                $table->foreign('redes_id')->references('id')->on('red_hogar')->onDelete('cascade');
+             
+$table->unsignedBigInteger('direccion_id');
+$table->foreign('direccion_id')
+      ->references('id')
+      ->on('direccion_hogar')
+      ->onDelete('cascade');
+
+
                 $table->timestamps();
             }
         );
@@ -34,7 +42,12 @@ class Hogar extends Migration
      */
     public function down()
     {
+ Schema::table('hogar_mayor', function (Blueprint $table) {
+            $table->dropForeign(['redes_id']);
+            $table->dropForeign(['direccion_id']);
+        });
 
-        Schema::dropIfExists('HogarMayor');
+       
+        Schema::dropIfExists('hogar_mayor');
     }
 }

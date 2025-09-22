@@ -13,7 +13,7 @@ class Profesionales extends Migration
      */
     public function up()
     {
-        Schema::create('Profesional', function (Blueprint $table) {
+        Schema::create('profesional', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->string('especialidad');
@@ -30,6 +30,6 @@ class Profesionales extends Migration
     public function down()
     {
 
-        Schema::dropIfExists('Profesional');
+        Schema::dropIfExists('profesional');
     }
 }

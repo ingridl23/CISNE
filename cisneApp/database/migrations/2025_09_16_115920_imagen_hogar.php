@@ -14,10 +14,11 @@ class ImagenHogar extends Migration
     public function up()
     {
         Schema::create(
-            'ImagenHogar',
+            'imagen_hogar',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->foreignId('hogar_id')->constrained('HogarMayor')->onDelete('cascade');
+                  $table->foreignId('hogar_id')->constrained('hogar_mayor')->onDelete('cascade');
+
                 $table->string('url')->nullable();
                 $table->string('public_id')->nullable();
                 $table->timestamps();
@@ -32,6 +33,10 @@ class ImagenHogar extends Migration
      */
     public function down()
     {
-        //
+         Schema::table('imagen_hogar', function (Blueprint $table) {
+            $table->dropForeign(['hogar_id']);
+        });
+
+        Schema::dropIfExists('imagen_hogar');
     }
 }

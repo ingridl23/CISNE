@@ -13,7 +13,7 @@ class RedesHogares extends Migration
      */
     public function up()
     {
-        Schema::create('RedHogar', function (Blueprint $table) {
+        Schema::create('red_hogar', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('instagram')->nullable();
             $table->string('facebook')->nullable();
@@ -31,7 +31,7 @@ class RedesHogares extends Migration
     {
 
         Schema::dropIfExists(
-            'RedHogar'
+            'red_hogar'
         );
     }
 }

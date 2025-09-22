@@ -14,10 +14,10 @@ class ImagenNoticias extends Migration
     public function up()
     {
         Schema::create(
-            'ImagenNoticias',
+            'imagen_noticias',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->foreignId('noticia_id')->constrained('Noticia')->onDelete('cascade');
+                $table->foreignId('noticia_id')->constrained('noticia')->onDelete('cascade');
                 $table->string('url')->nullable();
                 $table->string('public_id')->nullable();
                 $table->timestamps();

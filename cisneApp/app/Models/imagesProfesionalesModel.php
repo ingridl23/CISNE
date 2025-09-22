@@ -29,7 +29,7 @@ class imagesProfesionalesModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'ImagenProfesional'; //  tabla real
+    protected $table = 'imagen_profesional'; //  tabla real
 
 
     protected static function newFactory()

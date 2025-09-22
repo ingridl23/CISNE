@@ -13,7 +13,7 @@ class DireccionHogar extends Migration
      */
     public function up()
     {
-        Schema::create('DireccionHogar', function (Blueprint $table) {
+        Schema::create('direccion_hogar', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ciudad');
             $table->string('localidad')->default("");
@@ -30,6 +30,6 @@ class DireccionHogar extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('DireccionHogar');
+        Schema::dropIfExists('direccion_hogar');
     }
 }

@@ -14,10 +14,10 @@ class ImagenesProfesionales extends Migration
     public function up()
     {
         Schema::create(
-            'ImagenProfesional',
+            'imagen_profesional',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->foreignId('profesional_id')->constrained('Profesional')->onDelete('cascade');
+                $table->foreignId('profesional_id')->constrained('profesional')->onDelete('cascade');
                 $table->string('url')->nullable();
                 $table->string('public_id')->nullable();
                 $table->timestamps();

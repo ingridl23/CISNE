@@ -48,7 +48,6 @@
         <div class="container">
 
 
-            <a class="btn btn-primary btn-xl text-uppercase" href="#services">Contactanos</a>
         </div>
     </header>
     <!-- Services-->
