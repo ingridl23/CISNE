@@ -15,7 +15,7 @@ class NoticiaController extends Controller
     {
         $cantidad = 12;
         $noticias = noticiasModel::getUltimasNoticias($cantidad);
-        return view('layouts.noticias', compact('noticias'))
+        return view('layouts.NoticiaIndividual', compact('noticias'))
             ->with('i', (request()->input('page', 1) - 1) * $noticias->perPage());
     }
 
