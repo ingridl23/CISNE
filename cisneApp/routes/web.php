@@ -10,3 +10,6 @@ use App\Http\Controllers\NoticiaController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/profesionales', [HomeController::class, 'index'])->name('profesionales');
 Route::get('/novedades', [NoticiaController::class, 'index'])->name('novedades');;
+
+
+//http://cisne.test/cisneApp/public/
