@@ -17,7 +17,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="{{ asset('css/noticias.css') }}">
     <link rel="stylesheet" href="{{ asset('css/noticiaIndividual.css') }}">
-    <link href="{{ asset('css/acordeon.css') }}" rel="stylesheet" />
+
     <link rel="stylesheet" href="{{ asset('css/styles2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
@@ -175,9 +175,16 @@
             window.mensajeError = @json(session('error'));
         </script>
     @endif
+
+
     <script src="{{ asset('js/noticias/buscarNoticias.js') }} "></script>
     <script src="{{ asset('js/carteles/carteles_error_success.js') }} "></script>
-    <script src="js/scripts.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+
+
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 
 </html>

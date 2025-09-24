@@ -11,7 +11,7 @@ class imagesNoticiasModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'ImagenNoticias'; //  tabla real
+    protected $table = 'imagen_noticias';
 
 
     protected static function newFactory()

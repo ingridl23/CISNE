@@ -27,7 +27,7 @@ class noticiasModel extends Model
 
 
     protected $perPage = 20;
-    protected $table = "Noticia";
+    protected $table = "noticia";
 
     protected static function newFactory()
     {
