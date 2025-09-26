@@ -127,38 +127,36 @@
     </div>
 
     <div id="noticias-container">
+        @foreach ($noticias as $noticia)
+            <div class="card">
+                <img src="{{ $noticia->imagen }}" class="card-img-top" alt="{{ $noticia->titulo }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $noticia->titulo }}</h5>
+                    <p class="card-text">{{ $noticia->categoria }}</p>
 
-        <!-- aca todo esto deberia iterarse-->
-        <div class="container-fluid">
-
-            @foreach ($noticias as $noticia)
-                <div class="row container-card ">
-
-                    <!-- Mostrar cada noticia -->
-
-
-                    <div class="card mb-3">
-                        <img src="{{ $noticia->imagen }}" class="card-img-top1" alt={{ $noticia->titulo }}>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $noticia->titulo }}</h5>
-                            <p class="card-text">{{ $noticia->categoria }}</p>
-                            <div class="container-vermas">
-                                <p class="card-text"><small class="text-body-secondary">Publicación :
-                                        {{ $noticia->created_at->format('Y-m-d') }}</small></p>
-                                <p class="card-text"><small class="text-body-secondary">Última Actualización :
-                                        {{ $noticia->updated_at->format('Y-m-d') }}</small></p>
-                                <button class="vermas"><a href="noticias/{{ $noticia->id }}">Ver más</a></button>
-                            </div>
-                        </div>
+                    <div class="container-vermas">
+                        <p class="card-text">
+                            <small class="text-body-secondary">
+                                Publicación: {{ $noticia->created_at->format('Y-m-d') }}
+                            </small>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-body-secondary">
+                                Última Actualización: {{ $noticia->updated_at->format('Y-m-d') }}
+                            </small>
+                        </p>
+                        <a href="noticias/{{ $noticia->id }}" class="vermas">Ver más</a>
                     </div>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
+
         <div class="navegacionPags">
             {{ $noticias->onEachSide(2)->links('pagination::bootstrap-4') }}
         </div>
-
     </div>
+
+
 
     <!-- barra de navegacion footer -->
     @include('layouts.footer')
