@@ -70,3 +70,29 @@
 
         </div>
     </div>
+
+
+    <!-- aca todo esto deberia iterarse-->
+    <div id="#noticias-container">
+
+        <div class=" card   container-card ">
+
+
+
+
+
+            <p <small class=" text-body-secondary">Fecha de publicación:
+                {{ $noticia->created_at->format('Y-m-d') }}</small></p>
+            <h2 class="noticiaTitulo">{{ $noticia->titulo }}</h2>
+            <img src="{{ $noticia->imagen }}" class="img-noticia img-fluid "
+                alt="Imagen de la noticia: {{ $noticia->titulo }}">
+            <div class="card-body">
+                <p class="card-text-noticia">{!! nl2br($noticia->descripcion) !!}
+                </p>
+
+
+            </div>
+        </div>
+
+
+    </div>
