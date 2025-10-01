@@ -278,25 +278,60 @@
             <form class="form" novalidate>
                 <div class="field-group">
                     <input type="text" id="name" placeholder=" " required>
-                    <label for="name">Nombre y Apellido</label>
+                    <label for="name">Nombre y Apellido<span class="asterisco">*</span></label>
+                    @error('name')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="field-group">
                     <input type="tel" id="telefono" placeholder=" " required>
-                    <label for="telefono">Teléfono</label>
+                    <label for="telefono">Teléfono<span class="asterisco">*</span></label>
+                    @error('tel')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="field-group">
                     <input type="email" id="email" placeholder=" " required>
-                    <label for="email">Email</label>
+                    <label for="email">Email<span class="asterisco">*</span></label>
+                    @error('email')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <input type="text" id="oculto"name="oculto" class="oculto" autocomplete="off" value="">
 
-                <fieldset>
+                <fieldset class="opciones">
                     <legend>¿Porque nos contactas?</legend>
-                    <label><input type="radio" name="opcion"> Consulta particular con especialista</label>
-                    <label><input type="radio" name="opcion"> Soy profesional y quiero estar en Cisne </label>
-                    <label><input type="radio" name="opcion"> Institucion en busqueda de profesionales</label>
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion1" name="particular">
+                        Consulta particular con
+                        especialista</label>
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion2" name="profesional">
+                        Soy profesional y quiero estar en
+                        Cisne </label>
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion3" name="institucion">
+                        Institucion en busqueda de
+                        profesionales</label>
+
+                    @error('opciones')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </fieldset>
+
+                <!-- campo para cargar CV, visible solo si busca empleo -->
+                <div class="field-group">
+
+                    <input type="file" id="cv" name="cv" accept=".pdf">
+                    <label for="cv">Cargar currículum vitae PDF <span class="asterisco">*</span>
+                    </label>
+                    @error('cv')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
+
+                    <p class="form-subtitulos">Subir currículum vitae en formato PDF</p>
+                </div>
+
+
+
                 <button class="submit " type="submit" id="btn">
                     <span class="btn-text">Enviar</span>
                     <span class="checkmark">&#10004;</span>
@@ -317,18 +352,42 @@
                 <img id="" src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}"
                     alt="Logo CISNE">
                 <span>PANEL PARA ADMINISTRADOR</span>
+
+                {{-- ✅ Mensaje de éxito --}}
+                @if (session('success'))
+                    <div class="alert alert-success text-center mb-3">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                {{-- ✅ Errores generales --}}
+                @if ($errors->any())
+                    <div class="text-center mb-3 alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <button class="custom-modal-close" id="close-admin">&times;</button>
 
-            <form id="form-admin" class="form" novalidate>
+            <form id="form-admin" class="form" method="POST" action="{{ route('login') }}" novalidate>
                 <div class="field-group">
                     <input type="email" id="email2" placeholder=" " required>
-                    <label for="name">Email</label>
+                    <label for="name">Email <span class="asterisco">*</span></label>
+                    @error('email')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="field-group">
-                    <input type="password" id="password" placeholder=" " required>
-                    <label for="email">Contraseña</label>
+                    <input type="password" id="contraseña" placeholder="ingresar contraseña" required>
+                    <label for="email">Contraseña <span class="asterisco">*</span></label>
+                    @error('contraseña')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <input type="text" id="oculto2"name="oculto" class="oculto" autocomplete="off" value="">
@@ -339,7 +398,9 @@
                     <span class="checkmark">&#10004;</span>
                     <span class="checkmark2">&#10008;</span>
                 </button>
-                <a id="olvidastepass" href="resetlogin.html">¿olvidaste la contraseña?</a>
+                <a
+                    id="olvidastepass"href="https://wa.me/542983547406?text=¡Hola me comunico desde el sitio de CISNE para recuperar la contraseña, muchas gracias.">
+                    ¿olvidaste la contraseña?</a>
                 <p class="error-msg">Complete los campos obligatorios</p>
             </form>
         </div>
@@ -398,7 +459,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-
+        <script src="js/validacionOpciones.js"></script>
 
 </body>
 

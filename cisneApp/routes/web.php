@@ -7,6 +7,7 @@ use App\Http\Controllers\NoticiaController;
 //use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\AdminController;
 //ruta de acceso al sitio web
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
