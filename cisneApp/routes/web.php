@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticiaController;
 //use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\FormController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\FormController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminController;
 //ruta de acceso al sitio web
 
@@ -37,6 +38,8 @@ Route::post('/logout', [LoginController::class, 'logout']); //Cierra la sesión
 Route::post('/login',  [LoginController::class, 'login']); //invoca la logica del login admin
 Route::get('/showlogin', [HomeController::class, 'showlogin'])->name("showlogin"); //invoca la vista del login admin (formulario)
 
+//rutas admin y roles
+Auth::routes();
 
 Route::get('/', [HomeController::class, "index"]); //home del sitio emprendedores general, este seria nuestro index
 
@@ -44,12 +47,13 @@ Route::get('/', [HomeController::class, "index"]); //home del sitio emprendedore
 Route::get('/formar/parte', [FormController::class, "contacto"]); // redireccionamiento al formulario
 Route::post('/formulario/enviar', [FormController::class, 'enviar'])->name('formulario.enviar'); //ruta que envia  la regla post del formulario
 
+//vista admin para ingresar al panel administrativo
+
+Route::get("/panel", [AdminController::class, "AdminPanel"]);
 
 
-//rutas admin y roles
-Auth::routes();
 
-
-
+//vista admin noticias
 Route::get("/noticias", [NoticiaController::class, "showNoticias"]);
 Route::get("/noticias/{id}", [NoticiaController::class, "showNoticia"]);
+
