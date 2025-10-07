@@ -302,13 +302,16 @@
 
                 <fieldset class="opciones">
                     <legend>¿Porque nos contactas?</legend>
-                    <label><span class="asterisco">*</span><input type="radio" id="opcion1" name="particular">
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion1" name="opciones"
+                            value="particular">
                         Consulta particular con
                         especialista</label>
-                    <label><span class="asterisco">*</span><input type="radio" id="opcion2" name="profesional">
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion2" name="opciones"
+                            value="profesional">
                         Soy profesional y quiero estar en
                         Cisne </label>
-                    <label><span class="asterisco">*</span><input type="radio" id="opcion3" name="institucion">
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion3" name="opciones"
+                            value="institucion">
                         Institucion en busqueda de
                         profesionales</label>
 
@@ -327,7 +330,7 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
 
-                    <p class="form-subtitulos">Subir currículum vitae en formato PDF</p>
+
                 </div>
 
 
@@ -374,8 +377,9 @@
             <button class="custom-modal-close" id="close-admin">&times;</button>
 
             <form id="form-admin" class="form" method="POST" action="{{ route('login') }}" novalidate>
+                @csrf
                 <div class="field-group">
-                    <input type="email" id="email2" placeholder=" " required>
+                    <input type="email" name="email" id="email2" placeholder=" " required>
                     <label for="name">Email <span class="asterisco">*</span></label>
                     @error('email')
                         <div class="text-danger small">{{ $message }}</div>
@@ -383,7 +387,7 @@
                 </div>
 
                 <div class="field-group">
-                    <input type="password" id="contraseña" placeholder="ingresar contraseña" required>
+                    <input type="password" name="password" id="contraseña" placeholder="" required>
                     <label for="email">Contraseña <span class="asterisco">*</span></label>
                     @error('contraseña')
                         <div class="text-danger small">{{ $message }}</div>
@@ -401,7 +405,7 @@
                 <a
                     id="olvidastepass"href="https://wa.me/542983547406?text=¡Hola me comunico desde el sitio de CISNE para recuperar la contraseña, muchas gracias.">
                     ¿olvidaste la contraseña?</a>
-                <p class="error-msg">Complete los campos obligatorios</p>
+
             </form>
         </div>
 

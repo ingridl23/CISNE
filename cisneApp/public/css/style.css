@@ -327,6 +327,12 @@ body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     z-index: 20;
     text-align: center;
+    overflow-y: auto;
+    /* permite hacer scroll si hay muchos campos */
+    padding: 1.5rem 1rem;
+    /**********************************************************/
+    /* ancho máximo para desktop */
+    max-height: 90vh;
 }
 
 
@@ -553,6 +559,30 @@ input.oculto {
 
 
 /******************************************/
+
+@media (max-width: 600px) {
+    .custom-modal {
+        width: 95%;
+        max-width: none;
+        height: 90vh;
+        /* ocupa 90% del alto visible */
+        overflow-y: auto;
+        /* permite hacer scroll si hay muchos campos */
+        padding: 1.5rem 1rem;
+    }
+    .custom-modal-header img {
+        width: 50px;
+    }
+    .custom-modal-header span {
+        font-size: 1.2rem;
+    }
+    .submit {
+        width: 100%;
+    }
+    fieldset.opciones label {
+        font-size: 0.9rem;
+    }
+}
 
 
 /************estilos del boton de whatsapp********/

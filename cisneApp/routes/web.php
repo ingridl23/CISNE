@@ -9,6 +9,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\FormController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminController;
+
+use Illuminate\Support\Facades\Auth;
 //ruta de acceso al sitio web
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -40,6 +42,10 @@ Route::get('/showlogin', [HomeController::class, 'showlogin'])->name("showlogin"
 
 //rutas admin y roles
 Auth::routes();
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/panel', [AdminController::class, 'adminPanel']);
+});
+
 
 Route::get('/', [HomeController::class, "index"]); //home del sitio emprendedores general, este seria nuestro index
 
