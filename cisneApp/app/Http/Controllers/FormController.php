@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\Log;
 
 use Illuminate\Contracts\Mail\Mailable;
 use App\Mail\envioDeForm;
-
-
+use App\Models\institucion_contacto;
+use App\Models\Paciente_contacto;
+use App\Models\ProfesionalEnvioCV;
 use App\Http\Requests\validacionFormularioContacto;
+
+
 class FormController extends Controller
 {
     //
@@ -47,7 +50,7 @@ class FormController extends Controller
                     'cv_path' => $cvPath,
                 ];
 
-               // Empleo::create($empleoData);
+                ProfesionalEnvioCV::create($empleoData);
 
 
                 // Preparar datos para enviar por correo si es un profesional
@@ -60,28 +63,28 @@ class FormController extends Controller
                 $data =  $request->all();
 
                 // Guardar en la base de datos
-               /* $pacienteData = [
+                $pacienteData = [
                     'nombre' => $request->first_name,
                     'email' => $request->email,
                     'telefono' => $request->tel,
 
                 ];
-*/
-                // Paciente_contacto::create($empleoData);
+
+                 Paciente_contacto::create($pacienteData);
             }
             // ========== intitucion  ==========
             elseif ($opcion === 'institucion') {
 
                 $data =  $request->all();
                 // Guardar en la base de datos
-                /* $institucionData = [
+                 $institucionData = [
                     'nombre' => $request->first_name,
                     'email' => $request->email,
                     'telefono' => $request->tel,
 
                 ];
-*/
-                // institucion_contacto::create($empleoData);
+
+                 institucion_contacto::create($institucionData);
             }
 
 
