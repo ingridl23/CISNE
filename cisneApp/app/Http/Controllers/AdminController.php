@@ -117,7 +117,7 @@ function adminPanel(){
                 }*/
             }
         }
-    }
+
         if ($emprendimiento) {
             $mensajes = [
                 'titulo' => '¡Creado!',
@@ -131,9 +131,7 @@ function adminPanel(){
             ];
             return redirect('/emprendedores')->with('success', $mensajes);
         }
-}
-
-
+    }
 
 
 
@@ -250,7 +248,7 @@ function adminPanel(){
             return redirect('/noticias')->with('error', $mensajes);
         }
     }
-}
+
 
 
 

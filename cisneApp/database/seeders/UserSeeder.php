@@ -16,13 +16,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // Crear el usuario admin
         $user = User::create([
-            'name' => 'cisne',
+            'name' => 'CISNE Admin',
             'email' => 'consultorioscisne@gmail.com',
             'password' => Hash::make('#.cisne+Consult25Arr'),
+            'email_verified_at' => now(), // Marca como verificado
         ]);
+
+        // Asignar el rol de admin
         $user->assignRole('admin');
 
+        $this->command->info('Usuario admin creado exitosamente!');
 
 
 

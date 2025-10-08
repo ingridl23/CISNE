@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticiaController;
-//use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\FormController;
+
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\AdminController;
 
