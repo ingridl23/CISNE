@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProfesionalesModel;
-
+use Illuminate\Support\ViewErrorBag;
 /**
  *
  @Brief Clase Controller de la Homepage del sitio Cisne Consultorios
@@ -21,11 +21,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Traer profesionales con su imagen (solo retrato principal)
+    // Traer profesionales con su imagen (solo retrato principal)
 
-        $profesionales  = ProfesionalesModel::with('imagenes')->paginate(12);
-        // Pasar la variable a la vista principal (templateHome)
-        return view('layouts.templateHome', compact('profesionales'));
+
+        $profesionales = ProfesionalesModel::with('imagenes')->paginate(12);
+
+        return view('layouts.templateHome', [
+            'profesionales' => $profesionales,
+            'errors' => session()->get('errors') ?: new ViewErrorBag,
+        ]);
     }
 
 

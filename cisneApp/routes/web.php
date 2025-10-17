@@ -47,7 +47,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 
-Route::get('/', [HomeController::class, "index"]); //home del sitio emprendedores general, este seria nuestro index
+//Route::get('/', [HomeController::class, "index"]); //home del sitio emprendedores general, este seria nuestro index
 
 //rutas del formulario de contacto
 Route::get('/formar/parte', [FormController::class, "contacto"]); // redireccionamiento al formulario
@@ -62,4 +62,5 @@ Route::get("/panel", [AdminController::class, "AdminPanel"]);
 //vista admin noticias
 Route::get("/noticias", [NoticiaController::class, "showNoticias"]);
 Route::get("/noticias/{id}", [NoticiaController::class, "showNoticia"]);
+
 
