@@ -279,23 +279,17 @@
                 <div class="field-group">
                     <input type="text" id="name" placeholder=" " required>
                     <label for="name">Nombre y Apellido<span class="asterisco">*</span></label>
-                    @error('name')
-                        <div class="text-danger small">{{ $message }}</div>
-                    @enderror
+
                 </div>
                 <div class="field-group">
                     <input type="tel" id="telefono" placeholder=" " required>
                     <label for="telefono">Teléfono<span class="asterisco">*</span></label>
-                    @error('tel')
-                        <div class="text-danger small">{{ $message }}</div>
-                    @enderror
+
                 </div>
                 <div class="field-group">
                     <input type="email" id="email" placeholder=" " required>
                     <label for="email">Email<span class="asterisco">*</span></label>
-                    @error('email')
-                        <div class="text-danger small">{{ $message }}</div>
-                    @enderror
+
                 </div>
 
                 <input type="text" id="oculto"name="oculto" class="oculto" autocomplete="off" value="">
