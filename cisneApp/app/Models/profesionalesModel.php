@@ -41,26 +41,10 @@ class ProfesionalesModel extends Model
     ];
 
 
-    public function imagenes()
-    {
-        return $this->hasMany(imagesProfesionalesModel::class,'profesional_id');
-    }
 
 
 
 
-
-    /*
-    public static function showProfesionales()
-    {
-
-        $profesionales = Self::all();
-        if (count($profesionales) < Self::$perPage) {
-            return  $profesionales;
-        }
-        return null;
-    }
-*/
 
     // CRUd para profesionales
 
@@ -74,5 +58,10 @@ class ProfesionalesModel extends Model
     {
         $profesionalEliminar = $profesional->delete();
         return $profesionalEliminar;
+    }
+
+    public function imagenes()
+    {
+        return $this->hasMany(imagesProfesionalesModel::class, 'profesional_id');
     }
 }

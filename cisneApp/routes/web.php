@@ -25,15 +25,43 @@ Route::get('/noticias/buscadorCategoria', [NoticiaController::class, 'filterNoti
 Route::get('/noticias/buscadorFecha', [NoticiaController::class, 'filterNoticiasByDate']); //Filtro para noticias por fecha
 
 
+// Admin - panel
+Route::get('/admin/panel', [AdminController::class, 'adminPanel'])->name('admin.panel');
+
+// PROFESIONALES
+Route::get('/admin/profesionales', [AdminController::class, 'profesionales'])->name('admin.profesionales');
+Route::get('/admin/profesionales/crear', [AdminController::class, 'showFormCrearProfesional'])->name('profesionales.create');
+Route::post('/admin/profesionales', [AdminController::class, 'crearProfesional'])->name('profesionales.store');
+Route::get('/admin/profesionales/{id}/editar', [AdminController::class, 'showFormEditarProfesional'])->name('profesionales.edit');
+Route::delete('/admin/profesionales/{id}', [AdminController::class, 'eliminarProfesional'])->name('profesionales.destroy');
+// Si necesitás endpoint para subir/editar sólo imagen:
+Route::post('/admin/profesionales/{id}/imagen', [AdminController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
 
 //RUTAS NOTICIAS ADMIN
-Route::post("/noticias/cargarNuevaNoticia", [AdminController::class, "createNoticia"]);
+
+
+// NOTICIAS
+Route::get('/admin/noticias', [AdminController::class, 'mostrarNoticias'] ?? [AdminController::class, 'index'])->name('admin.noticias'); // si no tenés index, podés reutilizar la vista
+Route::get('/admin/noticias/crear', [AdminController::class, 'showFormCreateNoticia'])->name('noticias.create');
+Route::post('/admin/noticias', [AdminController::class, 'createNoticia'])->name('noticias.store');
+Route::get('/admin/noticias/{id}/editar', [AdminController::class, 'showFormEditNoticia'])->name('noticias.edit');
+Route::put('/admin/noticias/{id}', [AdminController::class, 'editNoticia'])->name('noticias.update');
+Route::delete('/admin/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
+Route::post('/admin/noticias/{id}/imagen', [AdminController::class, 'editarImagenNoticia'])->name('noticias.editarImagen');
+
+
+
+
+
+
+
+/**Route::post("/noticias/cargarNuevaNoticia", [AdminController::class, "createNoticia"]);
 //Route::get('/noticias/nuevaNoticia', [NoticiasController::class, 'obtenerCategorias']);
 Route::get('/noticias/nuevaNoticia', [AdminController::class, "showFormCreateNoticia"]); //Muestra formulario para cargar una nueva noticia
 Route::get('/noticias/formEditarNoticia/{id}', [AdminController::class, "showFormEditNoticia"]); //Muestra formulario para editar los datos de una noticia
 Route::PATCH('/noticias/{id}', [AdminController::class, "EditNoticia"]); //Edita la noticia con los datos que llegan del formulario
 Route::DELETE('/noticias/{id}', [AdminController::class, "deleteNoticia"]); //Elimina la noticia segun el id único que tenga.
-
+*/
 
 //RUTAS LOGIN
 Route::post('/logout', [LoginController::class, 'logout']); //Cierra la sesión
@@ -52,11 +80,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 //rutas del formulario de contacto
 Route::get('/formar/parte', [FormController::class, "contacto"]); // redireccionamiento al formulario
 Route::post('/formulario/enviar', [FormController::class, 'enviar'])->name('formulario.enviar'); //ruta que envia  la regla post del formulario
-
-//vista admin para ingresar al panel administrativo
-
-Route::get("/panel", [AdminController::class, "AdminPanel"]);
-
 
 
 //vista admin noticias

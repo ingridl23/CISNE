@@ -37,18 +37,17 @@ class imagesNoticiasModel extends Model
     }
 
 
-    public static function find($id_noticia)
-    {
-        $imagenes = imagesNoticiasModel::where("noticia_id", $id_noticia)->get();
-        return $imagenes;
-    }
-
+    /**
+     * Busca todas las imágenes asociadas a una noticia.
+     */
     public static function buscar($id_noticia)
     {
-        $imagenes = imagesNoticiasModel::where("noticia_id", $id_noticia)->get();
-        return $imagenes;
+        return self::where("noticia_id", $id_noticia)->get();
     }
 
+    /**
+     * Elimina una imagen del registro.
+     */
     public static function eliminarImagen(imagesNoticiasModel $imagen)
     {
         $imagen->delete();

@@ -33,7 +33,7 @@ class noticiasModel extends Model
     {
         return NoticiasFactory::new();
     }
-    use HasFactory;
+
 
     protected $fillable = [
         'id',
@@ -43,69 +43,59 @@ class noticiasModel extends Model
     ];
 
 
+
+    // imagenes de las noticias trae desde el model de las imagenes
+    //hasOne en lugar de hasMany Cada noticia tiene una sola imagen, según tu lógica.
+    public function imagenesNoticias()
+    {
+        return $this->hasOne(imagesNoticiasModel::class, 'noticia_id');
+    }
+
+
+    /** ------------------- CONSULTAS ------------------- **/
+
     public static function getUltimasNoticias($cantidad)
     {
-        return noticiasModel::orderBy('created_at', 'desc')
-            ->paginate($cantidad);
-    }
-
-
-    public static function showNoticiasId($id)
-    {
-        $noticia = noticiasModel::where('noticias.id', $id)->get();
-        if (count($noticia) > Self::$perPage) {
-            $noticia = $noticia[0];
-            return $noticia;
-        }
-    }
-    public static function obtenerCategoriasNoticias($cantidad = 12)
-    {
-
-        return noticiasModel::with(['categoria']) // relacion
-            ->orderBy('created_at', 'desc')
-            ->take($cantidad)
-            ->get();
-    }
-
-
-    public static function obtenerNoticiasCategorias()
-    {
-        $categorias = noticiasModel::all()->groupBy("categoria");
-        return $categorias;
+        return self::orderBy('created_at', 'desc')->paginate($cantidad);
     }
 
     /**
-     * Obtiene las categorias cargadas
-     *
-     * @return Array, Categorias cargadas
+     * showNoticiasId() devuelve first()
+No hace falta get() ni comparar con $perPage.
      */
+    public static function showNoticiasId($id)
+    {
+        return self::where('id', $id)->first();
+    }
+
+    public static function obtenerCategoriasNoticias($cantidad = 12)
+    {
+        return self::orderBy('created_at', 'desc')->take($cantidad)->get();
+    }
+
+    public static function obtenerNoticiasCategorias()
+    {
+        return self::all()->groupBy("categoria");
+    }
+
     public static function obtenerCategorias()
     {
-        return [
-            'Turnos',
-            'Novedad',
-
-        ];
+        return ['Turnos', 'Novedad'];
     }
 
-    // imagenes de las noticias trae desde el model de las imagenes
+    /** ------------------- CRUD ------------------- **/
 
-    public function imagenesNoticias()
-    {
-        return $this->hasMany(imagesNoticiasModel::class , 'noticia_id');
-    }
-
-    // metodos del CRUD para noticias
     public static function createNoticia($request)
     {
-        $noticia = noticiasModel::create([
-            'titulo' => $request->titulo,
+        return self::create([
+            'titulo' => Str::ucfirst($request->titulo),
             'categoria' => Str::ucfirst($request->categoria),
-            'descripcion' => Str::ucfirst($request->descripcion),
-            'created_at' => date('m-d-Y G:i:s'),
-            'updated_at' => date('m-d-Y G:i:s'),
+            /**
+             * nl2br() dentro de createNoticia()
+             *  Así el salto de línea se guarda formateado.
+             */
+            'descripcion' => nl2br($request->descripcion),
         ]);
-        return $noticia;
     }
 
     public static function editNoticia($noticia)
@@ -113,9 +103,14 @@ class noticiasModel extends Model
         $noticia->save();
     }
 
+
+    /**
+     * Eliminadas fechas manuales (created_at, updated_at)
+       Laravel las maneja automáticamente.
+     */
     public static function deleteNoticia($noticia)
     {
-        $eliminado = $noticia->delete();
-        return $eliminado;
+        return $noticia->delete();
     }
+
 }
