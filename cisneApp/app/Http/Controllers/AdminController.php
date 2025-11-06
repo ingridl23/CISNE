@@ -62,26 +62,29 @@ class AdminController extends Controller
         ]);
     }
 
-function adminPanel(){
-   return view('admin.panel');
-}
+    public function adminPanel()
+    {
+        return view('admin.layouts', [
+            'totalProfesionales' => ProfesionalesModel::count(),
+            'totalNoticias'      => noticiasModel::count(),
+        ]);
+    }
 
 
-/***************************Funcionalidad del controlador para profesionales ******************** */
+
+    /***************************Funcionalidad del controlador para profesionales ******************** */
     //traer profesionales cargados para pasarlos al blade
     public function profesionales()
     {
-        $profesionales = ProfesionalesModel::paginate(10);
-        return view('layouts.templateHome', compact('profesionales'))
+        $profesionales = ProfesionalesModel::with('imagenes')->paginate(10);
+
+        return view('admin.profesionales.index', compact('profesionales'))
             ->with('i', (request()->input('page', 1) - 1) * $profesionales->perPage());
-
-
     }
 
     public function showFormCrearProfesional()
     {
-        $profesionales = ProfesionalesModel::all();
-        return view('admin.emprendedores.formNuevoProfesional', compact('profesionales'));
+        return view('admin.profesionales.create');
     }
 
 
@@ -89,66 +92,48 @@ function adminPanel(){
     {
         $data = $request->validated();
 
-
-
         $profesional = ProfesionalesModel::create([
-            'nombre' => $data['nombre'],
-            'profesion' => $data['categoria'],
-            'descripcion' => $data['descripcion'],
-            'matricula' => $data['matricula'],
-
+            'nombre'       => $data['nombre'],
+            'especialidad' => $data['especialidad'],
+            'matricula'    => $data['matricula'],
         ]);
 
-
+        // Cargar imágenes
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $imagen) {
-                //try {
-                $uploadedFileUrl = Cloudinary::upload($imagen->getRealPath(), [
+
+                $upload = Cloudinary::upload($imagen->getRealPath(), [
                     'folder' => 'profesionales',
                     'quality' => '100'
                 ]);
+
                 $profesional->imagenes()->create([
-                    'url' => $uploadedFileUrl->getSecurePath(),
-                    'public_id' => $uploadedFileUrl->getPublicId(),
+                    'url' => $upload->getSecurePath(),
+                    'public_id' => $upload->getPublicId()
                 ]);
-                /* } catch (\Exception $e) {
-                    $mensajes = [
-                        'titulo' => '¡Error!',
-                        'detalle' => 'Ha sucedido un error en la carga de las imagenes, aca, intente nuevamente.'
-                    ];
-                    return redirect('/emprendedores')->with('error', $mensajes);
-                }*/
             }
         }
 
-        if ($profesional) {
-            $mensajes = [
-                'titulo' => '¡Creado!',
-                'detalle' => 'Profesional agregado con éxito.'
-            ];
-            return redirect('/profesionales')->with('success', $mensajes);
-        } else {
-            $mensajes = [
-                'titulo' => 'Error!',
-                'detalle' => 'Ha sucedido un error al agregar el profesional,verifique los datos ingresados.'
-            ];
-            return redirect('/profesionales')->with('success', $mensajes);
-        }
+        return redirect()->route('profesionales')->with('success', [
+            'titulo' => '¡Creado!',
+            'detalle' => 'Profesional agregado con éxito'
+        ]);
     }
+
+
+
+
 
 /****************************************** Editar profesional cargado *******************************************************/
 
-    public function showFormEditarProfesional($id){
-        if (is_numeric($id) && $id > constants::VALORMIN) {
-            $profesional = ProfesionalesModel::find($id);
-            if ($profesional != null) {
-                $imagenes = imagesProfesionalesModel::find($profesional->id);
-                return view("admin.emprendedores.formEditarProfesional", compact('profesional','imagenes'));
-            }
-        };
+    public function showFormEditarProfesional($id)
+    {
+        $profesional = ProfesionalesModel::findOrFail($id);
+        $imagenes = imagesProfesionalesModel::where('profesional_id', $id)->get();
 
-        return view("/error");
+        return view("admin.profesionales.edit", compact('profesional', 'imagenes'));
     }
+
 
 
 
@@ -191,74 +176,71 @@ Perfectamente coherente con el caso de uso: “cada profesional tiene una única
      */
     public function editarImagenProfesional($id, Request $request)
     {
-        $profesional = ProfesionalesModel::find($id);
-        if (!$profesional) {
-            return response()->json([
-                'message' => [
-                    'titulo' => 'Error',
-                    'detalle' => 'Profesional no encontrado.'
-                ],
-                'status' => 'error'
-            ], 404);
+        $profesional = ProfesionalesModel::findOrFail($id);
+
+        $archivo = $request->file('imagen');
+
+        if (!$archivo) {
+            return back()->with('info', [
+                'titulo' => 'Sin cambios',
+                'detalle' => 'No se cargó una nueva imagen'
+            ]);
         }
 
-        // Buscar imagen existente del profesional
-        $imagenExistente = imagesProfesionalesModel::where('profesional_id', $id)->first();
+        // Imagen anterior
+        $imagenActual = imagesProfesionalesModel::where('profesional_id', $id)->first();
 
-        // Verificar si viene una nueva imagen en el request
-        $nuevaImagen = $request->file('imagen');
-
-        if ($nuevaImagen) {
-            try {
-                // Si ya existe una imagen previa, eliminarla de Cloudinary y BD
-                if ($imagenExistente) {
-                    Cloudinary::uploadApi()->destroy($imagenExistente->public_id);
-                    imagesProfesionalesModel::eliminarImagen($imagenExistente);
-                }
-
-                // Subir la nueva imagen a Cloudinary
-                $upload = Cloudinary::upload($nuevaImagen->getRealPath(), [
-                    'folder' => 'profesionales'
-                ]);
-
-                // Guardar la nueva imagen en BD
-                imagesProfesionalesModel::create([
-                    'profesional_id' => $id,
-                    'url' => $upload->getSecurePath(),
-                    'public_id' => $upload->getPublicId(),
-                ]);
-
-                return response()->json([
-                    'redirect' => "/profesionales/formEditarProfesional/{$id}",
-                    'message' => [
-                        'titulo' => 'Éxito',
-                        'detalle' => 'La imagen del profesional fue actualizada correctamente.'
-                    ],
-                    'status' => 'success'
-                ], 200);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'message' => [
-                        'titulo' => 'Error',
-                        'detalle' => 'Ocurrió un error al actualizar la imagen: ' . $e->getMessage()
-                    ],
-                    'status' => 'error'
-                ], 500);
+        try {
+            // Eliminar si existe
+            if ($imagenActual) {
+                Cloudinary::uploadApi()->destroy($imagenActual->public_id);
+                $imagenActual->delete();
             }
-        } else {
-            // No se envió nueva imagen
-            return response()->json([
-                'message' => [
-                    'titulo' => 'Sin cambios',
-                    'detalle' => 'No se cargó una nueva imagen, se mantiene la actual.'
-                ],
-                'status' => 'info'
-            ], 200);
+
+            // Subir nueva
+            $upload = Cloudinary::upload($archivo->getRealPath(), [
+                'folder' => 'profesionales'
+            ]);
+
+            imagesProfesionalesModel::create([
+                'profesional_id' => $id,
+                'url' => $upload->getSecurePath(),
+                'public_id' => $upload->getPublicId(),
+            ]);
+
+            return back()->with('success', [
+                'titulo' => 'Éxito',
+                'detalle' => 'Imagen actualizada correctamente'
+            ]);
+        } catch (\Exception $e) {
+
+            return back()->with('error', [
+                'titulo' => 'Error',
+                'detalle' => 'Hubo un problema al actualizar la imagen'
+            ]);
         }
     }
 
 
 
+
+    public function eliminarProfesional($id)
+    {
+        $profesional = ProfesionalesModel::findOrFail($id);
+
+        // Eliminar imágenes asociadas
+        foreach ($profesional->imagenes as $img) {
+            Cloudinary::uploadApi()->destroy($img->public_id);
+            $img->delete();
+        }
+
+        $profesional->delete();
+
+        return back()->with('success', [
+            'titulo' => 'Eliminado',
+            'detalle' => 'El profesional fue eliminado con éxito'
+        ]);
+    }
 
 
 

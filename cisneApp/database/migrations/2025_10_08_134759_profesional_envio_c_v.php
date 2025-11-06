@@ -14,7 +14,7 @@ class ProfesionalEnvioCV extends Migration
     public function up()
     {
         Schema::create(
-            'profesional_evioCV',
+            'profesional_envioCV',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('nombre');

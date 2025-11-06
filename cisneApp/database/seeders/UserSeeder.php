@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         // Crear el usuario admin
-        $user = User::create([
+        $user = User::updateOrCreate([
             'name' => 'CISNE Admin',
             'email' => 'consultorioscisne@gmail.com',
             'password' => Hash::make('#.cisne+Consult25Arr'),
