@@ -47,18 +47,19 @@ Route::middleware(['auth', 'role:admin'])
         // 🟦 PANEL
         Route::get('/panel', [AdminController::class, 'adminPanel'])->name('panel');
 
-        // 🟪 PROFESIONALES
-        Route::get('/profesionales', [AdminController::class, 'profesionales'])->name('profesionales');
-        Route::get('/profesionales/crear', [AdminController::class, 'showFormCrearProfesional'])->name('profesionales.create');
-        Route::post('/profesionales', [AdminController::class, 'crearProfesional'])->name('profesionales.store');
+    // Profesionales
+    Route::get('/profesionales', [AdminController::class, 'profesionales'])->name('profesionales');
+    Route::get('/profesionales/crear', [AdminController::class, 'showFormCrearProfesional'])->name('profesionales.create');
+    Route::post('/profesionales', [AdminController::class, 'crearProfesional'])->name('profesionales.store');
 
-        Route::get('/profesionales/{id}/editar', [AdminController::class, 'showFormEditarProfesional'])->name('profesionales.edit');
-        Route::post('/profesionales/{id}/imagen', [AdminController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
+    Route::get('/profesionales/{profesional}/editar', [AdminController::class, 'showFormEditarProfesional'])->name('profesionales.edit');
+    Route::put('/profesionales/{profesional}', [AdminController::class, 'updateProfesional'])->name('profesionales.update');
 
-        Route::delete('/profesionales/{id}', [AdminController::class, 'eliminarProfesional'])->name('profesionales.destroy');
+    Route::post('/profesionales/{profesional}/imagen', [AdminController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
+    Route::delete('/profesionales/{id}', [AdminController::class, 'eliminarProfesional'])->name('profesionales.destroy');
 
-        // 🟧 NOTICIAS
-        Route::get('/noticias', [AdminController::class, 'mostrarNoticias'])->name('noticias');
+    // 🟧 NOTICIAS
+    Route::get('/noticias', [AdminController::class, 'mostrarNoticias'])->name('noticias');
         Route::get('/noticias/crear', [AdminController::class, 'showFormCreateNoticia'])->name('noticias.create');
         Route::post('/noticias', [AdminController::class, 'createNoticia'])->name('noticias.store');
 

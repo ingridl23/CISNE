@@ -76,10 +76,8 @@ class ProfesionalController extends Controller
     /* =====================================================
      * GUARDAR EDICIÓN
      * ===================================================== */
-    public function update(Request $request, $id)
+    public function updateProfesional(Request $request, ProfesionalesModel $profesional)
     {
-        $prof = ProfesionalesModel::findOrFail($id);
-
         $request->validate([
             'nombre' => 'required',
             'categoria' => 'required',
@@ -88,37 +86,32 @@ class ProfesionalController extends Controller
             'imagen' => 'nullable|image|max:2048'
         ]);
 
-        // Actualizar datos
-        $prof->update([
+        $profesional->update([
             'nombre' => $request->nombre,
             'especialidad' => $request->categoria,
             'matricula' => $request->matricula,
             'descripcion' => $request->descripcion
         ]);
 
-        // Si subió nueva imagen
         if ($request->hasFile('imagen')) {
-            // Eliminar imagen vieja si existe
-            $old = $prof->imagenes()->first();
+            $old = $profesional->imagenes()->first();
             if ($old) {
-                $path = str_replace('/storage/', '', $old->url);
-                Storage::disk('public')->delete($path);
+                Storage::disk('public')->delete(str_replace('/storage/', '', $old->url));
                 $old->delete();
             }
 
-            // Guardar nueva
             $path = $request->file('imagen')->store('profesionales', 'public');
-
             imagesProfesionalesModel::create([
-                'profesional_id' => $prof->id,
+                'profesional_id' => $profesional->id,
                 'url' => '/storage/' . $path,
             ]);
         }
 
         return redirect()
-            ->route('admin.profesionalespanel')
+            ->route('admin.profesionales')
             ->with('success', 'Profesional actualizado correctamente');
     }
+
 
     /* =====================================================
      * LISTADO PARA EDITAR (updateList)

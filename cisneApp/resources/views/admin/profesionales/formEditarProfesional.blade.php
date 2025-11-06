@@ -1,4 +1,4 @@
-@extends('admin.panel')
+@extends('admin.layouts')
 
 @section('title', 'Editar Profesional')
 
@@ -6,7 +6,7 @@
 
     <h2 class="text-2xl font-bold mb-4">Editar Profesional</h2>
 
-    <form action="{{ route('profesionales.update', $profesional->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.profesionales.update', $profesional->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -47,7 +47,7 @@
 
         <div class="mt-4">
             <button class="bg-emerald-600 text-white px-4 py-2 rounded">Guardar</button>
-            <a href="{{ route('profesionales.index') }}" class="ml-2 text-gray-600">Cancelar</a>
+            <a href="{{ route('admin.profesionales') }}" class="ml-2 text-gray-600">Cancelar</a>
         </div>
 
     </form>

@@ -126,14 +126,12 @@ class AdminController extends Controller
 
 /****************************************** Editar profesional cargado *******************************************************/
 
-    public function showFormEditarProfesional($id)
+    public function showFormEditarProfesional(ProfesionalesModel $profesional)
     {
-        $profesional = ProfesionalesModel::findOrFail($id);
-        $imagenes = imagesProfesionalesModel::where('profesional_id', $id)->get();
+        $imagenes = imagesProfesionalesModel::where('profesional_id', $profesional->id)->get();
 
-        return view("admin.profesionales.edit", compact('profesional', 'imagenes'));
+        return view("admin.profesionales.formEditarProfesional", compact('profesional', 'imagenes'));
     }
-
 
 
 
