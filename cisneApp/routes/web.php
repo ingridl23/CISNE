@@ -49,7 +49,7 @@ Route::middleware(['auth', 'role:admin'])
 
     // Profesionales
     Route::get('/profesionales', [AdminController::class, 'profesionales'])->name('profesionales');
-    Route::get('/profesionales/crear', [AdminController::class, 'showFormCrearProfesional'])->name('profesionales.create');
+    Route::get('/profesionales/crear', [ProfesionalController::class, 'create'])->name('profesionales.create');
     Route::post('/profesionales', [AdminController::class, 'crearProfesional'])->name('profesionales.store');
 
     Route::get('/profesionales/{id}/editar', [AdminController::class, 'showFormEditarProfesional'])->name('profesionales.edit');

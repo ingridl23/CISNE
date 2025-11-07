@@ -25,7 +25,7 @@ class ProfesionalController extends Controller
      * ===================================================== */
     public function create()
     {
-        return view('admin.formNuevoProfesional');
+        return view('admin.profesionales.formNuevoProfesional');
     }
 
     /* =====================================================

@@ -21,12 +21,12 @@
                 <label>Especialidad</label>
                 <input name="categoria" value="{{ $profesional->especialidad }}" class="w-full p-2 border rounded" required>
             </div>
-
-            <div class="col-span-2">
-                <label>Descripción</label>
-                <textarea name="descripcion" class="w-full p-2 border rounded" rows="4">{{ $profesional->descripcion }}</textarea>
-            </div>
-
+            <!--
+                <div class="col-span-2">
+                    <label>Descripción</label>
+                    <textarea name="descripcion" class="w-full p-2 border rounded" rows="4">{{ $profesional->descripcion }}</textarea>
+                </div>
+            -->
             <div>
                 <label>Matrícula</label>
                 <input name="matricula" value="{{ $profesional->matricula }}" class="w-full p-2 border rounded">

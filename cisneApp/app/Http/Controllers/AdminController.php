@@ -82,11 +82,11 @@ class AdminController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $profesionales->perPage());
     }
 
-    public function showFormCrearProfesional()
+  /*  public function showFormCrearProfesional()
     {
         return view('admin.profesionales.create');
     }
-
+*/
 
     public function crearProfesional(validacionProfesional $request)
     {
@@ -96,30 +96,33 @@ class AdminController extends Controller
             'nombre'       => $data['nombre'],
             'especialidad' => $data['especialidad'],
             'matricula'    => $data['matricula'],
+           // 'descripcion' => $data['descripcion']
         ]);
 
-        // Cargar imágenes
-        if ($request->hasFile('imagenes')) {
-            foreach ($request->file('imagenes') as $imagen) {
+        // Cargar imágen
+        if ($request->hasFile('imagen')) {
 
-                $upload = Cloudinary::upload($imagen->getRealPath(), [
+            $upload = Cloudinary::upload(
+                $request->file('imagen')->getRealPath(),
+                [
                     'folder' => 'profesionales',
                     'quality' => '100'
-                ]);
+                ]
+            );
 
-                $profesional->imagenes()->create([
-                    'url' => $upload->getSecurePath(),
-                    'public_id' => $upload->getPublicId()
-                ]);
-            }
-        }
+            $profesional->imagenes()->create([
+                'url' => $upload->getSecurePath(),
+                'public_id' => $upload->getPublicId()
+            ]);
 
-        return redirect()->route('profesionales')->with('success', [
+
+
+        return redirect()->route('admin.profesionales')->with('success', [
             'titulo' => '¡Creado!',
             'detalle' => 'Profesional agregado con éxito'
         ]);
     }
-
+    }
 
 
 
