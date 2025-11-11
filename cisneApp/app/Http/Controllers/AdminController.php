@@ -82,62 +82,49 @@ class AdminController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $profesionales->perPage());
     }
 
-  /*  public function showFormCrearProfesional()
-    {
-        return view('admin.profesionales.create');
-    }
-*/
 
-    public function crearProfesional(validacionProfesional $request)
+
+    /* =====================================================
+     * GUARDAR NUEVO
+     * ===================================================== */
+    public function store(validacionProfesional $request)
     {
+
         $data = $request->validated();
 
-        $profesional = ProfesionalesModel::create([
-            'nombre'       => $data['nombre'],
-            'especialidad' => $data['especialidad'],
-            'matricula'    => $data['matricula'],
-           // 'descripcion' => $data['descripcion']
+
+        $prof = ProfesionalesModel::create([
+            'nombre' => $request->nombre,
+            'especialidad' => $request->especialidad,
+            'matricula' => $request->matricula,
+
         ]);
 
-        // Cargar imágen
+        // Guardar imagen
         if ($request->hasFile('imagen')) {
+            $path = $request->file('imagen')->store('profesionales', 'public');
 
-            $upload = Cloudinary::upload(
-                $request->file('imagen')->getRealPath(),
-                [
-                    'folder' => 'profesionales',
-                    'quality' => '100'
-                ]
-            );
-
-            $profesional->imagenes()->create([
-                'url' => $upload->getSecurePath(),
-                'public_id' => $upload->getPublicId()
+            imagesProfesionalesModel::create([
+                'profesional_id' => $prof->id,
+                'url' => '/storage/' . $path
             ]);
+        }
 
-
-
-        return redirect()->route('admin.profesionales')->with('success', [
-            'titulo' => '¡Creado!',
-            'detalle' => 'Profesional agregado con éxito'
-        ]);
-    }
+        return redirect()
+            ->route('admin.profesionales')
+            ->with('success', 'Profesional creado correctamente');
     }
 
 
 
 
-/****************************************** Editar profesional cargado *******************************************************/
-/**
-    public function showFormEditarProfesional(ProfesionalesModel $profesional)
-    {
-        $imagenes = imagesProfesionalesModel::where('profesional_id', $profesional->id)->get();
-
-        return view("admin.profesionales.formEditarProfesional", compact('profesional', 'imagenes'));
-    }
 
 
-*/
+
+
+    /****************************************** Editar profesional cargado *******************************************************/
+
+
     public function showFormEditarProfesional($id)
     {
         $profesional = ProfesionalesModel::with('imagenes')->findOrFail($id);

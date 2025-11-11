@@ -28,39 +28,6 @@ class ProfesionalController extends Controller
         return view('admin.profesionales.formNuevoProfesional');
     }
 
-    /* =====================================================
-     * GUARDAR NUEVO
-     * ===================================================== */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required',
-            'categoria' => 'required',
-            'matricula' => 'nullable',
-            'imagen' => 'required|image|max:2048',
-        ]);
-
-        $prof = ProfesionalesModel::create([
-            'nombre' => $request->nombre,
-            'especialidad' => $request->categoria,
-            'matricula' => $request->matricula,
-            'descripcion' => $request->descripcion ?? null
-        ]);
-
-        // Guardar imagen
-        if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('profesionales', 'public');
-
-            imagesProfesionalesModel::create([
-                'profesional_id' => $prof->id,
-                'url' => '/storage/' . $path
-            ]);
-        }
-
-        return redirect()
-            ->route('admin.profesionalespanel')
-            ->with('success', 'Profesional creado correctamente');
-    }
 
     /* =====================================================
      * FORM EDITAR
