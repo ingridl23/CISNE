@@ -37,46 +37,7 @@ class ProfesionalController extends Controller
         $profesional = ProfesionalesModel::findOrFail($id);
         $imagenes = $profesional->imagenes;
 
-        return view('admin.formEditarProfesional', compact('profesional', 'imagenes'));
-    }
-
-    /* =====================================================
-     * GUARDAR EDICIÓN
-     * ===================================================== */
-    public function updateProfesional(Request $request, ProfesionalesModel $profesional)
-    {
-        $request->validate([
-            'nombre' => 'required',
-            'categoria' => 'required',
-            'matricula' => 'nullable',
-            'descripcion' => 'nullable',
-            'imagen' => 'nullable|image|max:2048'
-        ]);
-
-        $profesional->update([
-            'nombre' => $request->nombre,
-            'especialidad' => $request->categoria,
-            'matricula' => $request->matricula,
-            'descripcion' => $request->descripcion
-        ]);
-
-        if ($request->hasFile('imagen')) {
-            $old = $profesional->imagenes()->first();
-            if ($old) {
-                Storage::disk('public')->delete(str_replace('/storage/', '', $old->url));
-                $old->delete();
-            }
-
-            $path = $request->file('imagen')->store('profesionales', 'public');
-            imagesProfesionalesModel::create([
-                'profesional_id' => $profesional->id,
-                'url' => '/storage/' . $path,
-            ]);
-        }
-
-        return redirect()
-            ->route('admin.profesionales')
-            ->with('success', 'Profesional actualizado correctamente');
+        return view('admin.profesionales.formEditarProfesional', compact('profesional', 'imagenes'));
     }
 
 

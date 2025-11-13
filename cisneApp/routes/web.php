@@ -52,8 +52,8 @@ Route::middleware(['auth', 'role:admin'])
     Route::get('/profesionales/crear', [ProfesionalController::class, 'create'])->name('profesionales.create');
     Route::post('/profesionales', [AdminController::class, 'store'])->name('profesionales.store');
 
-    Route::get('/profesionales/{id}/editar', [AdminController::class, 'showFormEditarProfesional'])->name('profesionales.edit');
-    Route::put('/profesionales/{id}', [ProfesionalController::class, 'updateProfesional'])->name('profesionales.update');
+    Route::get('/profesionales/{id}/editar', [ProfesionalController::class, 'edit'])->name('profesionales.edit');
+    Route::put('/profesionales/{id}', [AdminController::class, 'updateProfesional'])->name('profesionales.update');
 
     Route::post('/profesionales/{id}/imagen', [AdminController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
     Route::delete('/profesionales/{id}', [AdminController::class, 'eliminarProfesional'])->name('profesionales.destroy');

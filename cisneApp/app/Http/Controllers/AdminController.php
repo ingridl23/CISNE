@@ -117,6 +117,45 @@ class AdminController extends Controller
 
 
 
+    /* =====================================================
+     * GUARDAR EDICIÓN
+     * ===================================================== */
+    public function updateProfesional(Request $request, ProfesionalesModel $profesional)
+    {
+        $request->validate([
+            'nombre' => 'required',
+            'categoria' => 'required',
+            'matricula' => 'nullable',
+            'descripcion' => 'nullable',
+            'imagen' => 'nullable|image|max:2048'
+        ]);
+
+        $profesional->update([
+            'nombre' => $request->nombre,
+            'especialidad' => $request->especialidad,
+            'matricula' => $request->matricula,
+            // 'descripcion' => $request->descripcion
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $old = $profesional->imagenes()->first();
+            if ($old) {
+                Storage::disk('public')->delete(str_replace('/storage/', '', $old->url));
+                $old->delete();
+            }
+
+            $path = $request->file('imagen')->store('profesionales', 'public');
+            imagesProfesionalesModel::create([
+                'profesional_id' => $profesional->id,
+                'url' => '/storage/' . $path,
+            ]);
+        }
+
+        return redirect()
+            ->route('admin.profesionales')
+            ->with('success', 'Profesional actualizado correctamente');
+    }
+
 
 
 
@@ -124,14 +163,14 @@ class AdminController extends Controller
 
     /****************************************** Editar profesional cargado *******************************************************/
 
-
+/*
     public function showFormEditarProfesional($id)
     {
         $profesional = ProfesionalesModel::with('imagenes')->findOrFail($id);
         $imagenes = $profesional->imagenes; // colección (vacía si no hay)
         return view('admin.profesionales.formEditarProfesional', compact('profesional', 'imagenes'));
     }
-
+*/
 
 
     /**
