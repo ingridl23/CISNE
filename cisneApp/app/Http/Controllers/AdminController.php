@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\validacionNoticia;
 use App\Models\noticiasModel;
 use App\Models\ProfesionalesModel;
+use App\Models\hogarModel;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 use App\Http\Requests\validacionEditarNoticia;
@@ -60,6 +61,28 @@ class AdminController extends Controller
                 'deleteNoticia'
             ]
         ]);
+
+        $this->middleware('can:crear institucion', [
+            'only' => [
+                'createInstitucion',
+                'showFormInstitucion'
+            ]
+        ]);
+
+
+        $this->middleware('can:editar institucion', [
+            'only' => [
+                'editarInstitucion',
+                'showInstitucion'
+            ]
+        ]);
+
+
+        $this->middleware('can:eliminar Institucion', [
+            'only' => [
+                'deleteInstitucion'
+            ]
+        ]);
     }
 
     public function adminPanel()
@@ -67,6 +90,7 @@ class AdminController extends Controller
         return view('admin.layouts', [
             'totalProfesionales' => ProfesionalesModel::count(),
             'totalNoticias'      => noticiasModel::count(),
+            'totalInstituciones'=> hogarModel::count()
         ]);
     }
 
