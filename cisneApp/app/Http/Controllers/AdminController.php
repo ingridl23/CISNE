@@ -99,14 +99,17 @@ class AdminController extends Controller
             'matricula' => $request->matricula,
 
         ]);
-
-        // Guardar imagen
         if ($request->hasFile('imagen')) {
-            $path = $request->file('imagen')->store('profesionales', 'public');
+
+            $upload = Cloudinary::upload(
+                $request->file('imagen')->getRealPath(),
+                ['folder' => 'profesionales']
+            );
 
             imagesProfesionalesModel::create([
                 'profesional_id' => $prof->id,
-                'url' => '/storage/' . $path
+                'url' => $upload->getSecurePath(),
+                'public_id' => $upload->getPublicId()
             ]);
         }
 
@@ -124,7 +127,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'categoria' => 'required',
+            'especialidad' => 'required',
             'matricula' => 'nullable',
             'descripcion' => 'nullable',
             'imagen' => 'nullable|image|max:2048'
@@ -137,17 +140,18 @@ class AdminController extends Controller
             // 'descripcion' => $request->descripcion
         ]);
 
+        // Subir imagen a Cloudinary
         if ($request->hasFile('imagen')) {
-            $old = $profesional->imagenes()->first();
-            if ($old) {
-                Storage::disk('public')->delete(str_replace('/storage/', '', $old->url));
-                $old->delete();
-            }
 
-            $path = $request->file('imagen')->store('profesionales', 'public');
+            $upload = Cloudinary::upload(
+                $request->file('imagen')->getRealPath(),
+                ['folder' => 'profesionales']
+            );
+
             imagesProfesionalesModel::create([
                 'profesional_id' => $profesional->id,
-                'url' => '/storage/' . $path,
+                'url' => $upload->getSecurePath(),
+                'public_id' => $upload->getPublicId()
             ]);
         }
 
@@ -256,24 +260,25 @@ Perfectamente coherente con el caso de uso: “cada profesional tiene una única
 
 
 
-
     public function eliminarProfesional($id)
     {
         $profesional = ProfesionalesModel::findOrFail($id);
 
-        // Eliminar imágenes asociadas
         foreach ($profesional->imagenes as $img) {
-            Cloudinary::uploadApi()->destroy($img->public_id);
+            if ($img->public_id) {
+                Cloudinary::uploadApi()->destroy($img->public_id);
+            }
+
             $img->delete();
         }
 
         $profesional->delete();
 
-        return back()->with('success', [
-            'titulo' => 'Eliminado',
-            'detalle' => 'El profesional fue eliminado con éxito'
-        ]);
+        return back()
+            ->with('success_titulo', 'Eliminado')
+            ->with('success_detalle', 'El profesional fue eliminado con éxito');
     }
+
 
 
 

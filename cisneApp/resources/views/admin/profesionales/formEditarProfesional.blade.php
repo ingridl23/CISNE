@@ -5,7 +5,17 @@
 @section('panel-content')
 
     <h2 class="text-2xl font-bold mb-4">Editar Profesional</h2>
-
+    {{-- ✅ Mensaje de éxito --}}
+    @if (session('success'))
+        <div class="alert alert-success text-center mb-3">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger text-center mb-3">
+            {{ session('error') }}
+        </div>
+    @endif
     <form action="{{ route('admin.profesionales.update', $profesional->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -19,14 +29,15 @@
 
             <div>
                 <label>Especialidad</label>
-                <input name="categoria" value="{{ $profesional->especialidad }}" class="w-full p-2 border rounded" required>
+                <input name="especialidad" value="{{ $profesional->especialidad }}" class="w-full p-2 border rounded"
+                    required>
             </div>
             <!--
-                <div class="col-span-2">
-                    <label>Descripción</label>
-                    <textarea name="descripcion" class="w-full p-2 border rounded" rows="4">{{ $profesional->descripcion }}</textarea>
-                </div>
-            -->
+                        <div class="col-span-2">
+                            <label>Descripción</label>
+                            <textarea name="descripcion" class="w-full p-2 border rounded" rows="4">{{ $profesional->descripcion }}</textarea>
+                        </div>
+                    -->
             <div>
                 <label>Matrícula</label>
                 <input name="matricula" value="{{ $profesional->matricula }}" class="w-full p-2 border rounded">

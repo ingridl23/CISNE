@@ -8,6 +8,18 @@
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-gray-700">Profesionales</h2>
 
+        {{-- ✅ Mensaje de éxito --}}
+        @if (session('success'))
+            <div class="alert alert-success text-center mb-3">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger text-center mb-3">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <a href="{{ route('admin.profesionales.create') }}"
             class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded shadow transition">
             ➕ Nuevo Profesional
@@ -39,7 +51,7 @@
 
                             {{-- Imagen --}}
                             <td class="p-3">
-                                @if ($p->imagenes->first())
+                                @if ($p->imagenes && $p->imagenes->count() > 0)
                                     <img src="{{ $p->imagenes->first()->url }}"
                                         class="w-14 h-14 rounded-full object-cover shadow">
                                 @else

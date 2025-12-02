@@ -5,7 +5,17 @@
 @section('panel-content')
 
     <h2 class="text-2xl font-bold mb-4">Crear Profesional</h2>
-
+    {{-- ✅ Mensaje de éxito --}}
+    @if (session('success'))
+        <div class="alert alert-success text-center mb-3">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger text-center mb-3">
+            {{ session('error') }}
+        </div>
+    @endif
     <form class="form" action="{{ route('admin.profesionales.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('POST')
@@ -22,10 +32,10 @@
             </div>
 
             <!-- <div class="col-span-2">
-                                                                                            <label class="block text-sm">Descripción</label>
-                                                                                            <textarea name="descripcion" class="w-full p-2 border rounded" rows="4"></textarea>
-                                                                                        </div>
-                                                                                    -->
+                                                                                                <label class="block text-sm">Descripción</label>
+                                                                                                <textarea name="descripcion" class="w-full p-2 border rounded" rows="4"></textarea>
+                                                                                            </div>
+                                                                                        -->
             <div>
                 <label class="block text-sm">Matrícula</label>
                 <input name="matricula" class="w-full p-2 border rounded" id="matricula">
