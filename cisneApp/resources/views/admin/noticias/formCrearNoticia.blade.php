@@ -1,8 +1,8 @@
-@extends('admin.panel')
+@extends('admin.layouts')
 
 @section('panel-content')
     <h2 class="text-2xl font-bold mb-4">Crear noticia</h2>
-
+    {{--
     @if ($errors->any())
         <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
             <ul>
@@ -12,8 +12,8 @@
             </ul>
         </div>
     @endif
-
-    <form action="{{ route('noticias.create') }}" method="POST" enctype="multipart/form-data">
+--}}
+    <form action="{{ route('noticias.createNoticia') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div>
@@ -24,7 +24,7 @@
         <div class="mt-3">
             <label>Categoría</label>
             <select name="categoria" class="w-full p-2 border rounded" required>
-                @foreach (noticiasModel::obtenerCategorias() as $cat)
+                @foreach ($categorias as $cat)
                     <option value="{{ $cat }}" {{ old('categoria') == $cat ? 'selected' : '' }}>{{ $cat }}
                     </option>
                 @endforeach
@@ -42,7 +42,7 @@
         </div>
 
         <div class="mt-4">
-            <button class="bg-emerald-600 text-white px-4 py-2 rounded">Crear noticia</button>
+            <button type ="submit" class="bg-emerald-600 text-white px-4 py-2 rounded">Crear noticia</button>
             <a href="{{ route('admin.noticias') }}" class="ml-2 text-gray-600">Cancelar</a>
         </div>
     </form>

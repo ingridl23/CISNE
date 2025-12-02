@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\InstitucionController;
 
 /* ==========================
    RUTAS DEL SITIO PÚBLICO
@@ -16,6 +17,7 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/profesionales', [HomeController::class, 'index'])->name('profesionales');
+Route::get('/instituciones', [HomeController::class, 'index2'])->name('instituciones');
 Route::get('/novedades', [NoticiaController::class, 'index'])->name('novedades');
 
 Route::get("/noticias", [NoticiaController::class, "showNoticias"]);
@@ -55,13 +57,27 @@ Route::middleware(['auth', 'role:admin'])
     Route::get('/profesionales/{id}/editar', [ProfesionalController::class, 'edit'])->name('profesionales.edit');
     Route::put('/profesionales/{id}', [AdminController::class, 'updateProfesional'])->name('profesionales.update');
 
-    Route::post('/profesionales/{id}/imagen', [AdminController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
+   // Route::post('/profesionales/{id}/imagen', [AdminController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
     Route::delete('/profesionales/{id}', [AdminController::class, 'eliminarProfesional'])->name('profesionales.destroy');
 
-    // 🟧 NOTICIAS
-    Route::get('/noticias', [AdminController::class, 'mostrarNoticias'])->name('noticias');
+
+    //INSTITUCIONES
+
+    Route::get('/instituciones', [AdminController::class, 'instituciones'])->name('instituciones');
+    Route::get('/instituciones/crear', [AdminController::class, 'createHogar'])->name('instituciones.create');
+    Route::post('/instituciones', [AdminController::class, 'storeInstitucion'])->name('institucion.storeInstitucion');
+
+    Route::get('/instituciones/{id}/editar', [AdminController::class, 'editHogar'])->name('instituciones.edit');
+    Route::put('/instituciones/{id}', [AdminController::class, 'updateHogar'])->name('instituciones.update');
+
+   // Route::post('/instituciones/{id}/imagen', [InstitucionController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
+    Route::delete('/instituciones/{id}', [AdminController::class, 'eliminarHogar'])->name('instituciones.destroy');
+
+
+    //  NOTICIAS
+    Route::get('/noticias', [AdminController::class, 'noticias'])->name('noticias');
         Route::get('/noticias/crear', [AdminController::class, 'showFormCreateNoticia'])->name('noticias.create');
-        Route::post('/noticias', [AdminController::class, 'createNoticia'])->name('noticias.store');
+        Route::post('/noticias', [AdminController::class, 'createNoticia'])->name('noticias.createNoticia');
 
         Route::get('/noticias/{id}/editar', [AdminController::class, 'showFormEditNoticia'])->name('noticias.edit');
         Route::put('/noticias/{id}', [AdminController::class, 'editNoticia'])->name('noticias.update');

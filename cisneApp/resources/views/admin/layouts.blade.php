@@ -54,12 +54,12 @@
                 <a href="{{ route('admin.noticias') }}"
                     class="block px-3 py-2 rounded
                    {{ request()->is('admin/noticias*') ? 'bg-emerald-100 font-semibold' : 'hover:bg-gray-100' }}">
-                    📰 Noticias
+                    📰 Comunicados
                 </a>
 
                 {{-- Instituciones --}}
-                {{--    <a href="{{ route('admin.instituciones') }}"  --}}
-                <a href ="#">
+
+                <a href ="{{ route('admin.instituciones') }}"
                     class="block px-3 py-2 rounded
                    {{ request()->is('admin/instituciones*') ? 'bg-emerald-100 font-semibold' : 'hover:bg-gray-100' }}">
                     🏥 Instituciones

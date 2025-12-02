@@ -9,7 +9,7 @@ class hogarModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'HogarMayor'; // tu tabla real
+    protected $table = 'hogar_mayor'; // tu tabla real
 
     protected $fillable = [
         'nombre',
@@ -40,4 +40,6 @@ class hogarModel extends Model
         $hogarEliminar = $hogar->delete();
         return $hogarEliminar;
     }
+
+
 }

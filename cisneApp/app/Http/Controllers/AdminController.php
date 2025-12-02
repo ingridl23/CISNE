@@ -303,8 +303,8 @@ Perfectamente coherente con el caso de uso: “cada profesional tiene una única
 
 
     /************************ funcionalidad del controlador para noticias ********************************** */
-/***
-*  2. Flujo de imágenes de noticias
+    /***
+     *  2. Flujo de imágenes de noticias
 
 ✔ Crear noticia:
 
@@ -328,50 +328,61 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
  Perfectamente coherente con tu requerimiento: “solo una imagen por noticia”.
 
-*/
+     */
 
 
-    protected function createNoticia(validacionNoticia $request)
+    //traer noticias cargados para pasarlos al blade
+    public function noticias()
     {
-        if (!$request->hasFile('imagen')) {
-            return redirect('/noticias')->with('error', [
-                'titulo' => '¡Error!',
-                'detalle' => 'Debe cargar una imagen para la noticia.'
-            ]);
-        }
+        $noticias = hogarModel::with('imagenes')->paginate(10);
 
-        try {
-            // 1 Subo la imagen
-            $imagen = $request->file('imagen');
-            $uploadedFileUrl = Cloudinary::upload($imagen->getRealPath(), [
-                'folder' => 'noticias',
-                'quality' => 'auto:best'
-            ]);
+        return view('admin.noticias.index', compact('noticias'))
+            ->with('i', (request()->input('page', 1) - 1) * $noticias->perPage());
+    }
 
-            // 2 Creo la noticia
-            $noticia = noticiasModel::createNoticia($request);
 
-            // 3 Asocio la imagen
-            $noticia->imagenesNoticias()->create([
-                'url' => $uploadedFileUrl->getSecurePath(),
-                'public_id' => $uploadedFileUrl->getPublicId(),
-            ]);
 
-            return redirect('/noticias')->with('success', [
-                'titulo' => '¡Creado!',
-                'detalle' => 'Noticia creada con éxito.'
-            ]);
-        } catch (\Exception $e) {
-            return redirect('/noticias')->with('error', [
-                'titulo' => '¡Error!',
-                'detalle' => 'No se pudo crear la noticia. Intente nuevamente.'
-            ]);
-        }
+
+
+
+
+    public function createNoticia(Request $request)
+    {
+        // Validaciones
+        $request->validate([
+            'titulo' => 'required|string|max:255',
+            'categoria' => 'required|string',
+            'descripcion' => 'required|string',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048'
+        ]);
+
+        // Cargar imagen en Cloudinary
+        $resultado = Cloudinary::upload($request->file('imagen')->getRealPath(), [
+            'folder' => 'noticias_cisne'
+        ]);
+
+        // Obtener datos de la imagen
+        $url = $resultado->getSecurePath();
+        $publicId = $resultado->getPublicId();
+
+        // Guardar en BD
+        $noticia = new NoticiasModel();
+        $noticia->titulo = $request->titulo;
+        $noticia->categoria = $request->categoria;
+        $noticia->descripcion = $request->descripcion;
+        $noticia->imagen_url = $url;
+        $noticia->public_id = $publicId;
+        $noticia->save();
+
+        // Redirigir con mensaje
+        return redirect()->route('noticias')
+            ->with('success', 'Noticia creada correctamente');
+
     }
 
 
     protected function showFormCreateNoticia(){
-        $categorias = $this->obtenerCategorias();
+        $categorias = noticiasModel::obtenerCategorias();
         return view("admin.noticias.formCrearNoticia", compact("categorias"));
 }
 
@@ -385,162 +396,72 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
 
-    protected function editNoticia($id, validacionNoticia $request)
+    protected function editNoticia(validacionNoticia $request, NoticiasModel $noticia)
     {
-        $noticia = noticiasModel::find($id);
-        if (!$noticia) {
-            return redirect('/noticias')->with('error', [
-                'titulo' => 'Error',
-                'detalle' => 'No se encontró la noticia.'
-            ]);
-        }
+        $request->validate([
+            'titulo' => 'required',
+            'descripcion' => 'required',
+            'imagen' => 'nullable|image|max:2048'
+        ]);
 
-        try {
+        $noticia->update([
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+        ]);
+
+        // Si se subió nueva imagen -> eliminar la anterior y subir otra
+        if ($request->hasFile('imagen')) {
+
+            if ($noticia->public_id) {
+                Cloudinary::uploadApi()->destroy($noticia->public_id);
+            }
+
+            $upload = Cloudinary::upload(
+                $request->file('imagen')->getRealPath(),
+                ['folder' => 'noticias']
+            );
+
             $noticia->update([
-                'titulo' => $request->input('titulo'),
-                'descripcion' => nl2br($request->input('descripcion')),
-                'categoria' => $request->input('categoria'),
-            ]);
-
-            // Si se subió una nueva imagen, reemplazo la anterior
-            if ($request->hasFile('imagen')) {
-                $imagenActual = $noticia->imagenesNoticias;
-                if ($imagenActual) {
-                    Cloudinary::uploadApi()->destroy($imagenActual->public_id);
-                    $imagenActual->delete();
-                }
-
-                $uploadedFileUrl = Cloudinary::upload($request->file('imagen')->getRealPath(), [
-                    'folder' => 'noticias',
-                    'quality' => 'auto:best'
-                ]);
-
-                $noticia->imagenesNoticias()->create([
-                    'url' => $uploadedFileUrl->getSecurePath(),
-                    'public_id' => $uploadedFileUrl->getPublicId(),
-                ]);
-            }
-
-            return redirect('/noticias')->with('success', [
-                'titulo' => '¡Editado!',
-                'detalle' => 'Noticia editada con éxito.'
-            ]);
-        } catch (\Exception $e) {
-            return redirect('/noticias')->with('error', [
-                'titulo' => '¡Error!',
-                'detalle' => 'Ocurrió un problema al editar la noticia.'
+                'imagen_url' => $upload->getSecurePath(),
+                'public_id' => $upload->getPublicId(),
             ]);
         }
-    }
+
+        return redirect()->route('admin.noticias')
+            ->with('success', 'Noticia actualizada correctamente');
 
 
-    protected function deleteNoticia($id)
+        }
+
+
+
+    protected function deleteNoticia(NoticiasModel $noticia)
     {
-        $noticia = noticiasModel::find($id);
-        if (!$noticia) {
-            return redirect('/noticias')->with('error', [
-                'titulo' => '¡Error!',
-                'detalle' => 'No se encontró la noticia.'
-            ]);
+        if ($noticia->public_id) {
+            Cloudinary::uploadApi()->destroy($noticia->public_id);
         }
 
-        try {
-            $imagen = $noticia->imagenesNoticias;
-            if ($imagen) {
-                Cloudinary::uploadApi()->destroy($imagen->public_id);
-                $imagen->delete();
-            }
+        $noticia->delete();
 
-            $noticia->delete();
-
-            return redirect('/noticias')->with('success', [
-                'titulo' => '¡Eliminado!',
-                'detalle' => 'La noticia fue eliminada con éxito.'
-            ]);
-        } catch (\Exception $e) {
-            return redirect('/noticias')->with('error', [
-                'titulo' => '¡Error!',
-                'detalle' => 'Ocurrió un problema al eliminar la noticia.'
-            ]);
-        }
+        return redirect()->route('admin.noticias')
+            ->with('success', 'Noticia eliminada correctamente');
     }
 
-    /**
-     * Edita la imagen principal de una noticia en BD y en Cloudinary.
-     *
-     * - Si llega una nueva imagen, reemplaza la existente.
-     * - Si no llega imagen nueva, mantiene la actual.
-     *
-     * @param int $id  ID de la noticia
-     * @param Request $request  Contiene la nueva imagen (si se cambió)
-     * @return JsonResponse
-     */
-    public function editarImagenNoticia($id, Request $request)
-    {
-        $noticia = NoticiasModel::find($id);
-        if (!$noticia) {
-            return response()->json([
-                'message' => [
-                    'titulo' => 'Error',
-                    'detalle' => 'Noticia no encontrada.'
-                ],
-                'status' => 'error'
-            ], 404);
-        }
 
-        // Buscar imagen actual asociada a la noticia
-        $imagenExistente = imagesNoticiasModel::where('noticia_id', $id)->first();
 
-        // Verificar si llega una nueva imagen en el request
-        $nuevaImagen = $request->file('imagen');
 
-        if ($nuevaImagen) {
-            try {
-                // Si ya existe una imagen, eliminarla de Cloudinary y de la BD
-                if ($imagenExistente) {
-                    Cloudinary::uploadApi()->destroy($imagenExistente->public_id);
-                    imagesNoticiasModel::eliminarImagen($imagenExistente);
-                }
 
-                // Subir la nueva imagen a Cloudinary
-                $upload = Cloudinary::upload($nuevaImagen->getRealPath(), [
-                    'folder' => 'noticias'
-                ]);
+/*************************************************************************************************
+*/
 
-                // Guardar la nueva imagen en BD
-                imagesNoticiasModel::create([
-                    'noticia_id' => $id,
-                    'url' => $upload->getSecurePath(),
-                    'public_id' => $upload->getPublicId(),
-                ]);
+ public function createHogar(){
 
-                return response()->json([
-                    'redirect' => "/noticias/formEditarNoticia/{$id}",
-                    'message' => [
-                        'titulo' => 'Éxito',
-                        'detalle' => 'La imagen de la noticia fue actualizada correctamente.'
-                    ],
-                    'status' => 'success'
-                ], 200);
-            } catch (\Exception $e) {
-                return response()->json([
-                    'message' => [
-                        'titulo' => 'Error',
-                        'detalle' => 'Ocurrió un error al actualizar la imagen: ' . $e->getMessage()
-                    ],
-                    'status' => 'error'
-                ], 500);
-            }
-        } else {
-            // No se envió nueva imagen
-            return response()->json([
-                'message' => [
-                    'titulo' => 'Sin cambios',
-                    'detalle' => 'No se cargó una nueva imagen, se mantiene la actual.'
-                ],
-                'status' => 'info'
-            ], 200);
-        }
+
+
     }
+
+    public function editHogar() {}
+
+    public function updateHogar() {}
+    public function eliminarInstitucion() {}
 }
-

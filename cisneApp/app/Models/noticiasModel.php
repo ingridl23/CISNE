@@ -113,4 +113,6 @@ No hace falta get() ni comparar con $perPage.
         return $noticia->delete();
     }
 
+
+
 }
