@@ -123,7 +123,7 @@ class AdminController extends Controller
     /* =====================================================
      * GUARDAR EDICIÓN
      * ===================================================== */
-    public function updateProfesional(Request $request, ProfesionalesModel $profesional)
+    public function updateProfesional(Request $request,$id)
     {
         $request->validate([
             'nombre' => 'required',
@@ -132,16 +132,23 @@ class AdminController extends Controller
             'descripcion' => 'nullable',
             'imagen' => 'nullable|image|max:2048'
         ]);
-
+        $profesional = ProfesionalesModel::findOrFail($id);
+        // Actualizar datos
         $profesional->update([
             'nombre' => $request->nombre,
             'especialidad' => $request->especialidad,
             'matricula' => $request->matricula,
-            // 'descripcion' => $request->descripcion
         ]);
 
-        // Subir imagen a Cloudinary
+        // Reemplazo de imagen si se envía una nueva
         if ($request->hasFile('imagen')) {
+
+            $imagenActual = imagesProfesionalesModel::where('profesional_id', $profesional->id)->first();
+
+            if ($imagenActual) {
+                Cloudinary::uploadApi()->destroy($imagenActual->public_id);
+                $imagenActual->delete();
+            }
 
             $upload = Cloudinary::upload(
                 $request->file('imagen')->getRealPath(),
@@ -155,8 +162,7 @@ class AdminController extends Controller
             ]);
         }
 
-        return redirect()
-            ->route('admin.profesionales')
+        return redirect()->route('admin.profesionales')
             ->with('success', 'Profesional actualizado correctamente');
     }
 
@@ -165,9 +171,11 @@ class AdminController extends Controller
 
 
 
+
+
     /****************************************** Editar profesional cargado *******************************************************/
 
-/*
+    /*
     public function showFormEditarProfesional($id)
     {
         $profesional = ProfesionalesModel::with('imagenes')->findOrFail($id);
@@ -193,7 +201,7 @@ class AdminController extends Controller
     /**
      * 1. Flujo de imágenes de profesionales
 
-************************************* Crear profesional ********************************************
+     ************************************* Crear profesional ********************************************
 
 Sube correctamente la(s) imagen(es) a Cloudinary bajo la carpeta profesionales.
 
@@ -211,30 +219,25 @@ Si no se sube nada, mantiene la actual.
 
 Perfectamente coherente con el caso de uso: “cada profesional tiene una única foto de rostro”.
      */
+
+/*
     public function editarImagenProfesional($id, Request $request)
     {
         $profesional = ProfesionalesModel::findOrFail($id);
-
         $archivo = $request->file('imagen');
 
         if (!$archivo) {
-            return back()->with('info', [
-                'titulo' => 'Sin cambios',
-                'detalle' => 'No se cargó una nueva imagen'
-            ]);
+            return back()->with('info', 'No se cargó una nueva imagen');
         }
 
-        // Imagen anterior
         $imagenActual = imagesProfesionalesModel::where('profesional_id', $id)->first();
 
         try {
-            // Eliminar si existe
             if ($imagenActual) {
                 Cloudinary::uploadApi()->destroy($imagenActual->public_id);
                 $imagenActual->delete();
             }
 
-            // Subir nueva
             $upload = Cloudinary::upload($archivo->getRealPath(), [
                 'folder' => 'profesionales'
             ]);
@@ -245,20 +248,13 @@ Perfectamente coherente con el caso de uso: “cada profesional tiene una única
                 'public_id' => $upload->getPublicId(),
             ]);
 
-            return back()->with('success', [
-                'titulo' => 'Éxito',
-                'detalle' => 'Imagen actualizada correctamente'
-            ]);
+            return back()->with('success', 'Imagen actualizada correctamente');
         } catch (\Exception $e) {
-
-            return back()->with('error', [
-                'titulo' => 'Error',
-                'detalle' => 'Hubo un problema al actualizar la imagen'
-            ]);
+            return back()->with('error', 'Hubo un problema al actualizar la imagen');
         }
     }
 
-
+*/
 
     public function eliminarProfesional($id)
     {
