@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\Auth\LoginController;
@@ -74,7 +73,7 @@ Route::middleware(['auth', 'role:admin'])
     Route::delete('/instituciones/{id}', [AdminController::class, 'eliminarHogar'])->name('instituciones.destroy');
 
 
-    //  NOTICIAS
+    // NOTICIAS
     Route::get('/noticias', [AdminController::class, 'noticias'])->name('noticias');
     Route::get('/noticias/crear', [AdminController::class, 'showFormCreateNoticia'])->name('noticias.create');
     Route::post('/noticias', [AdminController::class, 'storeNoticia'])->name('noticias.storeNoticia');

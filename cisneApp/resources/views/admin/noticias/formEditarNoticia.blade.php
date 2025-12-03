@@ -1,10 +1,11 @@
-@extends('admin.panel')
+@extends('admin.layouts')
 
 @section('panel-content')
     <h2 class="text-2xl font-bold mb-4">Editar noticia</h2>
 
-    <form action="{{ route('noticias.edit', $noticia->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf @method('PUT')
+    <form action="{{ route('admin.noticias.update', $noticia->id) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
 
         <div>
             <label>Título</label>
@@ -14,7 +15,7 @@
         <div class="mt-3">
             <label>Categoría</label>
             <select name="categoria" class="w-full p-2 border rounded">
-                @foreach (\App\Models\noticiasModel::obtenerCategorias() as $cat)
+                @foreach ($categorias as $cat)
                     <option value="{{ $cat }}"
                         {{ old('categoria', $noticia->categoria) == $cat ? 'selected' : '' }}>{{ $cat }}</option>
                 @endforeach
@@ -39,7 +40,7 @@
         </div>
 
         <div class="mt-4">
-            <button class="bg-emerald-600 text-white px-4 py-2 rounded">Guardar cambios</button>
+            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded">Guardar cambios</button>
             <a href="{{ route('admin.noticias') }}" class="ml-2 text-gray-600">Cancelar</a>
         </div>
     </form>

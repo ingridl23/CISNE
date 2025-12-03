@@ -33,11 +33,11 @@
                     required>
             </div>
             <!--
-                        <div class="col-span-2">
-                            <label>Descripción</label>
-                            <textarea name="descripcion" class="w-full p-2 border rounded" rows="4">{{ $profesional->descripcion }}</textarea>
-                        </div>
-                    -->
+                            <div class="col-span-2">
+                                <label>Descripción</label>
+                                <textarea name="descripcion" class="w-full p-2 border rounded" rows="4">{{ $profesional->descripcion }}</textarea>
+                            </div>
+                        -->
             <div>
                 <label>Matrícula</label>
                 <input name="matricula" value="{{ $profesional->matricula }}" class="w-full p-2 border rounded">
@@ -57,7 +57,7 @@
         </div>
 
         <div class="mt-4">
-            <button class="bg-emerald-600 text-white px-4 py-2 rounded">Guardar</button>
+            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded">Guardar</button>
             <a href="{{ route('admin.profesionales') }}" class="ml-2 text-gray-600">Cancelar</a>
         </div>
 

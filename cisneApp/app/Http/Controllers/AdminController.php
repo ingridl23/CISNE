@@ -394,51 +394,78 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 }
 
     protected function showFormEditNoticia($id){
-        $categorias = $this->obtenerCategorias();
-        $noticia = noticiasModel::showNoticia($id);
+        $categorias = noticiasModel::obtenerCategorias();
+        $noticia = noticiasModel::showNoticiasId($id);
         return view("admin.noticias.formEditarNoticia", compact("noticia", "categorias"));
 }
 
 
 
 
-
-    protected function editNoticia(validacionNoticia $request, NoticiasModel $noticia)
+    protected function editNoticia(validacionNoticia $request, $id)
     {
+        $noticia = NoticiasModel::findOrFail($id);
+        // Validación (la imagen NO es obligatoria)
         $request->validate([
-            'titulo' => 'required',
-            'descripcion' => 'required',
-            'imagen' => 'nullable|image|max:2048'
+            'titulo' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'categoria' => 'required|string',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
+        /** ------------------ ACTUALIZAR CAMPOS DE LA NOTICIA ------------------ **/
         $noticia->update([
             'titulo' => $request->titulo,
             'descripcion' => $request->descripcion,
+            'categoria' => $request->categoria,
         ]);
 
-        // Si se subió nueva imagen -> eliminar la anterior y subir otra
+        /** ------------------ IMAGEN ------------------ **/
+
+        // Buscar imagen actual
+        $imagen = imagesNoticiasModel::where('noticia_id', $noticia->id)->first();
+
+        // ¿Se sube nueva imagen?
         if ($request->hasFile('imagen')) {
 
-            if ($noticia->public_id) {
-                Cloudinary::uploadApi()->destroy($noticia->public_id);
+            // Si existe imagen previa → la elimino de Cloudinary
+            if ($imagen && $imagen->public_id) {
+                try {
+                    Cloudinary::uploadApi()->destroy($imagen->public_id);
+                } catch (\Exception $e) {
+                    Log::error("Error al eliminar imagen anterior: " . $e->getMessage());
+                }
             }
 
+            // Subir nueva
             $upload = Cloudinary::upload(
                 $request->file('imagen')->getRealPath(),
                 ['folder' => 'noticias']
             );
 
-            $noticia->update([
-                'imagen_url' => $upload->getSecurePath(),
-                'public_id' => $upload->getPublicId(),
-            ]);
+            $url = $upload->getSecurePath();
+            $publicId = $upload->getPublicId();
+
+            // Guardar en tabla imagen_noticias
+            if ($imagen) {
+                // Actualizar la existente
+                $imagen->update([
+                    'url' => $url,
+                    'public_id' => $publicId,
+                ]);
+            } else {
+                // Crear si no existe
+                imagesNoticiasModel::create([
+                    'noticia_id' => $noticia->id,
+                    'url' => $url,
+                    'public_id' => $publicId,
+                ]);
+            }
         }
 
         return redirect()->route('admin.noticias')
             ->with('success', 'Noticia actualizada correctamente');
-
-
-        }
+    }
 
 
 
