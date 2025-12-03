@@ -6,17 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\noticiasModel;
 class NoticiaController extends Controller
 {
-    public function index(){
+    public function index3(){
         $cantidad = 12;
         $noticias= noticiasModel::with('imagenesNoticias')->latest()->paginate($cantidad);
         return view('layouts.Noticias', compact('noticias'));
-    }
-    public function showNoticias()
-    {
-        $cantidad = 12;
-        $noticias = noticiasModel::getUltimasNoticias($cantidad);
-        return view('layouts.NoticiaIndividual', compact('noticias'))
-            ->with('i', (request()->input('page', 1) - 1) * $noticias->perPage());
     }
 
 
@@ -25,7 +18,7 @@ class NoticiaController extends Controller
         if (is_numeric($id) && $id > 0) {
             $noticia = noticiasModel::showNoticiasId($id);
             if ($noticia != null) {
-                return view("layouts.noticia", compact('noticia'));
+                return view("layouts.NoticiaIndividual", compact('noticia'));
             }
         }
     }

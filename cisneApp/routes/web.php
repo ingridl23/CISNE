@@ -18,9 +18,9 @@ use App\Http\Controllers\InstitucionController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/profesionales', [HomeController::class, 'index'])->name('profesionales');
 Route::get('/instituciones', [HomeController::class, 'index2'])->name('instituciones');
-Route::get('/novedades', [NoticiaController::class, 'index'])->name('novedades');
+Route::get('/novedades', [NoticiaController::class, 'index3'])->name('novedades');
 
-Route::get("/noticias", [NoticiaController::class, "showNoticias"]);
+
 Route::get("/noticias/{id}", [NoticiaController::class, "showNoticia"]);
 
 Route::get('/noticias/buscadorTitulo', [NoticiaController::class, 'filterNoticiasByTittle']);

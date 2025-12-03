@@ -84,8 +84,13 @@
             <p <small class=" text-body-secondary">Fecha de publicación:
                 {{ $noticia->created_at->format('Y-m-d') }}</small></p>
             <h2 class="noticiaTitulo">{{ $noticia->titulo }}</h2>
-            <img src="{{ $noticia->imagen }}" class="img-noticia img-fluid "
-                alt="Imagen de la noticia: {{ $noticia->titulo }}">
+            @if ($noticia->imagenesNoticias)
+                <img src="{{ $noticia->imagenesNoticias->url }}" class="img-noticia img-fluid "
+                    alt="Imagen de la noticia: {{ $noticia->titulo }}">
+            @else
+                <div class="w-14 h-14 bg-gray-200 rounded-full"></div>
+            @endif
+
             <div class="card-body">
                 <p class="card-text-noticia">{!! nl2br($noticia->descripcion) !!}
                 </p>

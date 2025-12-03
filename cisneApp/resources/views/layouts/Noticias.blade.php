@@ -129,7 +129,12 @@
     <div id="noticias-container">
         @foreach ($noticias as $noticia)
             <div class="card">
-                <img src="{{ $noticia->imagen }}" class="card-img-top" alt="{{ $noticia->titulo }}">
+                @if ($noticia->imagenesNoticias)
+                    <img src="{{ $noticia->imagenesNoticias->url }}" class="card-img-top"
+                        alt="{{ $noticia->titulo }}">
+                @else
+                    <div class="w-14 h-14 bg-gray-200 rounded-full"></div>
+                @endif
                 <div class="card-body">
                     <h5 class="card-title">{{ $noticia->titulo }}</h5>
                     <p class="card-text">{{ $noticia->categoria }}</p>
