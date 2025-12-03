@@ -502,17 +502,65 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     /*************************************************************************************************
      */
 
+    public function instituciones()
+    {
+        $hogares = hogarModel::with('HogaresImagenes')->paginate(10);
+
+        return view('admin.hogares.index', compact('hogares'))
+            ->with('i', (request()->input('page', 1) - 1) * $hogares->perPage());
+    }
 
 
 
- public function createHogar(){
+
+
+
+
+/************************************************************* */
+    protected function storeHogar(Request $request){
+        // Validaciones
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'redes_id' => 'required',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'direccion_id'=> 'required'
+        ]);
+
+        //creamos el hogar en tabla hogar_mayor
+        $hogar = new hogarModel();
+        $hogar->titulo = $request->titulo;
+        $hogar->descripcion = $request->descripcion;
+        $hogar->redes_id (nose como guardar)
+        $hogar->save();
+        // Cargar imagen en Cloudinary
+        $resultado = Cloudinary::upload($request->file('imagen')->getRealPath(), [
+            'folder' => 'instituciones'
+        ]);
+
+        // Obtener datos de la imagen
+        $url = $resultado->getSecurePath();
+        $publicId = $resultado->getPublicId();
+
+        // Guardar en BD imagen_noticia
+
+        $imghogar = new imagesHogarModel();
+        $imghogar->hogar_id = $hogar->id;
+
+        $imghogar->url = $url;
+        $imghogar->public_id = $publicId;
+        $imghogar->save();
+
+
+        //guardar en bd datos de redes sociales
+
+        return redirect()
+            ->route('admin.instituciones')
+            ->with('success', 'Institucion publicada correctamente');
+    }
 
 
 
     }
-
-    public function editHogar() {}
-
-    public function updateHogar() {}
-    public function eliminarInstitucion() {}
+    protected function eliminarInstitucion() {}
 }

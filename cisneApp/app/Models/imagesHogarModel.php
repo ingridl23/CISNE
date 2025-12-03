@@ -31,7 +31,7 @@ class imagesHogarModel extends Model
     ];
 
 
-    public function EmprendedorImagen()
+    public function HogaresImagen()
     {
         return $this->belongsTo(imagesHogarModel::class, 'hogar_id');
     }

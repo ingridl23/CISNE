@@ -63,10 +63,10 @@ Route::middleware(['auth', 'role:admin'])
     //INSTITUCIONES
 
     Route::get('/instituciones', [AdminController::class, 'instituciones'])->name('instituciones');
-    Route::get('/instituciones/crear', [AdminController::class, 'createHogar'])->name('instituciones.create');
-    Route::post('/instituciones', [AdminController::class, 'storeInstitucion'])->name('institucion.storeInstitucion');
+    Route::get('/instituciones/crear', [InstitucionController::class, 'createHogar'])->name('instituciones.create');
 
-    Route::get('/instituciones/{id}/editar', [AdminController::class, 'editHogar'])->name('instituciones.edit');
+    Route::get('/instituciones/{id}/editar', [AdminController::class, 'editShowHogar'])->name('instituciones.edit');
+    Route::post('/instituciones', [AdminController::class, 'storeInstitucion'])->name('instituciones.storeInstitucion');
     Route::put('/instituciones/{id}', [AdminController::class, 'updateHogar'])->name('instituciones.update');
 
    // Route::post('/instituciones/{id}/imagen', [InstitucionController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
