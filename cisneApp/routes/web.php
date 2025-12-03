@@ -76,13 +76,13 @@ Route::middleware(['auth', 'role:admin'])
 
     //  NOTICIAS
     Route::get('/noticias', [AdminController::class, 'noticias'])->name('noticias');
-        Route::get('/noticias/crear', [AdminController::class, 'showFormCreateNoticia'])->name('noticias.create');
-        Route::post('/noticias', [AdminController::class, 'createNoticia'])->name('noticias.createNoticia');
+    Route::get('/noticias/crear', [AdminController::class, 'showFormCreateNoticia'])->name('noticias.create');
+    Route::post('/noticias', [AdminController::class, 'storeNoticia'])->name('noticias.storeNoticia');
 
-        Route::get('/noticias/{id}/editar', [AdminController::class, 'showFormEditNoticia'])->name('noticias.edit');
-        Route::put('/noticias/{id}', [AdminController::class, 'editNoticia'])->name('noticias.update');
-        Route::post('/noticias/{id}/imagen', [AdminController::class, 'editarImagenNoticia'])->name('noticias.editarImagen');
-        Route::delete('/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
+    Route::get('/noticias/{id}/editar', [AdminController::class, 'showFormEditNoticia'])->name('noticias.edit');
+    Route::put('/noticias/{id}', [AdminController::class, 'editNoticia'])->name('noticias.update');
+    Route::post('/noticias/{id}/imagen', [AdminController::class, 'editarImagenNoticia'])->name('noticias.editarImagen');
+    Route::delete('/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
     });
 /* ==========================
    FORMULARIO DE CONTACTO

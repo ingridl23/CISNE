@@ -13,7 +13,7 @@
         </div>
     @endif
 --}}
-    <form action="{{ route('noticias.createNoticia') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.noticias.storeNoticia') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div>

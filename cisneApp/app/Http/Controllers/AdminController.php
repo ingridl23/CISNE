@@ -13,6 +13,7 @@ use App\Http\Requests\validacionProfesional;
 use App\Models\imagesProfesionalesModel;
 use App\Models\imagesNoticiasModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -334,7 +335,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     //traer noticias cargados para pasarlos al blade
     public function noticias()
     {
-        $noticias = hogarModel::with('imagenes')->paginate(10);
+        $noticias = noticiasModel::with('imagenesNoticias')->paginate(10);
 
         return view('admin.noticias.index', compact('noticias'))
             ->with('i', (request()->input('page', 1) - 1) * $noticias->perPage());
@@ -346,36 +347,42 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
 
-    public function createNoticia(Request $request)
+    public function storeNoticia(Request $request)
     {
         // Validaciones
         $request->validate([
             'titulo' => 'required|string|max:255',
-            'categoria' => 'required|string',
             'descripcion' => 'required|string',
+            'categoria' => 'required|string',
             'imagen' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
+        //creamos noticia en tabla noticia
+        $noticia = new NoticiasModel();
+        $noticia->titulo = $request->titulo;
+        $noticia->categoria = $request->categoria;
+        $noticia->descripcion = $request->descripcion;
+        $noticia->save();
         // Cargar imagen en Cloudinary
         $resultado = Cloudinary::upload($request->file('imagen')->getRealPath(), [
-            'folder' => 'noticias_cisne'
+            'folder' => 'noticias'
         ]);
 
         // Obtener datos de la imagen
         $url = $resultado->getSecurePath();
         $publicId = $resultado->getPublicId();
 
-        // Guardar en BD
-        $noticia = new NoticiasModel();
-        $noticia->titulo = $request->titulo;
-        $noticia->categoria = $request->categoria;
-        $noticia->descripcion = $request->descripcion;
-        $noticia->imagen_url = $url;
-        $noticia->public_id = $publicId;
-        $noticia->save();
+        // Guardar en BD imagen_noticia
+
+        $imgnoticia= new imagesNoticiasModel();
+        $imgnoticia->noticia_id = $noticia->id;
+
+        $imgnoticia->url = $url;
+        $imgnoticia->public_id = $publicId;
+        $imgnoticia->save();
 
         // Redirigir con mensaje
-        return redirect()->route('noticias')
+        return redirect()->route('admin.noticias')
             ->with('success', 'Noticia creada correctamente');
 
     }
@@ -435,24 +442,41 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
 
-    protected function deleteNoticia(NoticiasModel $noticia)
+
+
+    protected function deleteNoticia($id)
     {
-        if ($noticia->public_id) {
-            Cloudinary::uploadApi()->destroy($noticia->public_id);
+        // 1) Buscar la noticia
+        $noticia = noticiasModel::findOrFail($id);
+
+        // 2) Buscar la imagen asociada
+        $imagen = imagesNoticiasModel::where('noticia_id', $id)->first();
+
+        // 3) Si existe imagen: eliminar de Cloudinary y de la BD
+        if ($imagen) {
+            try {
+                Cloudinary::uploadApi()->destroy($imagen->public_id);
+            } catch (\Exception $e) {
+                Log::error("Error eliminando imagen en Cloudinary: " . $e->getMessage());
+            }
+
+            $imagen->delete();
         }
 
+        // 4) Eliminar noticia
         $noticia->delete();
 
-        return redirect()->route('admin.noticias')
-            ->with('success', 'Noticia eliminada correctamente');
+        return back()->with('success', 'La noticia fue eliminada correctamente.');
+
     }
 
 
 
+    /*************************************************************************************************
+     */
 
 
-/*************************************************************************************************
-*/
+
 
  public function createHogar(){
 

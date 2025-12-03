@@ -50,12 +50,13 @@
 
                             {{-- Imagen --}}
                             <td class="p-3">
-                                @if ($p->imagenes && $p->imagenes->count() > 0)
-                                    <img src="{{ $p->imagenes->first()->url }}"
+                                @if ($p->imagenesNoticias)
+                                    <img src="{{ $p->imagenesNoticias->url }}"
                                         class="w-14 h-14 rounded-full object-cover shadow">
                                 @else
                                     <div class="w-14 h-14 bg-gray-200 rounded-full"></div>
                                 @endif
+
                             </td>
 
                             {{-- titulo --}}
