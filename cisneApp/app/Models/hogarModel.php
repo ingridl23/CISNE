@@ -18,13 +18,13 @@ class hogarModel extends Model
         'direccion_id'
     ];
 
-    public static function crearHogar($nombre, $descripcion, $redes_id, $direccion_id)
+    public static function crearHogar($nombre, $descripcion, $idRedes, $idDireccion)
     {
         $hogar = hogarModel::create([
             'nombre' => $nombre,
             'descripcion' => $descripcion,
-            'redes_id' => $redes_id,
-            'direccion_id' => $direccion_id,
+            'redes_id' => $idRedes,
+            'direccion_id' => $idDireccion,
         ]);
         return $hogar->id;
     }

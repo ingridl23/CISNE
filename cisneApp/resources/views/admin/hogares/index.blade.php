@@ -1,6 +1,6 @@
 @extends('admin.layouts')
 
-@section('title', 'Profesionales')
+@section('title', 'Instituciones')
 
 @section('panel-content')
 
@@ -30,7 +30,7 @@
     <div class="bg-white rounded-lg shadow overflow-hidden">
 
         {{-- Si no hay profesionales --}}
-        @if ($instituciones->isEmpty())
+        @if ($hogares->isEmpty())
             <p class="p-6 text-center text-gray-500">
                 No hay Instituciones cargadas todavía.
             </p>
@@ -45,7 +45,7 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($instituciones as $p)
+                    @foreach ($hogares as $p)
                         <tr class="hover:bg-gray-50 transition border-b">
 
                             {{-- Imagen --}}
@@ -98,7 +98,7 @@
 
     {{-- Paginación --}}
     <div class="mt-6">
-        {{ $instituciones->links('pagination::tailwind') }}
+        {{ $hogares->links('pagination::tailwind') }}
     </div>
 
 @endsection

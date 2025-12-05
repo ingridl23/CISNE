@@ -15,13 +15,15 @@ class DireccionHogar extends Migration
     {
         Schema::create('direccion_hogar', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('provincia');
+            $table->string('localidad');
             $table->string('ciudad');
-            $table->string('localidad')->default("");
-            $table->string('calle');
-            $table->integer('altura');
+            $table->string('calleYAltura');
+
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

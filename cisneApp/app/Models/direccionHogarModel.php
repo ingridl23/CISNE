@@ -17,10 +17,11 @@ class direccionHogarModel extends Model
     protected $table = 'DireccionHogar'; // tu tabla real
 
     protected $fillable = [
-        'ciudad',
+        'provincia',
         'localidad',
-        'calle',
-        'altura'
+        'ciudad',
+        'calleYAltura',
+
     ];
 
     public function direccionHogar(): HasOne
@@ -28,13 +29,14 @@ class direccionHogarModel extends Model
         return $this->hasOne(direccionHogarModel::class, 'direccion_id', 'id');
     }
 
-    public static function crearDireccion($ciudad, $localidad, $calle, $altura)
+    public static function crearDireccion($provincia,$ciudad, $localidad, $calle)
     {
         $direccion = direccionHogarModel::create([
-            'ciudad' => $ciudad,
+            'provincia'=>$provincia,
             'localidad' => $localidad,
-            'calle' => $calle,
-            'altura' => $altura,
+            'ciudad' => $ciudad,
+            'calleyAltura' => $calle,
+
         ]);
         return $direccion->id;
     }

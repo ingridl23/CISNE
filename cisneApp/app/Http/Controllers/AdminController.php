@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\validacionNoticia;
+
+use App\Http\Requests\validacionHogar;
 use App\Models\noticiasModel;
 use App\Models\ProfesionalesModel;
 use App\Models\hogarModel;
+
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 use App\Http\Requests\validacionEditarNoticia;
 use App\Http\Requests\validacionProfesional;
+use App\Models\direccionHogarModel;
 use App\Models\imagesProfesionalesModel;
 use App\Models\imagesNoticiasModel;
+use App\Models\imagesHogarModel;
+use App\Models\redesHogarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -512,55 +518,117 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
 
+    public function createHogar()
+    {
+
+        return view('admin.hogares.formNuevoHogar');
+    }
+
+    public function updateShowHogar($id)
+    {
+        $hogar = hogarModel::FindOrFail($id);
+        return view("admin.hogares.formEditarHogar", compact("hogar"));
+    }
 
 
 
 
 /************************************************************* */
-    protected function storeHogar(Request $request){
-        // Validaciones
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'redes_id' => 'required',
-            'imagen' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'direccion_id'=> 'required'
-        ]);
+    protected function storeHogar(validacionHogar $request)
+    {
+        // Crear redes
+        $idRedes = redesHogarModel::crearRedes(
+            $request->instagram,
+            $request->facebook,
+            $request->whatsapp
+        );
 
-        //creamos el hogar en tabla hogar_mayor
-        $hogar = new hogarModel();
-        $hogar->titulo = $request->titulo;
-        $hogar->descripcion = $request->descripcion;
-        $hogar->redes_id (nose como guardar)
-        $hogar->save();
-        // Cargar imagen en Cloudinary
-        $resultado = Cloudinary::upload($request->file('imagen')->getRealPath(), [
-            'folder' => 'instituciones'
-        ]);
+        // Crear dirección
+        $idDireccion = direccionHogarModel::crearDireccion(
+            $request->provincia,
+            $request->ciudad,
+            $request->localidad,
+            $request->calleYAltura
+        );
 
-        // Obtener datos de la imagen
-        $url = $resultado->getSecurePath();
-        $publicId = $resultado->getPublicId();
+        // Crear hogar
+        $hogar = hogarModel::crearHogar(
+            $request->nombre,
+            $request->descripcion,
+            $idRedes,
+            $idDireccion
+        );
 
-        // Guardar en BD imagen_noticia
+        // Inicializar variables necesarias
+        $url = null;
+        $publicId = null;
+        $mensajes = null;
 
-        $imghogar = new imagesHogarModel();
-        $imghogar->hogar_id = $hogar->id;
+        // Si hay imagen, subirla
+        if ($request->hasFile('imagen')) {
 
-        $imghogar->url = $url;
-        $imghogar->public_id = $publicId;
-        $imghogar->save();
+            try {
+                $resultado = Cloudinary::upload(
+                    $request->file('imagen')->getRealPath(),
+                    ['folder' => 'instituciones']
+                );
 
+                $url = $resultado->getSecurePath();
+                $publicId = $resultado->getPublicId();
+            } catch (\Exception $e) {
 
-        //guardar en bd datos de redes sociales
+                $mensajes = [
+                    'titulo' => '¡Error!',
+                    'detalle' => 'Ha sucedido un error en la subida de la imagen, intente nuevamente.'
+                ];
 
-        return redirect()
-            ->route('admin.instituciones')
-            ->with('success', 'Institucion publicada correctamente');
+                return redirect()
+                    ->back()
+                    ->with('mensaje_error', $mensajes)
+                    ->withInput();
+            }
+        }
+
+        // Guardar imagen en BD
+        try {
+            $imghogar = new imagesHogarModel();
+            $imghogar->hogar_id = $hogar->id;
+            $imghogar->url = $url;
+            $imghogar->public_id = $publicId;
+            $imghogar->save();
+        } catch (\Exception $e) {
+
+            $mensajes = [
+                'titulo' => '¡Error!',
+                'detalle' => 'Ha sucedido un error en la carga de la imagen en la BD.'
+            ];
+
+            return redirect()
+                ->back()
+                ->with('mensaje_error', $mensajes)
+                ->withInput();
+        }
+
+        // Si todo salió bien
+        if ($idRedes && $idDireccion && $hogar) {
+
+            return redirect()
+                ->route('admin.instituciones')
+                ->with('success', 'Institucion publicada correctamente');
+        }
+
+        // Si algo falló en la creación
+        $mensajes = [
+            'titulo' => '¡Error!',
+            'detalle' => 'Ha sucedido un error al publicar la institucion, inténtelo nuevamente.'
+        ];
+
+        return redirect('admin/instituciones')
+            ->with('error', $mensajes)
+            ->withInput();
     }
 
 
-
-    }
     protected function eliminarInstitucion() {}
 }
+

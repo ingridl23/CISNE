@@ -35,13 +35,4 @@ class HomeController extends Controller{
     }
 
 
-    public function createHogar() {
-
-        return view('admin.hogares.formNuevoHogar');
-    }
-
-    public function updateShowHogar($id) {
-        $hogar = hogarModel::FindOrFail($id);
-        return view("admin.hogares.formEditarHogar", compact("hogar"));
-    }
 }

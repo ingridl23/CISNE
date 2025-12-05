@@ -32,6 +32,6 @@ class ProfesionalEnvioCV extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profesional_evioCV');
+        Schema::dropIfExists('profesional_envioCV');
     }
 }
