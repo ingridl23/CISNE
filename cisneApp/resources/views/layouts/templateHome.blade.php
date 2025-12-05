@@ -195,24 +195,34 @@
                     </p>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <!-- Portfolio item 1-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                    @foreach ($hogares as $hogar)
+                        <div class="col-lg-4 col-sm-6 mb-4">
+                            <div class="portfolio-item">
+                                <a class="portfolio-link" data-bs-toggle="modal"
+                                    href="#modalHogar{{ $hogar->id }}">
+                                    <div class="portfolio-hover">
+                                        <div class="portfolio-hover-content">
+                                            <i class="fas fa-plus fa-3x"></i>
+                                        </div>
+                                    </div>
+
+                                    {{-- Imagen principal del hogar --}}
+                                    <img class="img-fluid"
+                                        src="{{ $hogar->imagenes->first()->url ?? 'assets/img/portfolio/default.jpg' }}"
+                                        alt="{{ $hogar->nombre }}" />
+                                </a>
+
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">{{ $hogar->nombre }}</div>
+                                    <div class="portfolio-caption-subheading text-muted">
+                                        {{ $hogar->descripcion ? Str::limit($hogar->descripcion, 30) : '' }}
+                                    </div>
                                 </div>
-                                <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..." />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Threads</div>
-                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
                             </div>
                         </div>
-                    </div>
-
-
+                    @endforeach
                 </div>
+
             </div>
         </section>
 
@@ -409,48 +419,66 @@
         @include('layouts.footer')
         <!-- Portfolio Modals-->
         <!-- Portfolio item 1 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <button class="custom-modal-close" data-bs-dismiss="modal"> </button>
+        @foreach ($hogares as $hogar)
+            <div class="portfolio-modal modal fade" id="modalHogar{{ $hogar->id }}" tabindex="-1"
+                role="dialog" aria-hidden="true">
 
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Hogar numero uno</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg"
-                                        alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos
-                                        deserunt
-                                        repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores
-                                        repudiandae,
-                                        nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Threads
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Illustration
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                        type="button">
-                                        volver a inicio
-                                    </button>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <button class="custom-modal-close" data-bs-dismiss="modal"></button>
+
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+
+                                    <div class="modal-body">
+                                        <!-- Título -->
+                                        <h2 class="text-uppercase">{{ $hogar->nombre }}</h2>
+
+                                        <!-- Subtítulo -->
+                                        <p class="item-intro text-muted">
+                                            {{ $hogar->descripcion }}
+                                        </p>
+
+                                        <!-- Imagen -->
+                                        <img class="img-fluid d-block mx-auto"
+                                            src="{{ $hogar->imagenes->first()->url ?? 'assets/img/portfolio/default.jpg' }}"
+                                            alt="{{ $hogar->nombre }}" />
+
+                                        <!-- Información -->
+                                        <p>
+                                            @if ($hogar->descripcion)
+                                                {{ $hogar->descripcion }}
+                                            @endif
+                                        </p>
+
+                                        <ul class="list-inline">
+                                            <li>
+                                                <strong>Ciudad:</strong>
+                                                {{ $hogar->direccion->ciudad ?? 'No disponible' }}
+                                            </li>
+                                            <li>
+                                                <strong>Provincia:</strong>
+                                                {{ $hogar->direccion->provincia ?? 'No disponible' }}
+                                            </li>
+                                        </ul>
+
+                                        <!-- Botón volver -->
+                                        <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal">
+                                            volver a inicio
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
             </div>
-        </div>
+        @endforeach
 
 
         <!-- Bootstrap core JS-->

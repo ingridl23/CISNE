@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProfesionalesModel;
 use App\Models\hogarModel;
+use App\Models\imagesHogarModel;
 use Illuminate\Support\ViewErrorBag;
 /**
  *
@@ -34,15 +35,15 @@ class HomeController extends Controller
     }
     public function index2()
     {
-        // Traer profesionales con su imagen (solo retrato principal)
+        // Traer hogares con su imagen (solo retrato principal)
 
 
         $hogares = hogarModel::with('imagenes')->paginate(12);
 
-        return view('layouts.templateHome', [
-            'instituciones' => $hogares,
-            'errors' => session()->get('errors') ?: new ViewErrorBag,
-        ]);
+        return view('layouts.templateHome', compact('hogares');
+
+
+
     }
 
 }
