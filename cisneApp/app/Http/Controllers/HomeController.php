@@ -21,29 +21,20 @@ use Illuminate\Support\ViewErrorBag;
 
 class HomeController extends Controller
 {
+
+
     public function index()
     {
-    // Traer profesionales con su imagen (solo retrato principal)
-
-
+        // Profesionales
         $profesionales = ProfesionalesModel::with('imagenes')->paginate(12);
+
+        // Hogares
+        $hogares = hogarModel::with('imagenes','direccion','redes')->paginate(12);
 
         return view('layouts.templateHome', [
             'profesionales' => $profesionales,
+            'hogares' => $hogares,
             'errors' => session()->get('errors') ?: new ViewErrorBag,
         ]);
     }
-    public function index2()
-    {
-        // Traer hogares con su imagen (solo retrato principal)
-
-
-        $hogares = hogarModel::with('imagenes')->paginate(12);
-
-        return view('layouts.templateHome', compact('hogares');
-
-
-
-    }
-
 }

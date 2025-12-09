@@ -19,96 +19,97 @@
         </div>
     @endif
 
-    <form class="form" action="{{ route('admin.instituciones.storeInstitucion') }}" method="POST"
-        enctype="multipart/form-data">
+
+    <form class="form" action="{{ route('admin.instituciones.storeHogar') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('POST')
 
+        <div class="grid gap-4">
 
-        <div class="grid  gap-4">
-
+            {{-- Imagen --}}
             <div>
                 <label class="block text-sm">Imagen (Portada)</label>
-                <input type="file" name="imagen" accept="image/*" class="w-full" id="imagen"required>
-
-
+                <input type="file" name="imagen" accept="image/*" class="w-full" id="imagen">
             </div>
+
+            {{-- Nombre --}}
             <div>
                 <label class="block text-sm">Nombre</label>
-                <input name="nombre" class="w-full p-2 border rounded" id="nombre" required>
+                <input name="nombre" class="w-full p-2 border rounded" value="{{ old('nombre') }}" required>
             </div>
 
+            {{-- Descripción --}}
             <div>
                 <label class="block text-sm">Descripcion</label>
-                <input name="descripcion" class="w-full p-2 border rounded" id="especialidad " required>
+                <input name="descripcion" class="w-full p-2 border rounded" value="{{ old('descripcion') }}" required>
             </div>
 
-
-
-            <div <label class="block text-sm" for="facebook">Facebook</label>
-                <input type="text" name="facebook" id="facebook" placeholder=""
-                    value="{{ isset($institucion) ? $institucion->redes->facebook : '' }}">
-
-                <p class="form-subtitulos">Si posee usuario de facebook,ingrese el nombre de usuario</p>
+            {{-- Facebook --}}
+            <div>
+                <label class="block text-sm" for="facebook">Facebook</label>
+                <input type="text" name="facebook" id="facebook" value="{{ old('facebook') }}">
+                <p class="form-subtitulos">Usuario de Facebook</p>
             </div>
+
+            {{-- Instagram --}}
             <div>
                 <label class="block text-sm" for="instagram">Instagram</label>
-                <input type="text" name="instagram" id="instagram" placeholder=""
-                    value="{{ isset($institucion) ? $institucion->redes->instagram : '' }}">
-
-                <p class="form-subtitulos">Si posee usuario de Instagram, ingrese el nombre de usuario</p>
+                <input type="text" name="instagram" id="instagram" value="{{ old('instagram') }}">
+                <p class="form-subtitulos">Usuario de Instagram</p>
             </div>
+
+            {{-- WhatsApp --}}
             <div>
-                <label class="block text-sm" for="whatsapp">Número de WhatsApp <span class="asterisco">*</span></label>
-                <input type="number" name="whatsapp" id="whatsapp" required placeholder=""
-                    value="{{ isset($institucion) ? $institucion->redes->whatsapp : '' }}">
-
-            </div>
-            <p class="form-subtitulos">Ingresar un número de telefono del emprendedor/ra</p>
-
-
-
-            <div class="provincias-del-pais">
-                <label for="provincia" class="block text-sm text-gray-700">
-                    Provincia <span class="asterisco">*</span>
+                <label class="block text-sm" for="whatsapp">
+                    Número de WhatsApp <span class="asterisco">*</span>
                 </label>
+                <input type="number" name="whatsapp" id="whatsapp" required value="{{ old('whatsapp') }}">
+            </div>
 
+            {{-- Provincia --}}
+            <div>
+                <label for="provincia" class="block text-sm">Provincia *</label>
                 <select id="provincia" name="provincia" required>
-                    <option value="" disabled selected>Seleccionar provincia...</option>
+                    <option value="" disabled {{ old('provincia') ? '' : 'selected' }}>
+                        Seleccionar provincia...
+                    </option>
 
-                    {{-- Si estás editando una institución --}}
-                    @if (isset($institucion))
-                        <option value="{{ $institucion->direccion->provincia }}" selected class="opcionValorCargado">
-                            {{ $institucion->direccion->provincia }}
+                    @if (old('provincia'))
+                        <option value="{{ old('provincia') }}" selected>
+                            {{ old('provincia') }}
                         </option>
                     @endif
                 </select>
-
-
             </div>
 
+            {{-- Localidad --}}
+            <div>
+                <label class="block text-sm">Localidad</label>
+                <input name="localidad" class="w-full p-2 border rounded" required value="{{ old('localidad') }}">
+            </div>
 
+            {{-- Ciudad --}}
             <div>
                 <label class="block text-sm">Ciudad</label>
-                <input name="ciudad" class="w-full p-2 border rounded" id="ciudad" required>
-
+                <input name="ciudad" class="w-full p-2 border rounded" required value="{{ old('ciudad') }}">
             </div>
 
+            {{-- Calle --}}
             <div>
                 <label class="block text-sm">Calle y Numero</label>
-                <input name="calleYAltura" class="w-full p-2 border rounded" id="calleYAltura" required>
-
+                <input name="calleYAltura" class="w-full p-2 border rounded" required value="{{ old('calleYAltura') }}">
             </div>
 
         </div>
 
-
-
         <div class="mt-4">
-            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded crear">Publicar</button>
+            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded">
+                Publicar
+            </button>
             <a href="{{ route('admin.instituciones') }}" class="ml-2 text-gray-600">Cancelar</a>
         </div>
 
     </form>
 
+
 @endsection
+<script src="{{ asset('js/validacionDireccion.js') }}"></script>

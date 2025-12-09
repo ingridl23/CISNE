@@ -510,7 +510,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
     public function instituciones()
     {
-        $hogares = hogarModel::with('HogaresImagenes')->paginate(10);
+        $hogares = hogarModel::with('imagenes')->paginate(10);
 
         return view('admin.hogares.index', compact('hogares'))
             ->with('i', (request()->input('page', 1) - 1) * $hogares->perPage());
@@ -524,30 +524,32 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         return view('admin.hogares.formNuevoHogar');
     }
 
-    public function updateShowHogar($id)
+    public function editShowHogar($id)
     {
         $hogar = hogarModel::FindOrFail($id);
         return view("admin.hogares.formEditarHogar", compact("hogar"));
     }
 
 
+    /************************************************************* */
+    public function storeHogar(Request $request)
 
 
-/************************************************************* */
-    protected function storeHogar(validacionHogar $request)
     {
+       // dd("ENTRÓ AL MÉTODO");
+
         // Crear redes
-        $idRedes = redesHogarModel::crearRedes(
+        $Redes = redesHogarModel::crearRedes(
             $request->instagram,
             $request->facebook,
             $request->whatsapp
         );
 
         // Crear dirección
-        $idDireccion = direccionHogarModel::crearDireccion(
+        $Direccion = direccionHogarModel::crearDireccion(
             $request->provincia,
-            $request->ciudad,
             $request->localidad,
+            $request->ciudad,
             $request->calleYAltura
         );
 
@@ -555,8 +557,9 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         $hogar = hogarModel::crearHogar(
             $request->nombre,
             $request->descripcion,
-            $idRedes,
-            $idDireccion
+            $Redes->id,
+            $Direccion->id
+
         );
 
         // Inicializar variables necesarias
@@ -591,6 +594,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
         // Guardar imagen en BD
         try {
+
             $imghogar = new imagesHogarModel();
             $imghogar->hogar_id = $hogar->id;
             $imghogar->url = $url;
@@ -610,7 +614,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         }
 
         // Si todo salió bien
-        if ($idRedes && $idDireccion && $hogar) {
+        if ($Redes && $Direccion && $hogar) {
 
             return redirect()
                 ->route('admin.instituciones')
@@ -628,7 +632,58 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
             ->withInput();
     }
 
+    public function eliminarHogar($id)
+    {
+        try {
+            // Buscar el hogar con todas las relaciones
+            $hogar = hogarModel::with(['imagenes', 'direccion', 'redes'])->findOrFail($id);
 
-    protected function eliminarInstitucion() {}
+            /* ------------------------------------------------------
+           1) ELIMINAR IMÁGENES
+        ------------------------------------------------------ */
+            if ($hogar->imagenes && $hogar->imagenes->count() > 0) {
+
+                foreach ($hogar->imagenes as $img) {
+
+                    /* Si usás Cloudinary y guardás el public_id, eliminá así:
+
+                \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::destroy($img->public_id);
+
+                */
+
+                    // Eliminar registro en la base
+                    $img->delete();
+                }
+            }
+
+            /* ------------------------------------------------------
+           2) ELIMINAR DIRECCIÓN (si existe)
+        ------------------------------------------------------ */
+            if ($hogar->direccion) {
+                $hogar->direccion->delete();
+            }
+
+            /* ------------------------------------------------------
+           3) ELIMINAR REDES (si existen)
+        ------------------------------------------------------ */
+            if ($hogar->redes) {
+                $hogar->redes->delete();
+            }
+
+            /* ------------------------------------------------------
+           4) ELIMINAR EL HOGAR
+        ------------------------------------------------------ */
+            $hogar->delete();
+
+            return redirect()
+                ->route('admin.instituciones')
+                ->with('success', 'La institución fue eliminada correctamente.');
+        } catch (\Exception $e) {
+
+            return redirect()
+                ->route('admin.instituciones')
+                ->with('error', 'Error al eliminar institución: ' . $e->getMessage());
+        }
+    }
 }
 

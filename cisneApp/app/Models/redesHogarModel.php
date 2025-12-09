@@ -11,7 +11,7 @@ class redesHogarModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'RedHogar'; // tu tabla real
+    protected $table = 'red_hogar'; // tu tabla real
 
     protected $fillable = [
         'instagram',
@@ -52,17 +52,19 @@ class redesHogarModel extends Model
     //dar de alta
     public static function crearRedes($instagram, $facebook, $whatsapp)
     {
-        if (isset($instagram)) {
+        if ($instagram) {
             $instagram = "https://instagram.com/{$instagram}";
         }
-        if (isset($facebook)) {
+        if ($facebook) {
             $facebook = "https://facebook.com/{$facebook}";
         }
-        $redes = redesHogarModel::create([
+
+        $redes = self::create([
             'instagram' => $instagram,
             'facebook' => $facebook,
             'whatsapp' => $whatsapp,
         ]);
-        return $redes->id;
+
+        return $redes; // ← DEVUELVO OBJETO
     }
 }

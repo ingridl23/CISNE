@@ -11,7 +11,7 @@ class imagesHogarModel extends Model
     use HasFactory;
 
 
-    protected $table = 'ImagenHogar'; //  tabla real
+    protected $table = 'imagen_hogar'; //  tabla real
 
 
     protected static function newFactory()

@@ -207,7 +207,7 @@
                                     </div>
 
                                     {{-- Imagen principal del hogar --}}
-                                    <img class="img-fluid"
+                                    <img class="img-fluid" style="width: 200px; height: auto;"
                                         src="{{ $hogar->imagenes->first()->url ?? 'assets/img/portfolio/default.jpg' }}"
                                         alt="{{ $hogar->nombre }}" />
                                 </a>
@@ -441,10 +441,15 @@
                                             {{ $hogar->descripcion }}
                                         </p>
 
-                                        <!-- Imagen -->
-                                        <img class="img-fluid d-block mx-auto"
-                                            src="{{ $hogar->imagenes->first()->url ?? 'assets/img/portfolio/default.jpg' }}"
-                                            alt="{{ $hogar->nombre }}" />
+                                        @if ($hogar->imagenes->first())
+                                            <img class="img-fluid d-block mx-auto"
+                                                src="{{ $hogar->imagenes->first()->url }}"
+                                                alt="{{ $hogar->nombre }}" />
+                                        @else
+                                            <div class="img-fluid d-block mx-auto"
+                                                style="width:300px; height:300px; background:#e5e5e5; border-radius:8px;">
+                                            </div>
+                                        @endif
 
                                         <!-- Información -->
                                         <p>

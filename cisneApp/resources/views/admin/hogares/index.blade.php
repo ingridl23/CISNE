@@ -50,8 +50,8 @@
 
                             {{-- Imagen --}}
                             <td class="p-3">
-                                @if ($p->imagenesHogares)
-                                    <img src="{{ $p->imagenesHogares->url }}"
+                                @if ($p->imagenes->first())
+                                    <img src="{{ $p->imagenes->first()->url }}"
                                         class="w-14 h-14 rounded-full object-cover shadow">
                                 @else
                                     <div class="w-14 h-14 bg-gray-200 rounded-full"></div>

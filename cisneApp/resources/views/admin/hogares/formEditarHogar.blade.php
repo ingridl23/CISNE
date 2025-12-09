@@ -20,45 +20,90 @@
         @csrf
         @method('PUT')
 
-        <div class="grid grid-cols-2 gap-4">
 
+        <div class="grid gap-4">
+
+            {{-- Imagen --}}
             <div>
-                <label>Nombre</label>
-                <input name="nombre" value="{{ $profesional->nombre }}" class="w-full p-2 border rounded" required>
+                <label class="block text-sm">Imagen (Portada)</label>
+                <input type="file" name="imagen" accept="image/*" class="w-full" id="imagen">
             </div>
 
+            {{-- Nombre --}}
             <div>
-                <label>Especialidad</label>
-                <input name="especialidad" value="{{ $profesional->especialidad }}" class="w-full p-2 border rounded"
-                    required>
-            </div>
-            <!--
-                            <div class="col-span-2">
-                                <label>Descripción</label>
-                                <textarea name="descripcion" class="w-full p-2 border rounded" rows="4">{{ $profesional->descripcion }}</textarea>
-                            </div>
-                        -->
-            <div>
-                <label>Matrícula</label>
-                <input name="matricula" value="{{ $profesional->matricula }}" class="w-full p-2 border rounded">
+                <label class="block text-sm">Nombre</label>
+                <input name="nombre" class="w-full p-2 border rounded" value="{{ old('nombre') }}" required>
             </div>
 
+            {{-- Descripción --}}
             <div>
-                <label>Imagen actual</label><br>
+                <label class="block text-sm">Descripcion</label>
+                <input name="descripcion" class="w-full p-2 border rounded" value="{{ old('descripcion') }}" required>
+            </div>
 
-                @if ($imagenes && $imagenes->first())
-                    <img src="{{ $imagenes->first()->url }}" class="w-24 h-24 rounded-full object-cover mb-2">
-                @endif
+            {{-- Facebook --}}
+            <div>
+                <label class="block text-sm" for="facebook">Facebook</label>
+                <input type="text" name="facebook" id="facebook" value="{{ old('facebook') }}">
+                <p class="form-subtitulos">Usuario de Facebook</p>
+            </div>
 
-                <label class="block text-sm mt-2">Subir nueva imagen</label>
-                <input type="file" name="imagen" accept="image/*">
+            {{-- Instagram --}}
+            <div>
+                <label class="block text-sm" for="instagram">Instagram</label>
+                <input type="text" name="instagram" id="instagram" value="{{ old('instagram') }}">
+                <p class="form-subtitulos">Usuario de Instagram</p>
+            </div>
+
+            {{-- WhatsApp --}}
+            <div>
+                <label class="block text-sm" for="whatsapp">
+                    Número de WhatsApp <span class="asterisco">*</span>
+                </label>
+                <input type="number" name="whatsapp" id="whatsapp" required value="{{ old('whatsapp') }}">
+            </div>
+
+            {{-- Provincia --}}
+            <div>
+                <label for="provincia" class="block text-sm">Provincia *</label>
+                <select id="provincia" name="provincia" required>
+                    <option value="" disabled {{ old('provincia') ? '' : 'selected' }}>
+                        Seleccionar provincia...
+                    </option>
+
+                    @if (old('provincia'))
+                        <option value="{{ old('provincia') }}" selected>
+                            {{ old('provincia') }}
+                        </option>
+                    @endif
+                </select>
+            </div>
+
+            {{-- Localidad --}}
+            <div>
+                <label class="block text-sm">Localidad</label>
+                <input name="localidad" class="w-full p-2 border rounded" required value="{{ old('localidad') }}">
+            </div>
+
+            {{-- Ciudad --}}
+            <div>
+                <label class="block text-sm">Ciudad</label>
+                <input name="ciudad" class="w-full p-2 border rounded" required value="{{ old('ciudad') }}">
+            </div>
+
+            {{-- Calle --}}
+            <div>
+                <label class="block text-sm">Calle y Numero</label>
+                <input name="calleYAltura" class="w-full p-2 border rounded" required value="{{ old('calleYAltura') }}">
             </div>
 
         </div>
 
         <div class="mt-4">
-            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded">Guardar</button>
-            <a href="{{ route('admin.profesionales') }}" class="ml-2 text-gray-600">Cancelar</a>
+            <button type="submit" class="bg-emerald-600 text-white px-4 py-2 rounded">
+                Publicar
+            </button>
+            <a href="{{ route('admin.instituciones') }}" class="ml-2 text-gray-600">Cancelar</a>
         </div>
 
     </form>

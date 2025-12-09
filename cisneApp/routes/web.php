@@ -15,8 +15,8 @@ use App\Http\Controllers\InstitucionController;
    ========================== */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/profesionales', [HomeController::class, 'index'])->name('profesionales');
-Route::get('/instituciones', [HomeController::class, 'index2'])->name('instituciones');
+/*Route::get('/profesionales', [HomeController::class, 'index'])->name('profesionales');
+Route::get('/instituciones', [HomeController::class, 'index'])->name('instituciones');*/
 Route::get('/novedades', [NoticiaController::class, 'index3'])->name('novedades');
 
 
@@ -66,7 +66,7 @@ Route::middleware(['auth', 'role:admin'])
     Route::get('/instituciones/crear', [AdminController::class,'createHogar'])->name('instituciones.create');
 
     Route::get('/instituciones/{id}/editar', [AdminController::class, 'editShowHogar'])->name('instituciones.edit');
-    Route::post('/instituciones', [AdminController::class, 'storeInstitucion'])->name('instituciones.storeInstitucion');
+    Route::post('/instituciones', [AdminController::class, 'storeHogar'])->name('instituciones.storeHogar');
     Route::put('/instituciones/{id}', [AdminController::class, 'updateHogar'])->name('instituciones.update');
 
    // Route::post('/instituciones/{id}/imagen', [InstitucionController::class, 'editarImagenProfesional'])->name('profesionales.editarImagen');
