@@ -22,9 +22,12 @@ Route::get('/novedades', [NoticiaController::class, 'index3'])->name('novedades'
 
 Route::get("/noticias/{id}", [NoticiaController::class, "showNoticia"]);
 
+
+
 Route::get('/noticias/buscadorTitulo', [NoticiaController::class, 'filterNoticiasByTittle']);
 Route::get('/noticias/buscadorCategoria', [NoticiaController::class, 'filterNoticiasByCategory']);
 Route::get('/noticias/buscadorFecha', [NoticiaController::class, 'filterNoticiasByDate']);
+
 
 /* ==========================
    LOGIN
