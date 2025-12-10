@@ -21,6 +21,8 @@ use App\Models\redesHogarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+use function PHPUnit\Framework\isEmpty;
+
 class AdminController extends Controller
 {
     //
@@ -529,6 +531,111 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         $hogar = hogarModel::FindOrFail($id);
         return view("admin.hogares.formEditarHogar", compact("hogar"));
     }
+
+
+    public function updateHogar($id,Request $request){
+
+        $hogar = hogarModel::findOrFail($id);
+        // Validación (la imagen NO es obligatoria)
+        $request->validate([
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'facebook'=>'required|string',
+            'instagram' => 'required|string',
+            'whatsapp' => 'required|string',
+            'provincia' => 'required|string',
+            'localidad' => 'required|string',
+            'ciudad' => 'required|string',
+            'calleYAltura' => 'required|string',
+
+        ]);
+
+        /** ------------------ ACTUALIZAR CAMPOS DEL HOGAR------------------ **/
+        $hogar->update([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'redes_id' => $hogar->redes_id,
+            'direccion_id' => $hogar->direccion_id
+        ]);
+
+
+        $redes= redesHogarModel::findOrFail($hogar->redes_id);
+
+        $redes->update([
+          'instagram'=>$request->instagram,
+          'facebook'=>$request->facebook,
+          'whatsapp'=>$request->whatsapp
+        ]);
+
+        $direccion = direccionHogarModel::findOrFail($hogar->direccion_id);
+
+        $direccion->update([
+            'provincia'=>$request->provincia,
+            'localidad'=>$request->localidad,
+            'ciudad'=>$request->ciudad,
+            'calleYAltura'=>$request->calleYAltura
+        ]);
+
+        //actualizar imagen cargada al hogar
+
+        // Buscar imagen actual
+
+
+        $imagen = imagesHogarModel::where('hogar_id', $hogar->id)->first();
+
+
+        // ¿Se sube nueva imagen?
+        if ($request->hasFile('imagen')) {
+
+            // Si existe imagen previa → la elimino de Cloudinary
+            if ($imagen && $imagen->public_id) {
+                try {
+                    Cloudinary::uploadApi()->destroy($imagen->public_id);
+                } catch (\Exception $e) {
+                    Log::error("Error al eliminar imagen anterior: " . $e->getMessage());
+                }
+            }
+
+            // Subir nueva
+            $upload = Cloudinary::upload(
+                $request->file('imagen')->getRealPath(),
+                ['folder' => 'instituciones']
+            );
+
+            $url = $upload->getSecurePath();
+            $publicId = $upload->getPublicId();
+
+            // Guardar en tabla imagen_noticias
+            if ($imagen) {
+                // Actualizar la existente
+                $imagen->update([
+                    'url' => $url,
+                    'public_id' => $publicId,
+                ]);
+            } else {
+                // Crear si no existe
+                imagesHogarModel::create([
+                    'hogar_id' => $hogar->id,
+                    'url' => $url,
+                    'public_id' => $publicId,
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.instituciones')
+            ->with('success', 'Instituciones actualizada correctamente');
+
+       // return back()->with('success', 'Instituciones actualizada correctamente');
+    }
+
+
+
+
+
+
+
+
 
 
     /************************************************************* */
