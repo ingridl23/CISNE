@@ -325,7 +325,7 @@
                 </fieldset>
 
                 <!-- campo para cargar CV, visible solo si busca empleo -->
-                <div class="field-group">
+                <div class="field-group campoCV">
 
                     <input type="file" id="cv" name="cv" accept=".pdf">
                     <label for="cv">Cargar currículum vitae PDF <span class="asterisco">*</span>

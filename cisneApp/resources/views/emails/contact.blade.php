@@ -17,7 +17,7 @@
 
     @if ($data['opcion'] === 'institucion')
         <hr>
-        <h3>Datos de la Institucion</h3>
+        <h3>Datos de la Institucion En contacto:</h3>
         <p><strong>Nombre de la institucion:</strong> {{ $data['name'] ?? 'No provisto' }}</p>
     @elseif ($data['opcion'] === 'particular')
         <hr>
@@ -27,7 +27,7 @@
         <p><strong>Teléfono:</strong> {{ $data['tel'] ?? 'No provisto' }}</p>
     @elseif ($data['opcion'] === 'profesional')
         <hr>
-        <h3>Datos de quien busca una entrevista laboral en CISNE </h3>
+        <h3>Datos Para entrevista laboral en CISNE </h3>
 
         <p><strong>Nombre:</strong> {{ $data['name'] }}</p>
         <p><strong>Email:</strong> {{ $data['email'] }}</p>
