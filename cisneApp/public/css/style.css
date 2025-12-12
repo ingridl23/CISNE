@@ -291,18 +291,8 @@ body {
 }
 
 
-/* --- MODAL CENTRADO 100% RESPONSIVE --- */
-
-.custom-modal.open {
-    display: block;
-}
-
-
-/*
 /* ✂ Mostrar modal cuando tenga .open */
 
-
-/*
 .custom-modal.open {
     display: block;
     position: fixed;
@@ -318,16 +308,13 @@ body {
     z-index: 20;
     text-align: center;
 }
-*/
 
 
 /* ─── ESTILO WIRE-FRAME PARA EL MODAL ─── */
 
-
-/*
 .custom-modal {
     display: none;
-
+    /* sigue oculto hasta que JS le ponga .open */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -341,26 +328,11 @@ body {
     z-index: 20;
     text-align: center;
     overflow-y: auto;
-    // permite hacer scroll si hay muchos campos
+    /* permite hacer scroll si hay muchos campos */
     padding: 1.5rem 1rem;
-
-    //ancho máximo para desktop
+    /**********************************************************/
+    /* ancho máximo para desktop */
     max-height: 90vh;
-}
-*/
-
-
-/* --- RESPONSIVE --- */
-
-@media (max-width: 600px) {
-    .custom-modal {
-        width: 95%;
-        max-width: none;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 1.2rem;
-    }
 }
 
 
