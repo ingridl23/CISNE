@@ -202,7 +202,7 @@
                                     href="#modalHogar{{ $hogar->id }}">
                                     <div class="portfolio-hover">
                                         <div class="portfolio-hover-content">
-                                            <i class="fas fa-plus fa-3x"></i>
+                                            {{-- <i class="fas fa-plus fa-3x"></i>   --}}
                                         </div>
                                     </div>
 
@@ -468,6 +468,27 @@
                                                 {{ $hogar->direccion->provincia ?? 'No disponible' }}
                                             </li>
                                         </ul>
+                                        <ul class="list-inline">
+                                            <!-- Subtítulo -->
+                                            <p class="item-intro text-muted">
+                                                Medios De Contacto Con La Institucion
+                                            </p>
+                                            <li>
+                                                <strong>Facebook</strong>
+                                                {{ $hogar->redes->facebook ?? 'No disponible' }}
+                                            </li>
+                                            <li>
+                                                <strong>Instagram:</strong>
+                                                {{ $hogar->redes->instagram ?? 'No disponible' }}
+                                            </li>
+                                            <li>
+                                                <strong>Whatsapp:</strong>
+                                                {{ $hogar->redes->whatsapp ?? 'No disponible' }}
+                                            </li>
+
+                                        </ul>
+
+
 
                                         <!-- Botón volver -->
                                         <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal">
