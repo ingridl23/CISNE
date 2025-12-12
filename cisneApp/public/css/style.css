@@ -615,3 +615,26 @@ input.oculto {
 .whatsapp {
     max-width: 55px;
 }
+
+
+/* Centrar los items de hogares en celular */
+
+@media (max-width: 576px) {
+    .portfolio-item {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .portfolio-item img {
+        display: block;
+        margin: 0 auto;
+        /* centra la imagen */
+    }
+    .portfolio-caption {
+        text-align: center;
+        /* centra los textos */
+    }
+    li {
+        font-size: small;
+    }
+}

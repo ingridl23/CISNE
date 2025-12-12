@@ -434,7 +434,7 @@
 
                                     <div class="modal-body">
                                         <!-- Título -->
-                                        <h2 class="text-uppercase">{{ $hogar->nombre }}</h2>
+                                        <h3 class="text-uppercase">{{ $hogar->nombre }}</h3>
 
                                         <!-- Subtítulo -->
                                         <p class="item-intro text-muted">
