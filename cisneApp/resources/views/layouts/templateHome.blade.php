@@ -436,10 +436,7 @@
                                         <!-- Título -->
                                         <h3 class="text-uppercase">{{ $hogar->nombre }}</h3>
 
-                                        <!-- Subtítulo -->
-                                        <p class="item-intro text-muted">
-                                            {{ $hogar->descripcion }}
-                                        </p>
+
 
                                         @if ($hogar->imagenes->first())
                                             <img class="img-fluid d-block mx-auto"
