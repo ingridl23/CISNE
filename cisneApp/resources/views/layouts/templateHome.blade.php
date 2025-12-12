@@ -196,7 +196,7 @@
                 </div>
                 <div class="row">
                     @foreach ($hogares as $hogar)
-                        <div class="col-sm-6 mb-4">
+                        <div class="col-lg-4 col-sm-6 mb-4">
                             <div class="portfolio-item">
                                 <a class="portfolio-link" data-bs-toggle="modal"
                                     href="#modalHogar{{ $hogar->id }}">
