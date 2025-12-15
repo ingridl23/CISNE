@@ -28,6 +28,13 @@ Route::get('/noticias/buscadorTitulo', [NoticiaController::class, 'filterNoticia
 Route::get('/noticias/buscadorCategoria', [NoticiaController::class, 'filterNoticiasByCategory']);
 Route::get('/noticias/buscadorFecha', [NoticiaController::class, 'filterNoticiasByDate']);
 
+/* ==========================
+   FORMULARIO DE CONTACTO
+   ========================== */
+
+Route::get('/formar/parte', [FormController::class, "contacto"]);
+Route::post('/formulario/enviar', [FormController::class, 'enviar'])->name('formulario.enviar');
+
 
 /* ==========================
    LOGIN
@@ -92,9 +99,3 @@ Route::middleware(['auth', 'role:admin'])
     Route::post('/noticias/{id}/imagen', [AdminController::class, 'editarImagenNoticia'])->name('noticias.editarImagen');
     Route::delete('/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
     });
-/* ==========================
-   FORMULARIO DE CONTACTO
-   ========================== */
-
-Route::get('/formar/parte', [FormController::class, "contacto"]);
-Route::post('/formulario/enviar', [FormController::class, 'enviar'])->name('formulario.enviar');
