@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\validacionNoticia;
-
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Http\Requests\validacionHogar;
 use App\Models\noticiasModel;
 use App\Models\ProfesionalesModel;
@@ -122,6 +122,57 @@ class AdminController extends Controller
 
 
 
+    public function descargarContactos(Request $request)
+    {
+        $tipo = $request->tipo;
+        $desde = $request->desde;
+        $hasta = $request->hasta;
+
+        switch ($tipo) {
+            case 'pacientes':
+                $query = Paciente_contacto::query();
+                break;
+
+            case 'profesionales':
+                $query = ProfesionalesModel::query();
+                break;
+
+            case 'hogares':
+                $query = HogarModel::query();
+                break;
+
+            default:
+                abort(400, 'Tipo inválido');
+        }
+
+        if ($desde) {
+            $query->where('created_at', '>=', $desde);
+        }
+
+        if ($hasta) {
+            $query->where('created_at', '<=', $hasta);
+        }
+
+        $datos = $query->get();
+
+        return new StreamedResponse(function () use ($datos) {
+            $handle = fopen('php://output', 'w');
+
+            if ($datos->count()) {
+                // encabezados
+                fputcsv($handle, array_keys($datos->first()->toArray()));
+            }
+
+            foreach ($datos as $fila) {
+                fputcsv($handle, $fila->toArray());
+            }
+
+            fclose($handle);
+        }, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=contactos.csv',
+        ]);
+    }
 
     /***************************Funcionalidad del controlador para profesionales ******************** */
     //traer profesionales cargados para pasarlos al blade

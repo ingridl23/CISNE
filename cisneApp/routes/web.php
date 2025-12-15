@@ -53,6 +53,10 @@ Route::middleware(['auth', 'role:admin'])
     // Endpoint de estadísticas (AJAX)
     Route::get('/panel/estadisticas', [AdminController::class, 'estadisticasPanel'])
         ->name('panel.estadisticas');
+        //DESCARGAR EXCEL
+    Route::get('/admin/panel/descargas', [AdminController::class, 'descargarContactos'])
+        ->name('panel.descargas');
+
     // PROFESIONALES
     Route::get('/profesionales', [AdminController::class, 'profesionales'])->name('profesionales');
     Route::get('/profesionales/crear', [ProfesionalController::class, 'create'])->name('profesionales.create');
