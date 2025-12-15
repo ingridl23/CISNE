@@ -38,6 +38,7 @@ class Kernel extends HttpKernel
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             // otros middleware...
+            \App\Http\Middleware\TrackVisits::class,
         ],
     ];
 }

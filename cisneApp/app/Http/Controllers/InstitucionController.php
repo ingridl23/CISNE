@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\direccionHogarModel;
 use App\Models\institucion_contacto;
 use App\Models\redesHogarModel;
-use App\Models\hogarModel;
+use App\Models\HogarModel;
 use Illuminate\Support\ViewErrorBag;
 /**
  *
@@ -26,7 +26,7 @@ class HomeController extends Controller{
         // Traer profesionales con su imagen (solo retrato principal)
 
 
-        $instituciones = hogarModel::with('imagenes')->paginate(12);
+        $instituciones = HogarModel::with('imagenes')->paginate(12);
 
         return view('layouts.templateHome', [
             'instituciones' => $instituciones,

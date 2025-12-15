@@ -50,7 +50,9 @@ Route::middleware(['auth', 'role:admin'])
 
         // PANEL
         Route::get('/panel', [AdminController::class, 'adminPanel'])->name('panel');
-
+    // Endpoint de estadísticas (AJAX)
+    Route::get('/panel/estadisticas', [AdminController::class, 'estadisticasPanel'])
+        ->name('panel.estadisticas');
     // PROFESIONALES
     Route::get('/profesionales', [AdminController::class, 'profesionales'])->name('profesionales');
     Route::get('/profesionales/crear', [ProfesionalController::class, 'create'])->name('profesionales.create');

@@ -8,9 +8,10 @@ use App\Http\Requests\validacionHogar;
 use App\Models\noticiasModel;
 use App\Models\ProfesionalesModel;
 use App\Models\hogarModel;
+use App\Models\Paciente_contacto;
 
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-
+use App\Models\Visita;
 use App\Http\Requests\validacionEditarNoticia;
 use App\Http\Requests\validacionProfesional;
 use App\Models\direccionHogarModel;
@@ -92,21 +93,39 @@ class AdminController extends Controller
                 'deleteInstitucion'
             ]
         ]);
+        $this->middleware('can:visualizar estadisticas', [
+            'only' => [
+                'viewVisits'
+            ]
+        ]);
+
     }
+
+
 
     public function adminPanel()
     {
-        return view('admin.layouts', [
-            'totalProfesionales' => ProfesionalesModel::count(),
-            'totalNoticias'      => noticiasModel::count(),
-            'totalInstituciones'=> hogarModel::count()
+        return view('admin.panel');
+    }
+
+
+    public function estadisticasPanel()
+    {
+        return response()->json([
+            'visitasUltimoMes' => Visita::where('fecha', '>=', now()->subMonth())->count(),
+            'contactosUltimoMes' => Paciente_contacto::where('created_at', '>=', now()->subMonth())->count(),
+            'profesionales' => ProfesionalesModel::count(),
+            'noticias' => NoticiasModel::count(),
+            'hogares' => HogarModel::count(),
         ]);
     }
 
 
 
+
     /***************************Funcionalidad del controlador para profesionales ******************** */
     //traer profesionales cargados para pasarlos al blade
+
     public function profesionales()
     {
         $profesionales = ProfesionalesModel::with('imagenes')->paginate(10);
@@ -343,7 +362,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     //traer noticias cargados para pasarlos al blade
     public function noticias()
     {
-        $noticias = noticiasModel::with('imagenesNoticias')->paginate(10);
+        $noticias = NoticiasModel::with('imagenesNoticias')->paginate(10);
 
         return view('admin.noticias.index', compact('noticias'))
             ->with('i', (request()->input('page', 1) - 1) * $noticias->perPage());
@@ -397,13 +416,13 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
     protected function showFormCreateNoticia(){
-        $categorias = noticiasModel::obtenerCategorias();
+        $categorias = NoticiasModel::obtenerCategorias();
         return view("admin.noticias.formCrearNoticia", compact("categorias"));
 }
 
     protected function showFormEditNoticia($id){
-        $categorias = noticiasModel::obtenerCategorias();
-        $noticia = noticiasModel::showNoticiasId($id);
+        $categorias = NoticiasModel::obtenerCategorias();
+        $noticia = NoticiasModel::showNoticiasId($id);
         return view("admin.noticias.formEditarNoticia", compact("noticia", "categorias"));
 }
 
@@ -482,7 +501,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     protected function deleteNoticia($id)
     {
         // 1) Buscar la noticia
-        $noticia = noticiasModel::findOrFail($id);
+        $noticia = NoticiasModel::findOrFail($id);
 
         // 2) Buscar la imagen asociada
         $imagen = imagesNoticiasModel::where('noticia_id', $id)->first();
@@ -512,7 +531,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
     public function instituciones()
     {
-        $hogares = hogarModel::with('imagenes')->paginate(10);
+        $hogares = HogarModel::with('imagenes')->paginate(10);
 
         return view('admin.hogares.index', compact('hogares'))
             ->with('i', (request()->input('page', 1) - 1) * $hogares->perPage());
@@ -528,14 +547,14 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
     public function editShowHogar($id)
     {
-        $hogar = hogarModel::FindOrFail($id);
+        $hogar = HogarModel::FindOrFail($id);
         return view("admin.hogares.formEditarHogar", compact("hogar"));
     }
 
 
     public function updateHogar($id,Request $request){
 
-        $hogar = hogarModel::findOrFail($id);
+        $hogar = HogarModel::findOrFail($id);
         // Validación (la imagen NO es obligatoria)
         $request->validate([
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -661,7 +680,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         );
 
         // Crear hogar
-        $hogar = hogarModel::crearHogar(
+        $hogar = HogarModel::crearHogar(
             $request->nombre,
             $request->descripcion,
             $Redes->id,
@@ -743,7 +762,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     {
         try {
             // Buscar el hogar con todas las relaciones
-            $hogar = hogarModel::with(['imagenes', 'direccion', 'redes'])->findOrFail($id);
+            $hogar = HogarModel::with(['imagenes', 'direccion', 'redes'])->findOrFail($id);
 
             /* ------------------------------------------------------
            1) ELIMINAR IMÁGENES

@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\imagesNoticiasModel;
 
-class noticiasModel extends Model
+class NoticiasModel extends Model
 {
     use HasFactory;
 

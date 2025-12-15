@@ -12,7 +12,7 @@
 <body class="bg-gray-50">
 
     {{-- Header --}}
-    <header class="bg-emerald-700 text-white py-4 shadow">
+    <header class="bg-emerald-600 text-white py-4 shadow">
         <div class="container mx-auto flex justify-between items-center px-6">
             <div>
                 <h1 class="text-2xl font-bold">Panel de Administración</h1>
@@ -24,7 +24,8 @@
 
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button class="text-white bg-red-600 px-3 py-2 rounded">Cerrar sesión</button>
+                    <button class="text-white bg-blue-600 hover:bg-emerald-700 px-3 py-2 rounded">Cerrar
+                        sesión</button>
                 </form>
             </div>
         </div>

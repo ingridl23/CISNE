@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProfesionalesModel;
-use App\Models\hogarModel;
+use App\Models\HogarModel;
 use App\Models\imagesHogarModel;
 use Illuminate\Support\ViewErrorBag;
 /**
@@ -29,7 +29,7 @@ class HomeController extends Controller
         $profesionales = ProfesionalesModel::with('imagenes')->paginate(12);
 
         // Hogares
-        $hogares = hogarModel::with('imagenes','direccion','redes')->paginate(12);
+        $hogares = HogarModel::with('imagenes','direccion','redes')->paginate(12);
 
         return view('layouts.templateHome', [
             'profesionales' => $profesionales,

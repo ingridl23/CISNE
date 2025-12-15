@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\noticiasModel;
+use App\Models\NoticiasModel;
 use Illuminate\Support\ViewErrorBag;
 class NoticiaController extends Controller
 {
     public function index3(){
         $cantidad = 12;
-        $noticias= noticiasModel::with('imagenesNoticias')->latest()->paginate($cantidad);
+        $noticias= NoticiasModel::with('imagenesNoticias')->latest()->paginate($cantidad);
         return view('layouts.Noticias', compact('noticias'), [
             'errors' => session()->get('errors') ?: new ViewErrorBag,
        ]);
@@ -19,7 +19,7 @@ class NoticiaController extends Controller
     public function showNoticia($id)
     {
         if (is_numeric($id) && $id > 0) {
-            $noticia = noticiasModel::showNoticiasId($id);
+            $noticia = NoticiasModel::showNoticiasId($id);
             if ($noticia != null) {
                 return view("layouts.NoticiaIndividual", compact('noticia'),[
                     'errors' => session()->get('errors') ?: new ViewErrorBag,
@@ -33,7 +33,7 @@ class NoticiaController extends Controller
     {
         $busqueda = $request->query('busqueda');
 
-        $noticias = noticiasModel::with('imagenesNoticias')
+        $noticias = NoticiasModel::with('imagenesNoticias')
             ->where('titulo', 'LIKE', '%' . $busqueda . '%')
             ->get()
             ->map(function ($n) {
@@ -54,7 +54,7 @@ class NoticiaController extends Controller
     {
         $busqueda = $request->query('busqueda');
 
-        $noticias = noticiasModel::with('imagenesNoticias')
+        $noticias = NoticiasModel::with('imagenesNoticias')
             ->where('categoria', 'LIKE', '%' . $busqueda . '%')
             ->get()
             ->map(function ($n) {
@@ -75,7 +75,7 @@ class NoticiaController extends Controller
     {
         $busqueda = $request->query('busqueda');
 
-        $noticias = noticiasModel::with('imagenesNoticias')
+        $noticias = NoticiasModel::with('imagenesNoticias')
             ->whereDate('created_at', $busqueda)
             ->get()
             ->map(function ($n) {
