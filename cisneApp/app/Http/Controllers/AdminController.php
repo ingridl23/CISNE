@@ -9,7 +9,7 @@ use App\Models\noticiasModel;
 use App\Models\ProfesionalesModel;
 use App\Models\hogarModel;
 use App\Models\Paciente_contacto;
-
+use App\Models\ProfesionalEnvioCV;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Visita;
 use App\Http\Requests\validacionEditarNoticia;
@@ -18,6 +18,7 @@ use App\Models\direccionHogarModel;
 use App\Models\imagesProfesionalesModel;
 use App\Models\imagesNoticiasModel;
 use App\Models\imagesHogarModel;
+use App\Models\institucion_contacto;
 use App\Models\redesHogarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -134,11 +135,11 @@ class AdminController extends Controller
                 break;
 
             case 'profesionales':
-                $query = ProfesionalesModel::query();
+                $query = ProfesionalEnvioCV::query();
                 break;
 
             case 'hogares':
-                $query = HogarModel::query();
+                $query = institucion_contacto::query();
                 break;
 
             default:
