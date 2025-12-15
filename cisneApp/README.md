@@ -1,6 +1,6 @@
 # Desarrollo Web Para Consultorios Cisne - Sistema web
 
-**Tres Arroyos, 2025**
+**Argentina,Buenos Aires 2025**
 
 ## Descripción
 
@@ -19,16 +19,16 @@ Este repositorio contiene dos secciones:
     - Servicios
     - Profesionales
     - Contacto (formulario con animaciones)
-    - Ubicación
+    - Ubicación y Redes Sociales
     - Instituciones
     - Noticias (buscador y filtros por categoría)
-    - Recuperación de cuenta (reset de contraseña)
 
 2. **Panel Admin**: interfaz privada para gestionar:
 
-    - Flyers
-    - Carrusel de imágenes
+    - Panel de Estadisticas Y Descarga de Datos Formato CSV
+    - Comunicados (titulo,descripcion,tipo de publicacion,foto,fecha)
     - Profesionales (nombre, info, foto)
+    - Instituciones (nombre,foto,descripcon,redes sociales,ubicacion y contacto)
 
 Ambas partes están desarrolladas con **HTML5**, **CSS3** (Flexbox / Grid) y **JavaScript (ES6)**, integrando **Bootstrap 5** para estilos básicos.
 
@@ -42,6 +42,7 @@ Ambas partes están desarrolladas con **HTML5**, **CSS3** (Flexbox / Grid) y **J
 -   **Bootstrap 5**
 -   \*\* PHP 6
 -   \*\* Laravel 5
+-   **CLOUDINARY **
 
 ---
 
@@ -65,10 +66,26 @@ Ambas partes están desarrolladas con **HTML5**, **CSS3** (Flexbox / Grid) y **J
 │   └── cssadmin.css       # Estilos panel Admin
 │
 ├── js/
-│   ├── logica.js          # Lógica general (modales, menús)
-│   └── admin.js           # Lógica Panel Admin
-│
-├── img/                   # Imágenes y recursos estáticos
+│   ├── scripts.js         # Lógica general (modales, menús)
+│   └── app.js             # Lógica Panel Admin
+|   |__ validacionDireccion.js #Logica select del formulario alta de hogares
+│   |__ validacionOpciones.js  #Logica select del formulario de Contacto
+|   |__carteles/
+|   |___cartelEliminar.js # logica para aceptar dar de baja un recurso.
+|   |__noticias/
+|   |____buscarNoticias.js
+|   |____envioImagenesNoticias.js
+|   |____previsualizacionImagenesNoticias.js
+|   |__profesionales/
+|   |____envioImagenes.js
+|   |____formOptionCLose.js
+|   |____logicaSelectLocalidades.js
+|   |____previsualizacionImagenes.js
+|   |____profesionalesScript.js
+|
+├──assets/
+├──── iconos/ # imagenes y recursos iconos o avatars
+├──── img/                   # Imágenes y recursos estáticos
 └── README.md              # Documentación de este proyecto
 ```
 
@@ -85,15 +102,11 @@ Ambas partes están desarrolladas con **HTML5**, **CSS3** (Flexbox / Grid) y **J
 git clone <url-del-repositorio>
 cd CisneConsultorios
 
-````
+```
 
-2. Abrir `index.html` en un navegador, o servir con `Live Server` / `http-server`:
-   ```bash
-npm install -g http-server
-http-server .
-````
+```
 
-3. Abrir `http://localhost:8080` (o el puerto que muestre) en tu navegador.
+23. Abrir `http://localhost:8080` (o el puerto que muestre) en tu navegador.
 
 ---
 
@@ -101,7 +114,7 @@ http-server .
 
 -   Navega por el menú superior o en móvil haz click en el ícono `☰`.
 -   Envía mensajes desde el formulario de **Contacto**.
--   Recupera tu cuenta en `resetlogin.html`.
+-   Recupera tu cuenta en `olvidaste contraseña`.
 -   Explora **Noticias** con buscador y filtros.
 
 ---
@@ -123,14 +136,14 @@ http-server .
 
 ## 🧩 Módulos y Funcionalidades
 
-| Módulo                                                     | Descripción                             |
-| ---------------------------------------------------------- | --------------------------------------- |
-| Flyers                                                     | Añadir/editar título e imagen de flyers |
-| Carrusel                                                   | CRUD de slides con leyenda e imagen     |
-| Profesionales                                              | CRUD de perfiles (nombre, info, foto)   |
-| Instituciones Añadir/editar referencias de info e imagenes |
+| Módulo        | Descripción                              |
+| ------------- | ---------------------------------------- |
+| Comunicados   | Alta/Baja/Modificacion                   |
+| Profesionales | Alta/Baja/Modificacion                   |
+| Instituciones | Alta/Baja/Modificacion                   |
+| Estadisticas  | Informacion del ultimo mes,grafico y CSV |
 
----
+## | ----------------------------------------------------------------------------------------------------
 
 ## 👤 Autor
 
