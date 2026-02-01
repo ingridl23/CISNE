@@ -1,1 +1,4 @@
 *.sqlite*
+*UserSeeder*
+*DatabaseSeeder*
+*RoleAndPermissionsSeeder*

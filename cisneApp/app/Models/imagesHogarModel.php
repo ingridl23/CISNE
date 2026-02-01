@@ -11,7 +11,7 @@ class imagesHogarModel extends Model
     use HasFactory;
 
 
-    protected $table = 'ImagenHogar'; //  tabla real
+    protected $table = 'imagen_hogar'; //  tabla real
 
 
     protected static function newFactory()
@@ -31,7 +31,7 @@ class imagesHogarModel extends Model
     ];
 
 
-    public function EmprendedorImagen()
+    public function HogaresImagen()
     {
         return $this->belongsTo(imagesHogarModel::class, 'hogar_id');
     }
@@ -39,15 +39,11 @@ class imagesHogarModel extends Model
 
     public static function find($id_hogar)
     {
-        $imagenes = imagesHogarModel::where("hogar_id", $id_hogar)->get();
-        return $imagenes;
+        $imagen = imagesHogarModel::where("hogar_id", $id_hogar)->get();
+        return $imagen;
     }
 
-    public static function buscar($id_hogar)
-    {
-        $imagenes = imagesHogarModel::where("hogar_id", $id_hogar)->get();
-        return $imagenes;
-    }
+
 
     public static function eliminarImagen(imagesHogarModel $imagen)
     {

@@ -36,7 +36,7 @@ class imagesProfesionalesModel extends Model
     {
         return ImagenesProfesionalFactory::new();
     }
-    use HasFactory;
+
 
     protected $fillable = [
         'id',

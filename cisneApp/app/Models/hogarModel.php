@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class hogarModel extends Model
+class HogarModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'HogarMayor'; // tu tabla real
+    protected $table = 'hogar_mayor'; // tu tabla real
 
     protected $fillable = [
         'nombre',
@@ -18,16 +18,16 @@ class hogarModel extends Model
         'direccion_id'
     ];
 
-    public static function crearHogar($nombre, $descripcion, $redes_id, $direccion_id)
+    public static function crearHogar($nombre, $descripcion, $idRedes, $idDireccion)
     {
-        $hogar = hogarModel::create([
+        return hogarModel::create([
             'nombre' => $nombre,
             'descripcion' => $descripcion,
-            'redes_id' => $redes_id,
-            'direccion_id' => $direccion_id,
+            'redes_id' => $idRedes,
+            'direccion_id' => $idDireccion,
         ]);
-        return $hogar->id;
     }
+
 
     public static function editarHogar($hogar)
     {
@@ -39,5 +39,19 @@ class hogarModel extends Model
     {
         $hogarEliminar = $hogar->delete();
         return $hogarEliminar;
+    }
+
+    public function imagenes()
+    {
+        return $this->hasMany(imagesHogarModel::class, 'hogar_id');
+    }
+
+    public function direccion()
+    {
+        return $this->belongsTo(direccionHogarModel::class, 'direccion_id');
+    }
+    public function redes()
+    {
+        return $this->belongsTo(redesHogarModel::class, 'redes_id');
     }
 }

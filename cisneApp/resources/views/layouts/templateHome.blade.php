@@ -195,24 +195,34 @@
                     </p>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-sm-6 mb-4">
-                        <!-- Portfolio item 1-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                    @foreach ($hogares as $hogar)
+                        <div class="col-lg-4 col-sm-6 mb-4">
+                            <div class="portfolio-item">
+                                <a class="portfolio-link" data-bs-toggle="modal"
+                                    href="#modalHogar{{ $hogar->id }}">
+                                    <div class="portfolio-hover">
+                                        <div class="portfolio-hover-content">
+                                            {{-- <i class="fas fa-plus fa-3x"></i>   --}}
+                                        </div>
+                                    </div>
+
+                                    {{-- Imagen principal del hogar --}}
+                                    <img class="img-fluid" style="width: 200px; height: auto;"
+                                        src="{{ $hogar->imagenes->first()->url ?? 'assets/img/portfolio/default.jpg' }}"
+                                        alt="{{ $hogar->nombre }}" />
+                                </a>
+
+                                <div class="portfolio-caption">
+                                    <div class="portfolio-caption-heading">{{ $hogar->nombre }}</div>
+                                    <div class="portfolio-caption-subheading text-muted">
+                                        {{ $hogar->descripcion ? Str::limit($hogar->descripcion, 30) : '' }}
+                                    </div>
                                 </div>
-                                <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..." />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Threads</div>
-                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
                             </div>
                         </div>
-                    </div>
-
-
+                    @endforeach
                 </div>
+
             </div>
         </section>
 
@@ -278,25 +288,57 @@
             <form class="form" novalidate>
                 <div class="field-group">
                     <input type="text" id="name" placeholder=" " required>
-                    <label for="name">Nombre y Apellido</label>
+                    <label for="name">Nombre y Apellido<span class="asterisco">*</span></label>
+
                 </div>
                 <div class="field-group">
                     <input type="tel" id="telefono" placeholder=" " required>
-                    <label for="telefono">Teléfono</label>
+                    <label for="telefono">Teléfono<span class="asterisco">*</span></label>
+
                 </div>
                 <div class="field-group">
                     <input type="email" id="email" placeholder=" " required>
-                    <label for="email">Email</label>
+                    <label for="email">Email<span class="asterisco">*</span></label>
+
                 </div>
 
                 <input type="text" id="oculto"name="oculto" class="oculto" autocomplete="off" value="">
 
-                <fieldset>
+                <fieldset class="opciones">
                     <legend>¿Porque nos contactas?</legend>
-                    <label><input type="radio" name="opcion"> Consulta particular con especialista</label>
-                    <label><input type="radio" name="opcion"> Soy profesional y quiero estar en Cisne </label>
-                    <label><input type="radio" name="opcion"> Institucion en busqueda de profesionales</label>
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion1" name="opciones"
+                            value="particular">
+                        Consulta particular con
+                        especialista</label>
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion2" name="opciones"
+                            value="profesional">
+                        Soy profesional y quiero estar en
+                        Cisne </label>
+                    <label><span class="asterisco">*</span><input type="radio" id="opcion3" name="opciones"
+                            value="institucion">
+                        Institucion en busqueda de
+                        profesionales</label>
+
+                    @error('opciones')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </fieldset>
+
+                <!-- campo para cargar CV, visible solo si busca empleo -->
+                <div class="field-group campoCV">
+
+                    <input type="file" id="cv" name="cv" accept=".pdf">
+                    <label for="cv">Cargar currículum vitae PDF <span class="asterisco">*</span>
+                    </label>
+                    @error('cv')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
+
+
+                </div>
+
+
+
                 <button class="submit " type="submit" id="btn">
                     <span class="btn-text">Enviar</span>
                     <span class="checkmark">&#10004;</span>
@@ -317,18 +359,43 @@
                 <img id="" src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}"
                     alt="Logo CISNE">
                 <span>PANEL PARA ADMINISTRADOR</span>
+
+                {{-- ✅ Mensaje de éxito --}}
+                @if (session('success'))
+                    <div class="alert alert-success text-center mb-3">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                {{-- ✅ Errores generales --}}
+                @if ($errors->any())
+                    <div class="text-center mb-3 alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <button class="custom-modal-close" id="close-admin">&times;</button>
 
-            <form id="form-admin" class="form" novalidate>
+            <form id="form-admin" class="form" method="POST" action="{{ route('login') }}" novalidate>
+                @csrf
                 <div class="field-group">
-                    <input type="email" id="email2" placeholder=" " required>
-                    <label for="name">Email</label>
+                    <input type="email" name="email" id="email2" placeholder=" " required>
+                    <label for="name">Email <span class="asterisco">*</span></label>
+                    @error('email')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="field-group">
-                    <input type="password" id="password" placeholder=" " required>
-                    <label for="email">Contraseña</label>
+                    <input type="password" name="password" id="contraseña" placeholder="" required>
+                    <label for="email">Contraseña <span class="asterisco">*</span></label>
+                    @error('contraseña')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <input type="text" id="oculto2"name="oculto" class="oculto" autocomplete="off" value="">
@@ -339,8 +406,10 @@
                     <span class="checkmark">&#10004;</span>
                     <span class="checkmark2">&#10008;</span>
                 </button>
-                <a id="olvidastepass" href="resetlogin.html">¿olvidaste la contraseña?</a>
-                <p class="error-msg">Complete los campos obligatorios</p>
+                <a
+                    id="olvidastepass"href="https://wa.me/542983547406?text=¡Hola me comunico desde el sitio de CISNE para recuperar la contraseña, muchas gracias.">
+                    ¿olvidaste la contraseña?</a>
+
             </form>
         </div>
 
@@ -350,55 +419,96 @@
         @include('layouts.footer')
         <!-- Portfolio Modals-->
         <!-- Portfolio item 1 modal popup-->
-        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <button class="custom-modal-close" data-bs-dismiss="modal"> </button>
+        @foreach ($hogares as $hogar)
+            <div class="portfolio-modal modal fade" id="modalHogar{{ $hogar->id }}" tabindex="-1"
+                role="dialog" aria-hidden="true">
 
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-8">
-                                <div class="modal-body">
-                                    <!-- Project details-->
-                                    <h2 class="text-uppercase">Hogar numero uno</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg"
-                                        alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
-                                        adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos
-                                        deserunt
-                                        repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores
-                                        repudiandae,
-                                        nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Threads
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Illustration
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal"
-                                        type="button">
-                                        volver a inicio
-                                    </button>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <button class="custom-modal-close" data-bs-dismiss="modal"></button>
+
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+
+                                    <div class="modal-body">
+                                        <!-- Título -->
+                                        <h3 class="text-uppercase">{{ $hogar->nombre }}</h3>
+
+
+
+                                        @if ($hogar->imagenes->first())
+                                            <img class="img-fluid d-block mx-auto"
+                                                src="{{ $hogar->imagenes->first()->url }}"
+                                                alt="{{ $hogar->nombre }}" />
+                                        @else
+                                            <div class="img-fluid d-block mx-auto"
+                                                style="width:300px; height:300px; background:#e5e5e5; border-radius:8px;">
+                                            </div>
+                                        @endif
+
+                                        <!-- Información -->
+                                        <p>
+                                            @if ($hogar->descripcion)
+                                                {{ $hogar->descripcion }}
+                                            @endif
+                                        </p>
+
+                                        <ul class="list-inline">
+                                            <li>
+                                                <strong>Ciudad:</strong>
+                                                {{ $hogar->direccion->ciudad ?? 'No disponible' }}
+                                            </li>
+                                            <li>
+                                                <strong>Provincia:</strong>
+                                                {{ $hogar->direccion->provincia ?? 'No disponible' }}
+                                            </li>
+                                        </ul>
+                                        <ul class="list-inline">
+                                            <!-- Subtítulo -->
+                                            <p class="item-intro text-muted">
+                                                Medios De Contacto Con La Institucion
+                                            </p>
+                                            <li>
+                                                <strong>Facebook</strong>
+                                                {{ $hogar->redes->facebook ?? 'No disponible' }}
+                                            </li>
+                                            <li>
+                                                <strong>Instagram:</strong>
+                                                {{ $hogar->redes->instagram ?? 'No disponible' }}
+                                            </li>
+                                            <li>
+                                                <strong>Whatsapp:</strong>
+                                                {{ $hogar->redes->whatsapp ?? 'No disponible' }}
+                                            </li>
+
+                                        </ul>
+
+
+
+                                        <!-- Botón volver -->
+                                        <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal">
+                                            volver a inicio
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
             </div>
-        </div>
+        @endforeach
 
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-
+        <script src="js/validacionOpciones.js"></script>
 
 </body>
 

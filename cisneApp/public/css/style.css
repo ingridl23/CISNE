@@ -296,7 +296,7 @@ body {
 .custom-modal.open {
     display: block;
     position: fixed;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #fff;
@@ -327,6 +327,12 @@ body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     z-index: 20;
     text-align: center;
+    overflow-y: auto;
+    /* permite hacer scroll si hay muchos campos */
+    padding: 1.5rem 1rem;
+    /**********************************************************/
+    /* ancho máximo para desktop */
+    max-height: 90vh;
 }
 
 
@@ -347,7 +353,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.70rem;
     margin-bottom: 1rem;
     flex-direction: column;
 }
@@ -402,7 +408,7 @@ body {
     border: none;
     border-bottom: 2px solid #71ff6c;
     padding: 0.5rem 0;
-    background: transparent;
+    /*background: transparent;*/
     outline: none;
     transition: border-color .3s;
 }
@@ -425,7 +431,7 @@ body {
 .field-group input:not(:placeholder-shown)+label {
     top: -1rem;
     font-size: .85rem;
-    color: var(--primary);
+    color: var(--primary-green);
 }
 
 
@@ -456,8 +462,8 @@ form fieldset label {
     position: relative;
     overflow: hidden;
     padding: .75rem 1.5rem;
-    background: rgb(238, 228, 228);
-    color: green;
+    background: rgb(90, 185, 119);
+    color: white;
     border: 3px solid var(--primary-color);
     border-radius: .5rem;
     font-size: 1rem;
@@ -468,7 +474,7 @@ form fieldset label {
 }
 
 .submit:hover {
-    background: var(--primary-color);
+    background: var(--sage-green);
     color: #fff;
 }
 
@@ -554,6 +560,30 @@ input.oculto {
 
 /******************************************/
 
+@media (max-width: 600px) {
+    .custom-modal {
+        width: 95%;
+        max-width: none;
+        height: 90vh;
+        /* ocupa 90% del alto visible */
+        overflow-y: auto;
+        /* permite hacer scroll si hay muchos campos */
+        padding: 1.5rem 1rem;
+    }
+    .custom-modal-header img {
+        width: 50px;
+    }
+    .custom-modal-header span {
+        font-size: 1.2rem;
+    }
+    .submit {
+        width: 100%;
+    }
+    fieldset.opciones label {
+        font-size: 0.9rem;
+    }
+}
+
 
 /************estilos del boton de whatsapp********/
 
@@ -584,4 +614,27 @@ input.oculto {
 
 .whatsapp {
     max-width: 55px;
+}
+
+
+/* Centrar los items de hogares en celular */
+
+@media (max-width: 576px) {
+    .portfolio-item {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .portfolio-item img {
+        display: block;
+        margin: 0 auto;
+        /* centra la imagen */
+    }
+    .portfolio-caption {
+        text-align: center;
+        /* centra los textos */
+    }
+    li {
+        font-size: small;
+    }
 }
