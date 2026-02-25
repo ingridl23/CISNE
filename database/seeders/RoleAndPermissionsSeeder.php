@@ -20,24 +20,26 @@ class RoleAndPermissionsSeeder extends Seeder
 
         // create permissions
         $permissions = [
+            'agregar profesional',
+            'editar  profesional',
+            'eliminar profesional',
+
             'crear noticia',
             'editar noticia',
             'eliminar noticia',
-            'crear profesional',
-            'editar profesional',
-            'eliminar profesional',
-            'crear hogar',
-            'editar hogar',
-            'eliminar hogar',
-            'ver panel de configuracion',
+
+            'agregar flyer',
+            'eliminar flyer',
+            'modificar telefono'
+
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission]);
         }
 
-        $role1 = Role::create(['name' => 'admin']);
-        $role2 = Role::create(['name' => 'user']);
+        $role1 = Role::firstOrCreate(['name' => 'admin']);
+        $role2 = Role::firstOrCreate(['name' => 'user']);
 
         foreach ($permissions as $permission) {
             $role1->givePermissionTo($permission);
