@@ -27,37 +27,24 @@ class validacionFormularioContacto  extends FormRequest
      * @return array
      */
     public function rules()
-    {
-        $rules = [
-            'name' => 'bail|required|string|min:3|max:100',
-            'opcion' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'tel' => 'nullable|numeric|digits_between:8,11',
-            'oculto' => 'nullable|string',
+{
+    $rules = [
+        'name' => 'bail|required|string|min:3|max:100',
+        'opcion' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'tel' => 'nullable|numeric|digits_between:8,11',
+        'oculto' => 'nullable|string',
+    ];
 
+    $opcion = $this->input('opcion');
 
-
-        ];
-
-        $opcion = $this->input('opcion1');
-        if ($opcion === 'opcion1') {
-
-            $rules['particular'] = 'bail|required|string|max:255';
-        }
-
-        if ($opcion === 'opcion2') {
-
-            $rules['profesional'] = 'required';
-        }
-
-        if ($opcion === 'opcion3') {
-            $rules['institucion'] = 'required';
-
-        }
-
-        return $rules;
+    // Si el contacto es profesional, exigir CV
+    if ($opcion === 'profesional') {
+        $rules['cv'] = 'required|file|mimes:pdf|max:2048';
     }
 
+    return $rules;
+}
 
 
 
@@ -85,11 +72,8 @@ class validacionFormularioContacto  extends FormRequest
             'tel.numeric' => 'Debe ingresar un número de teléfono válido',
             'tel.digits_between' => 'El número de teléfono debe tener entre 8 y 11 dígitos',
 
-            'opciones.required' => 'Debe seleccionar una opción',
-            'particular.required'=> 'debe seleccionar al menos una opcion',
-            'profesional.required' => 'debe seleccionar al menos una opcion',
-            'institucion.required' => 'debe seleccionar al menos una opcion',
-
+            'opcion.required' => 'Debe seleccionar una opción',
+            
             'cv.required' => 'Debe subir su currículum en formato PDF.',
             'cv.file' => 'El archivo debe ser válido.',
             'cv.mimes' => 'Solo se acepta formato PDF.',

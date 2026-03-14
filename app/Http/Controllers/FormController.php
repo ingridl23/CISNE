@@ -44,7 +44,7 @@ class FormController extends Controller
 
                 // Guardar en la base de datos
                 $empleoData = [
-                    'nombre' => $request->first_name,
+                 'nombre' => $request->name,
                     'email' => $request->email,
                     'telefono' => $request->tel,
                     'cv_path' => $cvPath,
@@ -64,7 +64,7 @@ class FormController extends Controller
 
                 // Guardar en la base de datos
                 $pacienteData = [
-                    'nombre' => $request->first_name,
+                    'nombre' => $request->name,
                     'email' => $request->email,
                     'telefono' => $request->tel,
 
@@ -78,7 +78,7 @@ class FormController extends Controller
                 $data =  $request->all();
                 // Guardar en la base de datos
                  $institucionData = [
-                    'nombre' => $request->first_name,
+                    'nombre' => $request->name,
                     'email' => $request->email,
                     'telefono' => $request->tel,
 

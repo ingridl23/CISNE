@@ -33,8 +33,7 @@ Route::get('/noticias/buscadorFecha', [NoticiaController::class, 'filterNoticias
    ========================== */
 
 Route::get('/formar/parte', [FormController::class, "contacto"]);
-Route::post('/formulario/enviar', [FormController::class, 'enviar'])->name('formulario.enviar');
-
+Route::post('/contacto', [FormController::class, 'enviar'])->name('contacto.enviar');
 
 /* ==========================
    LOGIN

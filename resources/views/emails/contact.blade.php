@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-
+{{-- views/emails/contact.blade --}}
 <head>
-    <title>Nuevo mensaje desde formulario CISNE</title>
+    <title>formulario CISNE WEB</title>
     <meta charset="UTF-8">
 </head>
 

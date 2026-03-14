@@ -18,33 +18,38 @@ class envioDeForm extends Mailable
      */
 
     public $data;
-    public function __construct($data)
-    {
-      $this->data->$data;
-    }
+   public function __construct($data)
+{
+    $this->data = $data;
+}
 
     /**
      * Build the message.
      *
      * @return $this
      */
-    public function build()
+   public function build()
+{
+    $email = $this->subject($this->data['asunto'] ?? 'Nuevo mensaje desde CISNE')
+        ->view('emails.contact')
+        ->with('data', $this->data);
 
-    {
-
-       $email=$this->subject($this->data['asunto']?? 'Respuesta de formulario sitio web CISNE')->view('emails.contact')->with('data',$this->data);
-
-        // Si hay un archivo adjunto tipo UploadedFile
-        if (isset($this->data['cv']) && $this->data['cv'] instanceof \Illuminate\Http\UploadedFile) {
-            $email->attach(
-                $this->data['cv']->getRealPath(), // Ruta temporal del archivo
-                [
-                    'as' => $this->data['cv']->getClientOriginalName(), // Nombre original
-                    'mime' => $this->data['cv']->getClientMimeType(),   // Tipo MIME
-                ]
-            );
-        }
-
-        return $email;
+    // respuesta automática al usuario
+    if (!empty($this->data['email'])) {
+        $email->replyTo($this->data['email'], $this->data['name'] ?? 'Usuario');
     }
+
+    // adjuntar CV
+    if (isset($this->data['cv']) && $this->data['cv'] instanceof \Illuminate\Http\UploadedFile) {
+        $email->attach(
+            $this->data['cv']->getRealPath(),
+            [
+                'as' => $this->data['cv']->getClientOriginalName(),
+                'mime' => $this->data['cv']->getClientMimeType(),
+            ]
+        );
+    }
+
+    return $email;
+}
 }
