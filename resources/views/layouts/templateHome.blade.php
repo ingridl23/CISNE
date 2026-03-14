@@ -1,3 +1,6 @@
+@php
+    $errors = $errors ?? new \Illuminate\Support\ViewErrorBag;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -152,7 +155,7 @@
                 <h2 class="section-heading text-uppercase">Profesionales</h2>
             </div>
             <div class="grid-profesionales">
-                @foreach ($profesionales as $profesional)
+                @foreach ($profesionales ?? [] as $profesional)
                     <div class="prof-card visible">
 
                         @if ($profesional->imagenes->isNotEmpty())
@@ -195,7 +198,7 @@
                     </p>
                 </div>
                 <div class="row">
-                    @foreach ($hogares as $hogar)
+                    @foreach ($hogares ?? [] as $hogar)
                         <div class="col-lg-4 col-sm-6 mb-4">
                             <div class="portfolio-item">
                                 <a class="portfolio-link" data-bs-toggle="modal"
@@ -319,10 +322,12 @@
                             value="institucion">
                         Institucion en busqueda de
                         profesionales</label>
-
-                    @error('opciones')
-                        <div class="text-danger small">{{ $message }}</div>
-                    @enderror
+@if(isset($errors))
+    @error('opciones')
+        <div class="text-danger small">{{ $message }}</div>
+    @enderror
+@endif
+                
                 </fieldset>
 
                 <!-- campo para cargar CV, visible solo si busca empleo -->
@@ -331,9 +336,12 @@
                     <input type="file" id="cv" name="cv" accept=".pdf">
                     <label for="cv">Cargar currículum vitae PDF <span class="asterisco">*</span>
                     </label>
-                    @error('cv')
-                        <div class="text-danger small">{{ $message }}</div>
-                    @enderror
+    @if(isset($errors))
+    @error('cv')
+        <div class="text-danger small">{{ $message }}</div>
+    @enderror
+@endif
+
 
 
                 </div>
@@ -385,7 +393,7 @@
                 @csrf
                 <div class="field-group">
                     <input type="email" name="email" id="email2" placeholder=" " required>
-                    <label for="name">Email <span class="asterisco">*</span></label>
+                    <label for="email">Email <span class="asterisco">*</span></label>
                     @error('email')
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
@@ -393,8 +401,8 @@
 
                 <div class="field-group">
                     <input type="password" name="password" id="contraseña" placeholder="" required>
-                    <label for="email">Contraseña <span class="asterisco">*</span></label>
-                    @error('contraseña')
+                    <label for="password">Contraseña <span class="asterisco">*</span></label>
+                    @error('password')
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
@@ -420,7 +428,7 @@
         @include('layouts.footer')
         <!-- Portfolio Modals-->
         <!-- Portfolio item 1 modal popup-->
-        @foreach ($hogares as $hogar)
+        @foreach ($hogares ?? []  as $hogar)
             <div class="portfolio-modal modal fade" id="modalHogar{{ $hogar->id }}" tabindex="-1"
                 role="dialog" aria-hidden="true">
 

@@ -21,6 +21,7 @@ class ProfesionalEnvioCV extends Migration
                 $table->string('email')->unique();
                 $table->string('telefono');
                 $table->string('cv_path'); //url o nombre del pdf
+                  $table->timestamps();
             }
         );
     }

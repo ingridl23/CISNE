@@ -39,11 +39,11 @@ Route::post('/contacto', [FormController::class, 'enviar'])->name('contacto.envi
    LOGIN
    ========================== */
 
-Route::post('/login',  [LoginController::class, 'login']);
-Route::get('/showlogin', [HomeController::class, 'showlogin'])->name("showlogin");
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/showlogin', [HomeController::class, 'showloginForm']);
+Route::post('/login',  [LoginController::class, 'login'])->name("login");
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Auth::routes();
+
 
 /* ==========================
    PANEL ADMIN (solo admin)
@@ -60,8 +60,8 @@ Route::middleware(['auth', 'role:admin'])
     Route::get('/panel/estadisticas', [AdminController::class, 'estadisticasPanel'])
         ->name('panel.estadisticas');
         //DESCARGAR EXCEL
-    Route::get('/admin/panel/descargas', [AdminController::class, 'descargarContactos'])
-        ->name('panel.descargas');
+Route::get('/panel/descargas', [AdminController::class, 'descargarContactos'])
+     ->name('panel.descargas');
 
     // PROFESIONALES
     Route::get('/profesionales', [AdminController::class, 'profesionales'])->name('profesionales');

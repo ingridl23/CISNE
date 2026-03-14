@@ -22,6 +22,10 @@ use App\Models\institucion_contacto;
 use App\Models\redesHogarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PacienteExport;
+use App\Exports\ProfesionalExport;
+use App\Exports\InstitucionExport;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -122,58 +126,35 @@ class AdminController extends Controller
     }
 
 
+public function descargarContactos(Request $request)
+{
+    $tipo = $request->tipo;
+    $desde = $request->desde;
+    $hasta = $request->hasta;
 
-    public function descargarContactos(Request $request)
-    {
-        $tipo = $request->tipo;
-        $desde = $request->desde;
-        $hasta = $request->hasta;
-
-        switch ($tipo) {
-            case 'pacientes':
-                $query = Paciente_contacto::query();
-                break;
-
-            case 'profesionales':
-                $query = ProfesionalEnvioCV::query();
-                break;
-
-            case 'hogares':
-                $query = institucion_contacto::query();
-                break;
-
-            default:
-                abort(400, 'Tipo inválido');
-        }
-
-        if ($desde) {
-            $query->where('created_at', '>=', $desde);
-        }
-
-        if ($hasta) {
-            $query->where('created_at', '<=', $hasta);
-        }
-
-        $datos = $query->get();
-
-        return new StreamedResponse(function () use ($datos) {
-            $handle = fopen('php://output', 'w');
-
-            if ($datos->count()) {
-                // encabezados
-                fputcsv($handle, array_keys($datos->first()->toArray()));
-            }
-
-            foreach ($datos as $fila) {
-                fputcsv($handle, $fila->toArray());
-            }
-
-            fclose($handle);
-        }, 200, [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename=contactos.csv',
-        ]);
+    if ($tipo == 'pacientes') {
+        return Excel::download(
+            new PacienteExport($desde, $hasta),
+            'pacientes.xlsx'
+        );
     }
+
+    if ($tipo == 'profesionales') {
+        return Excel::download(
+            new ProfesionalExport($desde, $hasta),
+            'profesionales.xlsx'
+        );
+    }
+
+    if ($tipo == 'hogares') {
+        return Excel::download(
+            new InstitucionExport(),
+            'instituciones.xlsx'
+        );
+    }
+
+    return back();
+}
 
     /***************************Funcionalidad del controlador para profesionales ******************** */
     //traer profesionales cargados para pasarlos al blade

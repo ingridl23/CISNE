@@ -36,7 +36,8 @@ class ProfesionalEnvioCV extends Model
         'nombre',
         'email',
         'telefono',
-        'cv_path'
+        'cv_path',
+        'created_at'
     ];
 
 
