@@ -16,8 +16,11 @@
             {{ session('error') }}
         </div>
     @endif
-    <form action="{{ route('admin.profesionales.update', $profesional->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
+<form action="{{ route('admin.profesionales.update', $profesional->id) }}"
+      method="POST"
+      enctype="multipart/form-data">
+    @csrf
+   
         @method('PUT')
 
         <div class="grid grid-cols-2 gap-4">

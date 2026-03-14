@@ -21,7 +21,7 @@ class RoleAndPermissionsSeeder extends Seeder
         // create permissions
         $permissions = [
             'agregar profesional',
-            'editar  profesional',
+            'editar profesional',
             'eliminar profesional',
 
             'crear noticia',

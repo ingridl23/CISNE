@@ -184,20 +184,28 @@ public function descargarContactos(Request $request)
             'matricula' => $request->matricula,
 
         ]);
+     
         if ($request->hasFile('imagen')) {
 
-            $upload = Cloudinary::upload(
-                $request->file('imagen')->getRealPath(),
-                ['folder' => 'profesionales']
-            );
+         try {
+
+    $upload = Cloudinary::upload(
+        $request->file('imagen')->getRealPath(),
+        ['folder' => 'profesionales']
+    );
+
+} catch (\Exception $e) {
+
+    return back()->with('error', 'Error subiendo imagen: '.$e->getMessage());
+}
 
             imagesProfesionalesModel::create([
                 'profesional_id' => $prof->id,
                 'url' => $upload->getSecurePath(),
                 'public_id' => $upload->getPublicId()
             ]);
+           // dd($request->hasFile('imagen'), $request->file('imagen'));
         }
-
         return redirect()
             ->route('admin.profesionales')
             ->with('success', 'Profesional creado correctamente');
@@ -260,14 +268,13 @@ public function descargarContactos(Request $request)
 
     /****************************************** Editar profesional cargado *******************************************************/
 
-    /*
-    public function showFormEditarProfesional($id)
-    {
-        $profesional = ProfesionalesModel::with('imagenes')->findOrFail($id);
-        $imagenes = $profesional->imagenes; // colección (vacía si no hay)
-        return view('admin.profesionales.formEditarProfesional', compact('profesional', 'imagenes'));
-    }
-*/
+    public function showFormEditarProfesional(ProfesionalesModel $profesional)
+{
+    $profesional->load('imagenes');
+    $imagenes = $profesional->imagenes;
+
+    return view('admin.profesionales.formEditarProfesional', compact('profesional', 'imagenes'));
+}
 
 
     /**
@@ -305,7 +312,7 @@ Si no se sube nada, mantiene la actual.
 Perfectamente coherente con el caso de uso: “cada profesional tiene una única foto de rostro”.
      */
 
-/*
+
     public function editarImagenProfesional($id, Request $request)
     {
         $profesional = ProfesionalesModel::findOrFail($id);
@@ -339,7 +346,7 @@ Perfectamente coherente con el caso de uso: “cada profesional tiene una única
         }
     }
 
-*/
+
 
     public function eliminarProfesional($id)
     {
