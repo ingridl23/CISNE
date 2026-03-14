@@ -100,3 +100,13 @@ Route::get('/panel/descargas', [AdminController::class, 'descargarContactos'])
     Route::post('/noticias/{id}/imagen', [AdminController::class, 'editarImagenNoticia'])->name('noticias.editarImagen');
     Route::delete('/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
     });
+use Illuminate\Support\Facades\Mail;
+
+Route::get('/testmail', function () {
+    Mail::raw('Correo de prueba desde Laravel', function ($message) {
+        $message->to('cisneconsultorios@gmail.com')
+                ->subject('Test correo CISNE');
+    });
+
+    return "Correo enviado";
+});
