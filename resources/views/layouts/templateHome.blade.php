@@ -281,6 +281,11 @@
 
         <!-- MODAL -->
         <div class="custom-modal" id="modal">
+@if(session('success'))
+<div class="alert-success">
+    {{ session('success') }}
+</div>
+@endif
             <div class="custom-modal-header">
                 <img id="img" src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}"
                     alt="Logo CISNE">
@@ -288,7 +293,7 @@
             </div>
             <button class="custom-modal-close" id="closeModal">&times;</button>
 
-            <form class="form" method="POST" action="{{ route('contacto.enviar') }}" enctype="multipart/form-data" novalidate>
+            <form class="form" method="POST" action="{{ route('enviar') }}" enctype="multipart/form-data" novalidate>
                    @csrf
                 <div class="field-group">
                    <input type="text" name="name" id="name" placeholder=" " required>
@@ -310,20 +315,20 @@
 
                 <fieldset class="opciones">
                     <legend>¿Porque nos contactas?</legend>
-                    <label><span class="asterisco">*</span><input type="radio" id="opcion" name="opcion"
+                    <label><span class="asterisco">*</span><input type="radio"  name="opcion"
                             value="particular">
                         Consulta particular con
                         especialista</label>
-                    <label><span class="asterisco">*</span><input type="radio" id="opcion" name="opcion"
+                    <label><span class="asterisco">*</span><input type="radio"  name="opcion"
                             value="profesional">
                         Soy profesional y quiero estar en
                         Cisne </label>
-                    <label><span class="asterisco">*</span><input type="radio" id="opcion" name="opcion"
+                    <label><span class="asterisco">*</span><input type="radio"  name="opcion"
                             value="institucion">
                         Institucion en busqueda de
                         profesionales</label>
 @if(isset($errors))
-    @error('opciones')
+    @error('opcion')
         <div class="text-danger small">{{ $message }}</div>
     @enderror
 @endif
@@ -354,6 +359,7 @@
                     <span class="checkmark2">&#10008;</span>
                 </button>
                 <p class="error-msg">Complete los campos obligatorios</p>
+                
             </form>
         </div>
 

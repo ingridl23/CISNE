@@ -59,7 +59,7 @@ class validacionFormularioContacto  extends FormRequest
             'name.string' => 'Debe ingresar un nombre válido',
             'name.min' => 'Debe ingresar más de una letra',
             'name.max' => 'No se puede ingresar más de 100 caracteres',
-
+             
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El formato del email es inválido.',
             'email.max' => 'El email no puede tener más de 255 caracteres.',

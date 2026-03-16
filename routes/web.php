@@ -15,8 +15,7 @@ use App\Http\Controllers\InstitucionController;
    ========================== */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-/*Route::get('/profesionales', [HomeController::class, 'index'])->name('profesionales');
-Route::get('/instituciones', [HomeController::class, 'index'])->name('instituciones');*/
+
 Route::get('/novedades', [NoticiaController::class, 'index3'])->name('novedades');
 
 
@@ -33,7 +32,7 @@ Route::get('/noticias/buscadorFecha', [NoticiaController::class, 'filterNoticias
    ========================== */
 
 Route::get('/formar/parte', [FormController::class, "contacto"]);
-Route::post('/contacto', [FormController::class, 'enviar'])->name('contacto.enviar');
+Route::post('/contacto', [FormController::class, 'enviar'])->name('enviar');
 
 /* ==========================
    LOGIN

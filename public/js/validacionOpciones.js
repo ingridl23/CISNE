@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const radios = document.querySelectorAll('input[name="opciones"]');
+    const radios = document.querySelectorAll('input[name="opcion"]');
     const campoCV = document.querySelector(".campoCV"); // <--- SELECCIONA EL DIV
     const inputCV = document.getElementById("cv");
 

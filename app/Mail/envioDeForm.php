@@ -30,7 +30,7 @@ class envioDeForm extends Mailable
      */
    public function build()
 {
-    $email = $this->subject($this->data['asunto'] ?? 'Nuevo mensaje desde CISNE')
+    $email = $this->subject($this->data['asunto'] ?? 'Asunto desde CISNe Web')
         ->view('emails.contact')
         ->with('data', $this->data);
 

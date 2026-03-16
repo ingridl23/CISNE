@@ -290,6 +290,16 @@ body {
     z-index: 15;
 }
 
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
 
 /* ✂ Mostrar modal cuando tenga .open */
 

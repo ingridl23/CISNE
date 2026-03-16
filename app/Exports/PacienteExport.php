@@ -1,6 +1,5 @@
 <?php
 namespace App\Exports;
-
 use App\Models\Paciente_contacto;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;

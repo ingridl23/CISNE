@@ -12,7 +12,7 @@ use App\Models\institucion_contacto;
 use App\Models\Paciente_contacto;
 use App\Models\ProfesionalEnvioCV;
 use App\Http\Requests\validacionFormularioContacto;
-
+use App\Mail\confirmacionFormulario;
 
 class FormController extends Controller
 {
@@ -21,10 +21,22 @@ class FormController extends Controller
     function contacto(){
        return view('layouts.formulario');
     }
+/*
+public function enviar(Request $request)
+{
+    Log::info($request->all());
 
+    Mail::raw('Test desde formulario', function ($message) {
+        $message->to('cisneconsultorios@gmail.com')
+                ->subject('Test formulario');
+    });
+
+    return back()->with('success','Mensaje enviado');
+}
+*/
 
     function enviar(validacionFormularioContacto $request){
-
+//dd($request->all());
         if ($request->filled('oculto')) {
             return back()->with("error", "Formulario rechazado")->withInput();
         }
@@ -91,8 +103,10 @@ class FormController extends Controller
             // Enviar correo en todos los casos
             Mail::to('cisneconsultorios@gmail.com')->send(new envioDeForm($data));
 
-            return back()->with('success', 'Mensaje enviado correctamente, gracias por comunicarse con
-             consultorios CISNE.');
+            return back()->with('success', 'Enviado correctamente,en la brevedad el equipo Cisne se pondra en contacto.');
+
+             // confirmación automática al usuario
+            Mail::to($request->email)->send(new confirmacionFormulario($data));
         } catch (\Exception $e) {
             Log::error('Error al enviar el formulario: ' . $e->getMessage());
             return back()->with('error', 'Ocurrió un error al enviar el formulario.');
