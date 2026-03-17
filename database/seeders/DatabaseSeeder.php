@@ -1,7 +1,9 @@
 <?php
 
 namespace Database\Seeders;
-
+use Database\Seeders\CategoriaNewsSeeder;
+use Database\Seeders\RoleAndPermissionsSeeder;
+use Database\Seeders\UserSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleAndPermissionsSeeder::class,
             UserSeeder::class, // Después crear usuarios y asignarles roles
+            CategoriaNewsSeeder::class,
+
         ]);
     }
 }

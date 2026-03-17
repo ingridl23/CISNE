@@ -295,21 +295,21 @@ public function descargarContactos(Request $request)
 
      ************************************* Crear profesional ********************************************
 
-Sube correctamente la(s) imagen(es) a Cloudinary bajo la carpeta profesionales.
+*Sube correctamente la(s) imagen(es) a Cloudinary bajo la carpeta profesionales.
 
-Guarda el url y public_id en la tabla imagen_profesional relacionada al profesional_id.
+*Guarda el url y public_id en la tabla imagen_profesional relacionada al profesional_id.
 
-Editar imagen del profesional (rostro):
+*Editar imagen del profesional (rostro):
 
-Busca la imagen actual del profesional.
+*Busca la imagen actual del profesional.
 
-Si se sube una nueva, elimina la anterior de Cloudinary y BD.
+*Si se sube una nueva, elimina la anterior de Cloudinary y BD.
 
-Sube la nueva y guarda correctamente.
+*Sube la nueva y guarda correctamente.
 
-Si no se sube nada, mantiene la actual.
+*Si no se sube nada, mantiene la actual.
 
-Perfectamente coherente con el caso de uso: “cada profesional tiene una única foto de rostro”.
+*Perfectamente coherente con el caso de uso: “cada profesional tiene una única foto de rostro”.
      */
 
 
@@ -420,14 +420,14 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'required|string',
-            'categoria' => 'required|string',
+            'categoria' => 'required|exists:categorias_news,id',
             'imagen' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
         //creamos noticia en tabla noticia
         $noticia = new NoticiasModel();
         $noticia->titulo = $request->titulo;
-        $noticia->categoria = $request->categoria;
+        $noticia->categoria_id = $request->categoria;
         $noticia->descripcion = $request->descripcion;
         $noticia->save();
         // Cargar imagen en Cloudinary
@@ -476,7 +476,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         $request->validate([
             'titulo' => 'required|string|max:255',
             'descripcion' => 'required|string',
-            'categoria' => 'required|string',
+            'categoria' => 'required|exists:categorias_news,id',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
@@ -484,7 +484,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         $noticia->update([
             'titulo' => $request->titulo,
             'descripcion' => $request->descripcion,
-            'categoria' => $request->categoria,
+            'categoria_id' => $request->categoria,
         ]);
 
         /** ------------------ IMAGEN ------------------ **/

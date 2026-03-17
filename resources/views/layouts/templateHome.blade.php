@@ -422,7 +422,7 @@
                     <span class="checkmark2">&#10008;</span>
                 </button>
                 <a
-                    id="olvidastepass"href="https://wa.me/542983547406?text=¡Hola me comunico desde el sitio de CISNE para recuperar la contraseña, muchas gracias.">
+                    id="olvidastepass"href="">
                     ¿olvidaste la contraseña?</a>
 
             </form>

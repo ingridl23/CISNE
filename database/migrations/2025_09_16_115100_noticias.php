@@ -20,7 +20,10 @@ class Noticias extends Migration
             $table->timestamps();
             $table->string('titulo');
             $table->text('descripcion');
-            $table->string('categoria');
+      
+            $table->foreignId('categoria_id')
+              ->constrained('categorias_news')
+              ->onDelete('restrict');
         });
     }
 

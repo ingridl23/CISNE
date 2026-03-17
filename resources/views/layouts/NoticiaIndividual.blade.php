@@ -51,7 +51,7 @@
     <div class="container px-4 px-lg-5 h-100">
 
         <div class="col-lg-8 align-self-end">
-            <h1 class="text-white font-weight-bold subtitulo-page">Noticias y Novedades</h1>
+            <h1 class=" font-weight-bold subtitulo-page">Noticias y Novedades</h1>
         </div>
         <div class="col-lg-8 align-self-baseline">
             <p class="text-white-75 ">
@@ -80,7 +80,7 @@
 
 
 
-            <p <small class=" text-body-secondary">Fecha de publicación:
+            <p class=" text-body-secondary">Fecha de publicación:
                 {{ $noticia->created_at->format('Y-m-d') }}</small></p>
             <h2 class="noticiaTitulo">{{ $noticia->titulo }}</h2>
             @if ($noticia->imagenesNoticias)
@@ -96,79 +96,22 @@
 
 
             </div>
-        </div>
+           <a href="{{ url()->previous() }}"
+             title="Volver atrás"
+             class="inline-flex no-underline items-center gap-2 px-3 py-1.5 text-sm  bg-green-600 rounded hover:bg-green-700 transition">
 
+            <i class="fas fa-arrow-left"></i>
+            Volver
+
+</a>
+        </div>
 
     </div>
 
-    <!-- modal del formulario para el acceso administrativo ---->
-    <!-- OVERLAY -->
-    <div class="custom-modal-overlay" id="overlay-admin"></div>
-
-    <!-- MODAL -->
-    <div class="custom-modal" id="modal-admin">
-        <div class="custom-modal-header">
-            <img id="" src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}"
-                alt="Logo CISNE">
-            <span>PANEL PARA ADMINISTRADOR</span>
-
-            {{-- ✅ Mensaje de éxito --}}
-            @if (session('success'))
-                <div class="alert alert-success text-center mb-3">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            {{-- ✅ Errores generales --}}
-            @if ($errors->any())
-                <div class="text-center mb-3 alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-        <button class="custom-modal-close" id="close-admin">&times;</button>
-
-        <form id="form-admin" class="form" method="POST" action="{{ route('login') }}" novalidate>
-            @csrf
-            <div class="field-group">
-                <input type="email" name="email" id="email2" placeholder=" " required>
-                <label for="name">Email <span class="asterisco">*</span></label>
-                @error('email')
-                    <div class="text-danger small">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="field-group">
-                <input type="password" name="password" id="contraseña" placeholder="" required>
-                <label for="email">Contraseña <span class="asterisco">*</span></label>
-                @error('contraseña')
-                    <div class="text-danger small">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <input type="text" id="oculto2"name="oculto" class="oculto" autocomplete="off" value="">
-
-
-            <button class="submit " type="submit" id="btn-admin-send">
-                <span class="btn-text">Loguearse</span>
-                <span class="checkmark">&#10004;</span>
-                <span class="checkmark2">&#10008;</span>
-            </button>
-            <a
-                id="olvidastepass"href="https://wa.me/542983547406?text=¡Hola me comunico desde el sitio de CISNE para recuperar la contraseña, muchas gracias.">
-                ¿olvidaste la contraseña?</a>
-
-        </form>
-    </div>
-
-
+   @include('layouts.whatsapp-button')
 
     <!-- barra de navegacion footer -->
-    @include('layouts.footer')
+    @include('layouts.footerNoticias')
 
 
     @if (session('success'))

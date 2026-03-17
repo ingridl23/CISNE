@@ -34,7 +34,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <h3 class="nav-item text-center">Novedades</h3>
+                    <h3 class=" nav-item text-center">Novedades</h3>
                     <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Volver a inicio</a></li>
                 </ul>
             </div>
@@ -51,7 +51,7 @@
     <div class="container px-4 px-lg-5 h-100">
 
         <div class="col-lg-8 align-self-end">
-            <h1 class="text-black font-weight-bold subtitulo-page">Noticias y Novedades</h1>
+            <h1 class="font-weight-bold subtitulo-page">Noticias y Novedades</h1>
         </div>
         <div class="col-lg-8 align-self-baseline">
             <p class="text-white-75 ">
@@ -70,43 +70,17 @@
         </div>
     </div>
 
-    <h3 class="tituloFiltroNoticias subtitulo-page">Filtrar noticias según:</h3>
-    <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    Tìtulo
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                data-bs-parent="#accordionExample">
-                <div class="search accordion-body">
-                    <input class="inputSearch inputFiltrosNoticias" id="Titulo" type="text"
-                        placeholder="Buscar por título">
-                    <button class="buttonSearch botonFiltro"> <img
-                            id= "img-lupa"src="{{ asset('assets/iconos/lupa.png') }}" title="lupa"></button>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
+<div class="accordion mp-3 d-flex flex-column flex-lg-row gap-3 justify-content-lg-center" id="accordionExample">
+        <div class="accordion-item w-70 w-lg-auto">
             <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     Categoria
                 </button>
             </h2>
-            <!--  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                data-bs-parent="#accordionExample">
-                <div class="search accordion-body">
-                    <input class="inputSearch inputFiltrosNoticias" id="Categoria" type="text"
-                        placeholder="Buscar por categoria">
-                    <button class="buttonSearch botonFiltro"> <img
-                            id= "img-lupa"src="" title="lupa"></button>
-                </div>
-            </div> -->
+       
         </div>
-        <div class="accordion-item">
+       <div class="accordion-item w-70 w-lg-auto">
             <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -136,7 +110,7 @@
                 @endif
                 <div class="card-body">
                     <h5 class="card-title">{{ $noticia->titulo }}</h5>
-                    <p class="card-text">{{ $noticia->categoria }}</p>
+                    <p class="card-text">{{ $noticia->categoria->nombre }}</p>
 
                     <div class="container-vermas">
                         <p class="card-text">
@@ -160,74 +134,11 @@
         </div>
     </div>
 
-    <!-- modal del formulario para el acceso administrativo ---->
-    <!-- OVERLAY -->
-    <div class="custom-modal-overlay" id="overlay-admin"></div>
-
-    <!-- MODAL -->
-    <div class="custom-modal" id="modal-admin">
-        <div class="custom-modal-header">
-            <img id="" src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}"
-                alt="Logo CISNE">
-            <span>PANEL PARA ADMINISTRADOR</span>
-
-            {{-- ✅ Mensaje de éxito --}}
-            @if (session('success'))
-                <div class="alert alert-success text-center mb-3">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            {{-- ✅ Errores generales --}}
-            @if ($errors->any())
-                <div class="text-center mb-3 alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-        </div>
-        <button class="custom-modal-close" id="close-admin">&times;</button>
-
-        <form id="form-admin" class="form" method="POST" action="{{ route('login') }}" novalidate>
-            @csrf
-            <div class="field-group">
-                <input type="email" name="email" id="email2" placeholder=" " required>
-                <label for="name">Email <span class="asterisco">*</span></label>
-                @error('email')
-                    <div class="text-danger small">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <div class="field-group">
-                <input type="password" name="password" id="contraseña" placeholder="" required>
-                <label for="email">Contraseña <span class="asterisco">*</span></label>
-                @error('contraseña')
-                    <div class="text-danger small">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <input type="text" id="oculto2"name="oculto" class="oculto" autocomplete="off" value="">
-
-
-            <button class="submit " type="submit" id="btn-admin-send">
-                <span class="btn-text">Loguearse</span>
-                <span class="checkmark">&#10004;</span>
-                <span class="checkmark2">&#10008;</span>
-            </button>
-            <a
-                id="olvidastepass"href="https://wa.me/542983547406?text=¡Hola me comunico desde el sitio de CISNE para recuperar la contraseña, muchas gracias.">
-                ¿olvidaste la contraseña?</a>
-
-        </form>
-    </div>
-
+    @include('layouts.whatsapp-button')
 
 
     <!-- barra de navegacion footer -->
-    @include('layouts.footer')
+    @include('layouts.footerNoticias')
 
 
     @if (session('success'))

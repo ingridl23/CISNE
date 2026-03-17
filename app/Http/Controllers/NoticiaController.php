@@ -40,7 +40,7 @@ class NoticiaController extends Controller
                 return [
                     'id' => $n->id,
                     'titulo' => $n->titulo,
-                    'categoria' => $n->categoria,
+                    'categoria_id' =>  $n->categoria->nombre,
                     'created_at' => $n->created_at,
                     'updated_at' => $n->updated_at,
                     'imagen' => $n->imagenesNoticias ? $n->imagenesNoticias->url : null,
@@ -55,13 +55,15 @@ class NoticiaController extends Controller
         $busqueda = $request->query('busqueda');
 
         $noticias = NoticiasModel::with('imagenesNoticias')
-            ->where('categoria', 'LIKE', '%' . $busqueda . '%')
+        ->whereHas('categoria', function ($q) use ($busqueda) {
+    $q->where('nombre', 'LIKE', '%' . $busqueda . '%');
+})
             ->get()
             ->map(function ($n) {
                 return [
                     'id' => $n->id,
                     'titulo' => $n->titulo,
-                    'categoria' => $n->categoria,
+                    'categoria_id' => $n->categoria->nombre,
                     'created_at' => $n->created_at,
                     'updated_at' => $n->updated_at,
                     'imagen' => $n->imagenesNoticias ? $n->imagenesNoticias->url : null,
@@ -82,7 +84,7 @@ class NoticiaController extends Controller
                 return [
                     'id' => $n->id,
                     'titulo' => $n->titulo,
-                    'categoria' => $n->categoria,
+                    'categoria_id' => $n->categoria->nombre,
                     'created_at' => $n->created_at,
                     'updated_at' => $n->updated_at,
                     'imagen' => $n->imagenesNoticias ? $n->imagenesNoticias->url : null,

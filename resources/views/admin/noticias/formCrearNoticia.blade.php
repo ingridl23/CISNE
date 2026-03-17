@@ -23,12 +23,13 @@
 
         <div class="mt-3">
             <label>Categoría</label>
-            <select name="categoria" class="w-full p-2 border rounded" required>
-                @foreach ($categorias as $cat)
-                    <option value="{{ $cat }}" {{ old('categoria') == $cat ? 'selected' : '' }}>{{ $cat }}
-                    </option>
-                @endforeach
-            </select>
+          <select name="categoria" class="w-full p-2 border rounded" required>
+          @foreach ($categorias as $cat)
+        <option value="{{ $cat->id }}" {{ old('categoria') == $cat->id ? 'selected' : '' }}>
+            {{ $cat->nombre }}
+        </option>
+    @endforeach
+</select>
         </div>
 
         <div class="mt-3">

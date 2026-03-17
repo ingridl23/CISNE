@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\constants;
@@ -9,7 +7,7 @@ use Database\Factories\NoticiasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\imagesNoticiasModel;
-
+use App\Models\CategoriasNews;
 class NoticiasModel extends Model
 {
     use HasFactory;
@@ -20,7 +18,7 @@ class NoticiasModel extends Model
      * @property $updated_at
      * @property $titulo
      * @property $descripcion
-     * @property $categoria
+     * @property $categoria_id
      *  * @package App
      * @mixin \Illuminate\Database\Eloquent\Builder
      */
@@ -39,10 +37,13 @@ class NoticiasModel extends Model
         'id',
         'titulo',
         'descripcion',
-        'categoria',
+        'categoria_id',
     ];
 
-
+public function categoria()
+{
+    return $this->belongsTo(CategoriasNews::class, 'categoria_id');
+}
 
     // imagenes de las noticias trae desde el model de las imagenes
     //hasOne en lugar de hasMany Cada noticia tiene una sola imagen, según tu lógica.
@@ -51,7 +52,10 @@ class NoticiasModel extends Model
         return $this->hasOne(imagesNoticiasModel::class, 'noticia_id');
     }
 
-
+public static function obtenerCategorias()
+{
+    return CategoriasNews::all();
+}
     /** ------------------- CONSULTAS ------------------- **/
 
     public static function getUltimasNoticias($cantidad)
@@ -61,7 +65,7 @@ class NoticiasModel extends Model
 
     /**
      * showNoticiasId() devuelve first()
-No hace falta get() ni comparar con $perPage.
+      *No hace falta get() ni comparar con $perPage.
      */
     public static function showNoticiasId($id)
     {
@@ -75,28 +79,21 @@ No hace falta get() ni comparar con $perPage.
 
     public static function obtenerNoticiasCategorias()
     {
-        return self::all()->groupBy("categoria");
+        return self::all()->groupBy("categoria_id");
     }
 
-    public static function obtenerCategorias()
-    {
-        return ['Turnos', 'Novedad'];
-    }
+  
 
     /** ------------------- CRUD ------------------- **/
 
-    public static function createNoticia($request)
-    {
-        return self::create([
-            'titulo' => Str::ucfirst($request->titulo),
-            'categoria' => Str::ucfirst($request->categoria),
-            /**
-             * nl2br() dentro de createNoticia()
-             *  Así el salto de línea se guarda formateado.
-             */
-            'descripcion' => nl2br($request->descripcion),
-        ]);
-    }
+  public static function createNoticia($request)
+{
+    return self::create([
+        'titulo' => Str::ucfirst($request->titulo),
+        'categoria_id' => $request->categoria_id,
+        'descripcion' => nl2br($request->descripcion),
+    ]);
+}
 
     public static function editNoticia($noticia)
     {
@@ -105,8 +102,8 @@ No hace falta get() ni comparar con $perPage.
 
 
     /**
-     * Eliminadas fechas manuales (created_at, updated_at)
-       Laravel las maneja automáticamente.
+     * Eliminadas fechas manuales (created_at, updated_at)l
+     * laravel la smaneja solas
      */
     public static function deleteNoticia($noticia)
     {
