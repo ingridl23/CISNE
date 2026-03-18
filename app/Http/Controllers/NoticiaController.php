@@ -54,7 +54,7 @@ class NoticiaController extends Controller
     {
         $busqueda = $request->query('busqueda');
 
-        $noticias = NoticiasModel::with('imagenesNoticias')
+        $noticias = NoticiasModel::with('imagenesNoticias','categoria')
         ->whereHas('categoria', function ($q) use ($busqueda) {
     $q->where('nombre', 'LIKE', '%' . $busqueda . '%');
 })
@@ -63,7 +63,7 @@ class NoticiaController extends Controller
                 return [
                     'id' => $n->id,
                     'titulo' => $n->titulo,
-                    'categoria_id' => $n->categoria->nombre,
+                    'categoria' => $n->categoria->nombre,
                     'created_at' => $n->created_at,
                     'updated_at' => $n->updated_at,
                     'imagen' => $n->imagenesNoticias ? $n->imagenesNoticias->url : null,

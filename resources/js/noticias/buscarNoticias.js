@@ -1,7 +1,7 @@
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-    ["Titulo", "Categoria", "Fecha"].forEach((id) => {
+    ["Categoria", "Fecha"].forEach((id) => {
         let input = document.getElementById(id);
         if (!input) return;
 
@@ -23,17 +23,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function limpiarContenedor(id) {
         if (document.getElementById(id).value === "") {
-            fetch("/noticias", { headers: { Accept: "application/json" } })
-                .then((res) => res.json())
-                .then((data) => showContent(data))
-                .catch((err) => console.log(err));
+            location.reload();
         }
     }
 
     function filtrarPublicacion(id) {
         let search = document.getElementById(id).value;
+
+        let rutas = {
+
+            Categoria: "/noticias/buscadorCategoria",
+            Fecha: "/noticias/buscadorFecha"
+        };
+
         if (search !== "") {
-            fetch(`/noticias/buscador${id}?busqueda=${search}`, {
+            fetch(`${rutas[id]}?busqueda=${search}`, {
                     method: "GET",
                     headers: { Accept: "application/json" },
                 })

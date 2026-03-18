@@ -73,9 +73,12 @@
 <div class="accordion mp-3 d-flex flex-column flex-lg-row gap-3 justify-content-lg-center" id="accordionExample">
         <div class="accordion-item w-70 w-lg-auto">
             <h2 class="accordion-header" id="headingTwo">
+                <input id="Categoria" type="text" placeholder="Buscar por categoría">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     Categoria
+                 
+
                 </button>
             </h2>
        
