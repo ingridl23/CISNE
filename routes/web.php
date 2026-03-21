@@ -68,7 +68,7 @@ Route::get('/panel/descargas', [AdminController::class, 'descargarContactos'])
     Route::get('/profesionales/crear', [ProfesionalController::class, 'create'])->name('profesionales.create');
     Route::post('/profesionales', [AdminController::class, 'store'])->name('profesionales.store');
 
- Route::get('/profesionales/{profesional}/editar',
+Route::get('/profesionales/{profesional}/editar',
     [AdminController::class, 'showFormEditarProfesional']
 )->name('profesionales.edit');
     Route::put('/profesionales/{id}', [AdminController::class, 'updateProfesional'])->name('profesionales.update');
@@ -101,7 +101,7 @@ Route::get('/panel/descargas', [AdminController::class, 'descargarContactos'])
     Route::delete('/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
     });
 use Illuminate\Support\Facades\Mail;
-
+/*
 Route::get('/testmail', function () {
     Mail::raw('Correo de prueba desde Laravel', function ($message) {
         $message->to('cisneconsultorios@gmail.com')
@@ -109,4 +109,4 @@ Route::get('/testmail', function () {
     });
 
     return "Correo enviado";
-});
+});*/

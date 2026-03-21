@@ -213,7 +213,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
         setTimeout(() => {
             mensajeExito.style.transition = "opacity 0.5s";
             mensajeExito.style.opacity = "0";
-        }, 4000);
+        }, 5000);
     }
     // =================================================================
     // 7) MENSAJES DE ÉXITO/ERROR - AUTO CERRAR
@@ -225,7 +225,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 alert.style.transition = "opacity 0.5s";
                 alert.style.opacity = "0";
                 setTimeout(() => alert.remove(), 500);
-            }, 3000);
+            }, 4000);
         }
     });
 });

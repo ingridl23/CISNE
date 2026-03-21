@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-gray-700">Profesionales</h2>
 
-        {{-- ✅ Mensaje de éxito --}}
+        {{--  Mensaje de éxito --}}
         @if (session('success'))
             <div class="alert alert-success text-center mb-3">
                 {{ session('success') }}
@@ -74,7 +74,7 @@
                                 <div class="flex justify-center gap-2">
 
                                     {{-- Editar --}}
-                                    <a href="{{ route('admin.profesionales.edit', $p->id) }}"
+                                  <a href="{{ route('admin.profesionales.edit', $p) }}"
                                         class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded shadow transition">
                                         ✏️ Editar
                                     </a>

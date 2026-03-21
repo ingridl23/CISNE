@@ -16,9 +16,10 @@
             {{ session('error') }}
         </div>
     @endif
-<form action="{{ route('admin.profesionales.update', $profesional->id) }}"
-      method="POST"
-      enctype="multipart/form-data">
+<form action="{{ route('admin.profesionales.update', $profesional->id) }}" method="POST"  enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
+
     @csrf
    
         @method('PUT')

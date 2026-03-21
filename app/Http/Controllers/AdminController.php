@@ -268,12 +268,12 @@ public function descargarContactos(Request $request)
 
     /****************************************** Editar profesional cargado *******************************************************/
 
-    public function showFormEditarProfesional(ProfesionalesModel $profesional)
+  public function showFormEditarProfesional($id)
 {
+    $profesional = ProfesionalesModel::findOrFail($id);
     $profesional->load('imagenes');
-    $imagenes = $profesional->imagenes;
 
-    return view('admin.profesionales.formEditarProfesional', compact('profesional', 'imagenes'));
+    return view('admin.profesionales.formEditarProfesional', compact('profesional'));
 }
 
 

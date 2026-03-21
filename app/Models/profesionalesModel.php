@@ -27,7 +27,7 @@ class ProfesionalesModel extends Model
     use HasFactory;
 
     protected $perPage = 12;
-    protected $table = 'Profesional'; // tu tabla real
+    protected $table = 'profesional'; // tu tabla real
 
 
 
