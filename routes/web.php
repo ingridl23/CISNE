@@ -16,16 +16,17 @@ use App\Http\Controllers\InstitucionController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+
+Route::get('/noticias/buscadorTitulo', [NoticiaController::class, 'filterNoticiasByTittle']);
+Route::get('/noticias/buscadorCategoria', [NoticiaController::class, 'filterNoticiasByCategory']);
+
+Route::get('/noticias/buscadorFecha', [NoticiaController::class, 'filterNoticiasByDate']);
 Route::get('/novedades', [NoticiaController::class, 'index3'])->name('novedades');
 
 
 Route::get("/noticias/{id}", [NoticiaController::class, "showNoticia"]);
 
 
-
-Route::get('/noticias/buscadorTitulo', [NoticiaController::class, 'filterNoticiasByTittle']);
-Route::get('/noticias/buscadorCategoria', [NoticiaController::class, 'filterNoticiasByCategory']);
-Route::get('/noticias/buscadorFecha', [NoticiaController::class, 'filterNoticiasByDate']);
 
 /* ==========================
    FORMULARIO DE CONTACTO

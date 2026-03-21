@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-gray-700">Comunicados</h2>
 
-        {{-- ✅ Mensaje de éxito --}}
+        {{-- Mensaje de éxito --}}
         @if (session('success'))
             <div class="alert alert-success text-center mb-3">
                 {{ session('success') }}

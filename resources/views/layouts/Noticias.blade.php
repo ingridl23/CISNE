@@ -17,6 +17,7 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="{{ asset('css/noticias.css') }}">
     <link rel="stylesheet" href="{{ asset('css/noticiaIndividual.css') }}">
+    
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('css/styles2.css') }}">
 </head>
@@ -98,10 +99,14 @@
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                 data-bs-parent="#accordionExample">
                 <div class="search accordion-body">
-                    <input class="inputSearch inputFiltrosNoticias" id="Categoria" type="text"
-                        placeholder="Buscar por categoria">
-                    <button class="buttonSearch botonFiltro"> <img
-                            id= "img-lupa"src="{{ asset('assets/iconos/lupa.png') }}" title="lupa"></button>
+                   <select class="inputFiltrosNoticias" id="Categoria">
+                   <option value="">Seleccionar categoría</option>
+                     @foreach($categorias as $cat)
+                      <option value="{{ $cat->id }}">{{ $cat->nombre }}</option>
+                      @endforeach
+                   </select>
+                      
+                  
                 </div>
             </div>
         </div>
@@ -158,7 +163,9 @@
             {{ $noticias->onEachSide(2)->links('pagination::bootstrap-4') }}
         </div>
     </div>
-
+ <div class="navegacionPags">
+        {{ $noticias->onEachSide(2)->links('pagination::bootstrap-4') }}
+    </div>
     @include('layouts.whatsapp-button')
 
 
@@ -179,8 +186,9 @@
     @endif
 
 
-    <script src="{{ asset('js/noticias/buscarNoticias.js') }} "></script>
-    <script src="{{ asset('js/carteles/carteles_error_success.js') }} "></script>
+   
+    <script src="{{ asset('js/noticias/buscarNoticias.js')}}"></script>
+  
     <script src="{{ asset('js/scripts.js') }}"></script>
 
 

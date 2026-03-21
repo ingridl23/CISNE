@@ -2,15 +2,22 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\NoticiasModel;
+use App\Models\CategoriasNews;
 use Illuminate\Support\ViewErrorBag;
 class NoticiaController extends Controller
 {
+      /**
+     * Visualizar las publicaciones vigentes en el sistema:
+     * Permite a todos los usuarios acceder a la interfaz funcional de las publicaciones.
+     * @return \Illuminate\Http\RedirectResponse Redirige al usuario hacia la seccion de ultimas publicaciones.
+     */
     public function index3(){
         $cantidad = 12;
+        $categorias = CategoriasNews::all();
+
         $noticias= NoticiasModel::with('imagenesNoticias','categoria')->latest()->paginate($cantidad);
-        return view('layouts.Noticias', compact('noticias'), [
-            'errors' => session()->get('errors') ?: new ViewErrorBag,
-       ]);
+        return view('layouts.Noticias', compact('noticias','categorias'))
+            ->with('i', (request()->input('page', 1) - 1) * $noticias->perPage());
     }
 
 
@@ -47,14 +54,23 @@ class NoticiaController extends Controller
 
      return response()->json($noticias ?? []);
 }
+/*
+public function filterNoticiasByCategory(Request $request)
+{
+    return response()->json([
+        "ok" => true,
+        "mensaje" => "llegó al controller",
+        "busqueda" => $request->query('busqueda')
+    ]);
+}
+*/
+
 public function filterNoticiasByCategory(Request $request)
 {
     $busqueda = $request->query('busqueda');
 
     $noticias = NoticiasModel::with('categoria','imagenesNoticias')
-        ->whereHas('categoria', function ($q) use ($busqueda) {
-            $q->where('nombre', 'LIKE', '%' . $busqueda . '%');
-        })
+        ->where('categoria_id', $busqueda)
         ->get()
         ->map(function ($n) {
             return [
@@ -66,7 +82,6 @@ public function filterNoticiasByCategory(Request $request)
                 'updated_at' => $n->updated_at,
             ];
         });
-
      return response()->json($noticias ?? []);
 }
 
