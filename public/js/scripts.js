@@ -199,7 +199,22 @@ window.addEventListener("DOMContentLoaded", (event) => {
             document.body.style.overflow = "hidden";
         }
     }
+    const mensajeExito = document.getElementById("mensaje-exito");
 
+    if (mensajeExito) {
+        // hacerlo visible sí o sí
+        mensajeExito.style.display = "block";
+        mensajeExito.style.opacity = "1";
+
+        // opcional: scroll automático
+        mensajeExito.scrollIntoView({ behavior: "smooth" });
+
+        // ocultar después de 4s
+        setTimeout(() => {
+            mensajeExito.style.transition = "opacity 0.5s";
+            mensajeExito.style.opacity = "0";
+        }, 4000);
+    }
     // =================================================================
     // 7) MENSAJES DE ÉXITO/ERROR - AUTO CERRAR
     // =================================================================

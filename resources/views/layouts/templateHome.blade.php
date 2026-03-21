@@ -24,6 +24,11 @@
 </head>
 
 <body id="page-top">
+     @if(session('success'))
+            <div id="mensaje-exito" class="alert-flotante alert alert-success">
+                {{ session('success') }}
+            </div>
+             @endif
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
@@ -277,13 +282,9 @@
         <!-- formulario de contacto-->
 
         <!-- OVERLAY -->
-        <div class="container mt-5 pt-5">
+       
         
-           @if(session('success'))
-            <div id="mensaje-exito" class="alert-flotante alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+          
         
         </div>
         <div class="custom-modal-overlay" id="overlay"></div>

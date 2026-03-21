@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\institucion_contacto;
+use App\Models\InstitucionContacto;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
@@ -10,7 +10,7 @@ class InstitucionExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        return institucion_contacto::all([
+        return InstitucionContacto::all([
             'id',
             'nombre',
             'email',

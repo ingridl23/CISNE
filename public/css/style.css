@@ -323,13 +323,15 @@ body {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #22c55e;
-    /* verde */
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
     z-index: 9999;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+    background-color: #d1fae5;
+    /* verde pastel */
+    color: #065f46;
+    border: 1px solid #10b981;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 
