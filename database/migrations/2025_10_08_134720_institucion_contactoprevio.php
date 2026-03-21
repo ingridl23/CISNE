@@ -18,8 +18,9 @@ class InstitucionContactoprevio extends Migration
             function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->string('nombre');
-                $table->string('email')->unique();
+                $table->string('email');
                 $table->string('telefono');
+                $table->timestamps();
             }
         );
     }

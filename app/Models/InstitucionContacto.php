@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class institucion_contacto extends Model
+class InstitucionContacto extends Model
 {
     use HasFactory;
 
     protected $table = 'instituciones_contactoprevio';
+     protected $fillable = ['nombre', 'email', 'telefono'];
 }

@@ -277,15 +277,19 @@
         <!-- formulario de contacto-->
 
         <!-- OVERLAY -->
+        <div class="container mt-5 pt-5">
+        
+           @if(session('success'))
+            <div id="mensaje-exito" class="alert-flotante alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        
+        </div>
         <div class="custom-modal-overlay" id="overlay"></div>
-
         <!-- MODAL -->
         <div class="custom-modal" id="modal">
-@if(session('success'))
-<div class="alert-success">
-    {{ session('success') }}
-</div>
-@endif
+
             <div class="custom-modal-header">
                 <img id="img" src="{{ asset('assets/iconos/logo_cisne_insta-removebg-preview.png') }}"
                     alt="Logo CISNE">

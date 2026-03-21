@@ -66,7 +66,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             }
             // validación
             if (!telefono || !email) {
-                e.preventDefault(); // ❗ solo bloquea si hay error
+                e.preventDefault(); // solo bloquea si hay error
                 contactSubmit.classList.add("error");
                 if (contactError) contactError.classList.add("show");
                 return;

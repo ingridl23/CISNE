@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 use Illuminate\Contracts\Mail\Mailable;
 use App\Mail\envioDeForm;
-use App\Models\institucion_contacto;
+use App\Models\InstitucionContacto;
 use App\Models\Paciente_contacto;
 use App\Models\ProfesionalEnvioCV;
 use App\Http\Requests\validacionFormularioContacto;
@@ -85,28 +85,28 @@ public function enviar(Request $request)
                  Paciente_contacto::create($pacienteData);
             }
             // ========== intitucion  ==========
-            elseif ($opcion === 'institucion') {
-
-                $data =  $request->all();
-                // Guardar en la base de datos
-                 $institucionData = [
-                    'nombre' => $request->name,
-                    'email' => $request->email,
-                    'telefono' => $request->tel,
-
-                ];
-
-                 institucion_contacto::create($institucionData);
-            }
+          elseif ($opcion === 'institucion') {
+              
+              $data =  $request->all();
+              
+              $institucionData = [
+                  'nombre' => $request->name,
+                  'email' => $request->email,
+                  'telefono' => $request->tel,
+                  ];
+                  
+                          //    dd($institucionData);
+           InstitucionContacto::create($institucionData);
+}
 
 
             // Enviar correo en todos los casos
             Mail::to('cisneconsultorios@gmail.com')->send(new envioDeForm($data));
-
+          
+            
+          // confirmación automática al usuario
+           Mail::to($request->email)->send(new confirmacionFormulario($data));
             return back()->with('success', 'Enviado correctamente,en la brevedad el equipo Cisne se pondra en contacto.');
-
-             // confirmación automática al usuario
-            Mail::to($request->email)->send(new confirmacionFormulario($data));
         } catch (\Exception $e) {
             Log::error('Error al enviar el formulario: ' . $e->getMessage());
             return back()->with('error', 'Ocurrió un error al enviar el formulario.');
