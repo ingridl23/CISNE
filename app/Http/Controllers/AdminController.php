@@ -6,7 +6,7 @@ use App\Http\Requests\validacionNoticia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use App\Http\Requests\validacionHogar;
 use App\Models\noticiasModel;
-use App\Models\ProfesionalesModel;
+use App\Models\profesionalesModel;
 use App\Models\hogarModel;
 use App\Models\Paciente_contacto;
 use App\Models\ProfesionalEnvioCV;
@@ -270,10 +270,11 @@ public function descargarContactos(Request $request)
 
   public function showFormEditarProfesional($id)
 {
+    //dd("entro al metodo show");
     $profesional = ProfesionalesModel::findOrFail($id);
-    $profesional->load('imagenes');
+    $imagen = $profesional->load('imagenes');
 
-    return view('admin.profesionales.formEditarProfesional', compact('profesional'));
+    return view('admin.profesionales.formEditarProfesional', compact('profesional','imagen'));
 }
 
 
@@ -469,16 +470,13 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
 
-    protected function editNoticia(validacionNoticia $request, $id)
+    protected function editNoticia(validacionNOticia $request, $id)
     {
         $noticia = NoticiasModel::findOrFail($id);
+        
+        //    dd("ENTRÉ AL UPDATE");
         // Validación (la imagen NO es obligatoria)
-        $request->validate([
-            'titulo' => 'required|string|max:255',
-            'descripcion' => 'required|string',
-            'categoria' => 'required|exists:categorias_news,id',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
-        ]);
+      
 
         /** ------------------ ACTUALIZAR CAMPOS DE LA NOTICIA ------------------ **/
         $noticia->update([

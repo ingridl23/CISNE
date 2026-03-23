@@ -96,8 +96,8 @@ Route::get('/profesionales/{profesional}/editar',
     Route::post('/noticias', [AdminController::class, 'storeNoticia'])->name('noticias.storeNoticia');
 
     Route::get('/noticias/{id}/editar', [AdminController::class, 'showFormEditNoticia'])->name('noticias.edit');
-    Route::put('/noticias/{id}', [AdminController::class, 'editNoticia'])->name('noticias.update');
     Route::post('/noticias/{id}/imagen', [AdminController::class, 'editarImagenNoticia'])->name('noticias.editarImagen');
+    Route::put('/noticias/{id}', [AdminController::class, 'editNoticia'])->name('noticias.update');
     Route::delete('/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
     });
 use Illuminate\Support\Facades\Mail;

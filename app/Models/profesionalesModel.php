@@ -47,12 +47,12 @@ class ProfesionalesModel extends Model
 
 
     // CRUd para profesionales
-
+/*
     public static function editarProfesional($profesional)
     {
         $profesionalEdit = $profesional->save();
         return $profesionalEdit;
-    }
+    }*/
 
     public static function eliminarEmprendimiento($profesional)
     {

@@ -5,7 +5,7 @@
 @section('panel-content')
 
     <h2 class="text-2xl font-bold mb-4">Editar Profesional</h2>
-    {{-- ✅ Mensaje de éxito --}}
+    {{--  Mensaje de éxito --}}
     @if (session('success'))
         <div class="alert alert-success text-center mb-3">
             {{ session('success') }}
@@ -16,13 +16,10 @@
             {{ session('error') }}
         </div>
     @endif
-<form action="{{ route('admin.profesionales.update', $profesional->id) }}" method="POST"  enctype="multipart/form-data">
+<form class ="form" action="{{ route('admin.profesionales.update', $profesional->id) }}" method="POST"  enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
-    @csrf
-   
-        @method('PUT')
 
         <div class="grid grid-cols-2 gap-4">
 
@@ -48,15 +45,17 @@
             </div>
 
             <div>
-                <label>Imagen actual</label><br>
-
-                @if ($imagenes && $imagenes->first())
-                    <img src="{{ $imagenes->first()->url }}" class="w-24 h-24 rounded-full object-cover mb-2">
-                @endif
-
+              <label>Imagen actual</label>
+              @if ($imagen && $imagen->url)
+                <img src="{{ $imagen->url }}" class="w-40 h-28 object-cover rounded">
+            @else
+                <div class="w-40 h-28 bg-gray-200 rounded"></div>
+            @endif
+             <p class="mt-2 text-sm text-gray-600">Si subís una nueva imagen, reemplazará la actual.</p>
                 <label class="block text-sm mt-2">Subir nueva imagen</label>
                 <input type="file" name="imagen" accept="image/*">
             </div>
+
 
         </div>
 

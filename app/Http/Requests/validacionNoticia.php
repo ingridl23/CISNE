@@ -34,16 +34,15 @@ class validacionNoticia  extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-
-        return [
-            'titulo' => 'bail|required|string|min:3|max:100',
-            'descripcion' => 'bail|required|string|min:1',
-            'categoria' => 'bail|required|string|min:1|max:60',
-            'imagen' => 'bail|required|image|mimes:jpeg,jpg,png,webp'
-        ];
-    }
+   public function rules()
+{
+    return [
+        'titulo' => 'bail|required|string|min:3|max:100',
+        'descripcion' => 'bail|required|string|min:1',
+        'categoria' => 'bail|required|exists:categorias_news,id',
+        'imagen' => 'bail|nullable|image|mimes:jpeg,jpg,png,webp|max:2048'
+    ];
+}
     public function messages()
     {
         return [

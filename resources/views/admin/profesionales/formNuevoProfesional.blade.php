@@ -5,7 +5,7 @@
 @section('panel-content')
 
     <h2 class="text-2xl font-bold mb-4">Crear Profesional</h2>
-    {{-- ✅ Mensaje de éxito --}}
+    {{--  Mensaje de éxito --}}
     @if (session('success'))
         <div class="alert alert-success text-center mb-3">
             {{ session('success') }}
