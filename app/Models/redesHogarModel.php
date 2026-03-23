@@ -7,6 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\hogarModel;
 
+/**
+ * @class redesHogarModel
+ * @brief Modelo que representa las redes sociales asociadas a un hogar.
+ *
+ * Este modelo gestiona las redes sociales de las instituciones (hogares),
+ * permitiendo almacenar y normalizar enlaces a Instagram, Facebook y WhatsApp.
+ *
+ * Relaciones:
+ * - Un registro de redes pertenece a un hogar (1:1)
+ *
+ * @property int $id
+ * @property string|null $instagram
+ * @property string|null $facebook
+ * @property string|null $whatsapp
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property HogarModel $hogar
+ *
+ * @table red_hogar
+ * @package App\Models
+ */
+
 class redesHogarModel extends Model
 {
     use HasFactory;
@@ -20,6 +43,13 @@ class redesHogarModel extends Model
     ];
 
     //traer las redes relacionadas
+    /**
+ * @brief Relación con el hogar asociado.
+ *
+ * Un conjunto de redes pertenece a un hogar.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasOne
+ */
     public function Hogar(): HasOne
     {
         return $this->hasOne(hogarModel::class, 'redes_id', 'id');
@@ -29,6 +59,12 @@ class redesHogarModel extends Model
     //CRUd para las redes de los hogares
 
     //funcion modificar
+    /**
+ * @brief Elimina el registro de redes sociales.
+ *
+ * @param redesHogarModel $redes
+ * @return bool|null
+ */
     public static function editarHogar_Redes($redes)
     {
         $cadena = "https";
@@ -43,6 +79,7 @@ class redesHogarModel extends Model
     }
 
     //funcion eliminar
+
     public static function eliminarEHogar_Redes($redes)
     {
         $redesEliminar = $redes->delete();
@@ -50,6 +87,17 @@ class redesHogarModel extends Model
     }
 
     //dar de alta
+    /**
+ * @brief Crea un nuevo registro de redes sociales.
+ *
+ * - Normaliza URLs de Instagram y Facebook
+ * - Guarda en la base de datos
+ *
+ * @param string|null $instagram
+ * @param string|null $facebook
+ * @param string|null $whatsapp
+ * @return redesHogarModel
+ */
     public static function crearRedes($instagram, $facebook, $whatsapp)
     {
         if ($instagram) {

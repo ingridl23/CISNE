@@ -7,18 +7,51 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\noticiasModel;
 use Database\Factories\ImagenesNoticiasFactory;
 
+/**
+ * @class imagesNoticiasModel
+ * @brief Modelo que representa las imágenes asociadas a las noticias.
+ *
+ * Este modelo gestiona las imágenes vinculadas a una noticia,
+ * almacenando la URL y el identificador público (por ejemplo, Cloudinary).
+ *
+ * Relación:
+ * - Una imagen pertenece a una noticia
+ *
+ * @property int $id
+ * @property int $noticia_id
+ * @property string $url
+ * @property string $public_id
+ *
+ * @property NoticiasModel $noticia
+ *
+ * @table imagen_noticias
+ * @package App\Models
+ */
 class imagesNoticiasModel extends Model
 {
+
+/**
+ * @var string $table Nombre de la tabla
+ */
+protected $table = 'imagen_noticias';
+
+/**
+ * @var array $fillable Campos asignables masivamente
+ */
     use HasFactory;
 
-    protected $table = 'imagen_noticias';
+  
 
-
+/**
+ * @brief Define la factory asociada al modelo.
+ *
+ * @return \Database\Factories\ImagenesNoticiasFactory
+ */
     protected static function newFactory()
     {
         return ImagenesNoticiasFactory::new();
     }
-    use HasFactory;
+   
 
     protected $fillable = [
         'id',
@@ -30,7 +63,13 @@ class imagesNoticiasModel extends Model
 
     ];
 
-
+/**
+ * @brief Relación inversa con el modelo Noticias.
+ *
+ * Una imagen pertenece a una noticia.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+ */
     public function NoticiaImagen()
     {
         return $this->belongsTo(noticiasModel::class, 'noticia_id');

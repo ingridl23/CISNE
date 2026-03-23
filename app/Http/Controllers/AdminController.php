@@ -26,12 +26,38 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PacienteExport;
 use App\Exports\ProfesionalExport;
 use App\Exports\InstitucionExport;
-
 use function PHPUnit\Framework\isEmpty;
 
+
+/**
+ * @class AdminController
+ * @brief Controlador principal del panel de administración.
+ *
+ * Este controlador gestiona todas las funcionalidades administrativas del sistema:
+ *
+ * - Gestión de profesionales (CRUD + imágenes)
+ * - Gestión de noticias (CRUD + imágenes)
+ * - Gestión de instituciones/hogares
+ * - Estadísticas del sistema
+ * - Exportación de datos (Excel)
+ *
+ * También aplica middlewares de autenticación y permisos
+ * para restringir el acceso según el rol del usuario.
+ *
+ * @package App\Http\Controllers
+ */
 class AdminController extends Controller
 {
-    //
+    /**
+ * @brief Constructor del controlador.
+ *
+ * Aplica middlewares de autenticación y autorización
+ * para restringir el acceso a las distintas funcionalidades
+ * según los permisos del usuario.
+ *
+ * @return void
+ */
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -106,12 +132,30 @@ class AdminController extends Controller
 
     }
 
+/**
+ * @brief Muestra el panel principal de administración.
+ *
+ * @return \Illuminate\View\View Vista del panel admin
+ */
 
 
     public function adminPanel()
     {
         return view('admin.panel');
     }
+
+
+    /**
+ * @brief Obtiene estadísticas generales del sistema.
+ *
+ * Retorna datos en formato JSON para ser consumidos
+ * por gráficos o dashboards:
+ * - Visitas del último mes
+ * - Contactos
+ * - Cantidad de profesionales, noticias e instituciones
+ *
+ * @return \Illuminate\Http\JsonResponse
+ */
 
 
     public function estadisticasPanel()
@@ -124,6 +168,20 @@ class AdminController extends Controller
             'hogares' => HogarModel::count(),
         ]);
     }
+
+/**
+ * @brief Descarga contactos en formato Excel según el tipo.
+ *
+ * Permite exportar:
+ * - Pacientes
+ * - Profesionales
+ * - Instituciones
+ *
+ * @param Request $request Contiene tipo, fecha desde y hasta
+ * @return \Symfony\Component\HttpFoundation\BinaryFileResponse|\Illuminate\Http\RedirectResponse
+ */
+
+
 
 
 public function descargarContactos(Request $request)
@@ -159,6 +217,14 @@ public function descargarContactos(Request $request)
     /***************************Funcionalidad del controlador para profesionales ******************** */
     //traer profesionales cargados para pasarlos al blade
 
+
+    /**
+ * @brief Lista los profesionales con paginación.
+ *
+ * Incluye las imágenes asociadas.
+ *
+ * @return \Illuminate\View\View
+ */
     public function profesionales()
     {
         $profesionales = ProfesionalesModel::with('imagenes')->paginate(10);
@@ -172,6 +238,19 @@ public function descargarContactos(Request $request)
     /* =====================================================
      * GUARDAR NUEVO
      * ===================================================== */
+
+
+    /**
+ * @brief Almacena un nuevo profesional.
+ *
+ * - Valida los datos del request
+ * - Crea el registro en la base de datos
+ * - Sube la imagen a Cloudinary (si existe)
+ * - Guarda la referencia de la imagen
+ *
+ * @param validacionProfesional $request Datos validados
+ * @return \Illuminate\Http\RedirectResponse
+ */
     public function store(validacionProfesional $request)
     {
 
@@ -216,6 +295,21 @@ public function descargarContactos(Request $request)
     /* =====================================================
      * GUARDAR EDICIÓN
      * ===================================================== */
+
+
+
+    /**
+ * @brief Actualiza los datos de un profesional existente.
+ *
+ * - Modifica datos básicos
+ * - Si se envía nueva imagen:
+ *   - Elimina la anterior (Cloudinary + BD)
+ *   - Guarda la nueva
+ *
+ * @param Request $request Datos del formulario
+ * @param int $id ID del profesional
+ * @return \Illuminate\Http\RedirectResponse
+ */
     public function updateProfesional(Request $request,$id)
     {
         $request->validate([
@@ -268,6 +362,14 @@ public function descargarContactos(Request $request)
 
     /****************************************** Editar profesional cargado *******************************************************/
 
+
+
+    /**
+ * @brief Muestra el formulario de edición de un profesional.
+ *
+ * @param int $id ID del profesional
+ * @return \Illuminate\View\View
+ */
   public function showFormEditarProfesional($id)
 {
     //dd("entro al metodo show");
@@ -312,7 +414,17 @@ public function descargarContactos(Request $request)
 
 *Perfectamente coherente con el caso de uso: “cada profesional tiene una única foto de rostro”.
      */
-
+/**
+ * @brief Actualiza la imagen del profesional.
+ *
+ * - Elimina la imagen anterior
+ * - Sube la nueva a Cloudinary
+ * - Guarda la nueva referencia
+ *
+ * @param int $id ID del profesional
+ * @param Request $request Contiene la imagen
+ * @return \Illuminate\Http\RedirectResponse
+ */
 
     public function editarImagenProfesional($id, Request $request)
     {
@@ -347,7 +459,17 @@ public function descargarContactos(Request $request)
         }
     }
 
-
+/**
+ * @brief Actualiza la imagen del profesional.
+ *
+ * - Elimina la imagen anterior
+ * - Sube la nueva a Cloudinary
+ * - Guarda la nueva referencia
+ *
+ * @param int $id ID del profesional
+ * @param Request $request Contiene la imagen
+ * @return \Illuminate\Http\RedirectResponse
+ */
 
     public function eliminarProfesional($id)
     {
@@ -401,6 +523,14 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
     //traer noticias cargados para pasarlos al blade
+
+    /**
+ * @brief Lista las noticias con paginación.
+ *
+ * Incluye su imagen asociada.
+ *
+ * @return \Illuminate\View\View
+ */
     public function noticias()
     {
         $noticias = NoticiasModel::with('imagenesNoticias')->paginate(10);
@@ -412,7 +542,17 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
 
-
+/**
+ * @brief Crea una nueva noticia con imagen obligatoria.
+ *
+ * - Valida datos
+ * - Guarda noticia
+ * - Sube imagen a Cloudinary
+ * - Registra imagen en BD
+ *
+ * @param Request $request Datos del formulario
+ * @return \Illuminate\Http\RedirectResponse
+ */
 
 
     public function storeNoticia(Request $request)
@@ -455,6 +595,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
     }
 
+    
 
     protected function showFormCreateNoticia(){
         $categorias = NoticiasModel::obtenerCategorias();
@@ -467,8 +608,17 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         return view("admin.noticias.formEditarNoticia", compact("noticia", "categorias"));
 }
 
-
-
+/**
+ * @brief Actualiza una noticia existente.
+ *
+ * - Modifica datos textuales
+ * - Si hay nueva imagen:
+ *   - Elimina la anterior
+ *   - Guarda la nueva
+ *
+ * @param validacionNoticia $request Datos validados
+ * @param int $id ID de la noticia
+ */
 
     protected function editNoticia(validacionNOticia $request, $id)
     {
@@ -533,7 +683,12 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     }
 
 
-
+/**
+ * @brief Elimina una noticia y su imagen asociada.
+ *
+ * @param int $id ID de la noticia
+ * @return \Illuminate\Http\RedirectResponse
+ */
 
 
     protected function deleteNoticia($id)
@@ -567,6 +722,13 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     /*************************************************************************************************
      */
 
+
+    /**
+ * @brief Lista instituciones (hogares).
+ *
+ * @return \Illuminate\View\View
+ */
+
     public function instituciones()
     {
         $hogares = HogarModel::with('imagenes')->paginate(10);
@@ -575,7 +737,11 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
             ->with('i', (request()->input('page', 1) - 1) * $hogares->perPage());
     }
 
-
+/**
+ * @brief Muestra el formulario de creación de institución.
+ *
+ * @return \Illuminate\View\View
+ */
 
     public function createHogar()
     {
@@ -583,12 +749,24 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         return view('admin.hogares.formNuevoHogar');
     }
 
+
+
     public function editShowHogar($id)
     {
         $hogar = HogarModel::FindOrFail($id);
         return view("admin.hogares.formEditarHogar", compact("hogar"));
     }
-
+/**
+ * @brief Actualiza una institución existente.
+ *
+ * - Actualiza datos generales
+ * - Actualiza redes y dirección
+ * - Maneja imagen (reemplazo opcional)
+ *
+ * @param int $id ID del hogar
+ * @param Request $request Datos del formulario
+ * @return \Illuminate\Http\RedirectResponse
+ */
 
     public function updateHogar($id,Request $request){
 
@@ -696,11 +874,22 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
     /************************************************************* */
+    /**
+ * @brief Almacena una nueva institución.
+ *
+ * - Crea redes sociales
+ * - Crea dirección
+ * - Crea el hogar
+ * - Sube imagen (opcional)
+ *
+ * @param Request $request Datos del formulario
+ * @return \Illuminate\Http\RedirectResponse
+ */
     public function storeHogar(Request $request)
 
 
     {
-       // dd("ENTRÓ AL MÉTODO");
+       
 
         // Crear redes
         $Redes = redesHogarModel::crearRedes(
@@ -796,6 +985,17 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
             ->withInput();
     }
 
+
+    /**
+ * @brief Elimina una institución y sus relaciones.
+ *
+ * - Imágenes
+ * - Dirección
+ * - Redes sociales
+ *
+ * @param int $id ID del hogar
+ * @return \Illuminate\Http\RedirectResponse
+ */
     public function eliminarHogar($id)
     {
         try {

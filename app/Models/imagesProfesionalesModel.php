@@ -9,29 +9,46 @@ use Database\Factories\ImagenesProfesionalFactory;
 
 
 /**
- * Class ProfesionalesModel
+ * @class imagesProfesionalesModel
+ * @brief Modelo que representa las imágenes asociadas a profesionales.
  *
- * @property $img_id
-
- * @property $profesional_id
- * @property $url
+ * Este modelo gestiona las imágenes vinculadas a un profesional,
+ * almacenando la URL y el identificador público (por ejemplo, Cloudinary).
  *
- * @property $created_at
- * @property $updated_at
+ * Relación:
+ * - Una imagen pertenece a un profesional
  *
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
+ * @property int $id
+ * @property int $profesional_id
+ * @property string $url
+ * @property string $public_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property ProfesionalesModel $profesional
+ *
+ * @table imagen_profesional
+ * @package App\Models
  */
-
-
 
 class imagesProfesionalesModel extends Model
 {
-    use HasFactory;
 
-    protected $table = 'imagen_profesional'; //  tabla real
+/**
+ * @var string $table Nombre de la tabla
+ */
+protected $table = 'imagen_profesional';
 
+/**
+ * @var array $fillable Campos asignables masivamente
+ */
+ 
 
+/**
+ * @brief Define la factory asociada al modelo.
+ *
+ * @return \Database\Factories\ImagenesProfesionalFactory
+ */
     protected static function newFactory()
     {
         return ImagenesProfesionalFactory::new();
@@ -48,14 +65,25 @@ class imagesProfesionalesModel extends Model
 
     ];
 
-
+/**
+ * @brief Relación inversa con el modelo Profesional.
+ *
+ * Una imagen pertenece a un profesional.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+ */
     public function ProfesionalImagen()
     {
         return $this->belongsTo(profesionalesModel::class, 'profesional_id');
     }
 
 
-
+/**
+ * @brief Obtiene las imágenes asociadas a un profesional.
+ *
+ * @param int $id_profesional ID del profesional
+ * @return \Illuminate\Database\Eloquent\Collection
+ */
 
     public static function buscar($id_emprendedor)
     {
@@ -63,6 +91,12 @@ class imagesProfesionalesModel extends Model
         return $imagenes;
     }
 
+    /**
+ * @brief Elimina una imagen de profesional.
+ *
+ * @param imagesProfesionalesModel $imagen
+ * @return bool|null
+ */
     public static function eliminarImagen(imagesProfesionalesModel $imagen)
     {
         $imagen->delete();

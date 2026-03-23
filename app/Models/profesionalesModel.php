@@ -9,17 +9,26 @@ use Database\Factories\ProfesionalFactory;
 use App\Models\Constants;
 
 /**
- * Class Profesional model
+ * @class ProfesionalesModel
+ * @brief Modelo que representa a los profesionales del sistema.
  *
- * @property $id
- * @property $nombre
- * @property $especialidad
- * @property $matricula
- * @property $created_at
- * @property $updated_at
+ * Este modelo gestiona la información de los profesionales,
+ * incluyendo sus datos básicos y sus imágenes asociadas.
  *
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
+ * Relaciones:
+ * - Un profesional puede tener múltiples imágenes
+ *
+ * @property int $id
+ * @property string $nombre
+ * @property string $especialidad
+ * @property string|null $matricula
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @property \Illuminate\Database\Eloquent\Collection $imagenes
+ *
+ * @table profesional
+ * @package App\Models
  */
 
 class ProfesionalesModel extends Model

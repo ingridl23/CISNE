@@ -5,6 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @class Paciente_contacto
+ * @brief Modelo que representa los contactos de pacientes.
+ *
+ * Este modelo almacena la información enviada por pacientes
+ * a través del formulario de contacto del sistema.
+ *
+ * @property int $id
+ * @property string $nombre
+ * @property string $email
+ * @property string $telefono
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ *
+ * @table pacientes
+ * @package App\Models
+ */
 class ProfesionalEnvioCV extends Model
 {
     use HasFactory;
@@ -23,8 +40,17 @@ class ProfesionalEnvioCV extends Model
 
 
     protected $perPage = 20;
+    
+    
+    /**
+     * @var string $table Nombre de la tabla asociada
+    */
+   
     protected $table = "profesional_envioCV";
 
+/**
+ * @var array $fillable Campos asignables masivamente
+ */
     protected static function newFactory()
     {
         return ProfesionalEnvioCV::new();
@@ -43,6 +69,8 @@ class ProfesionalEnvioCV extends Model
 
     /** ------------------- CONSULTAS ------------------- **/
 
+
+    
     public static function getUltimosCVS($cantidad)
     {
         return self::orderBy('created_at', 'desc')->paginate($cantidad);
@@ -50,7 +78,7 @@ class ProfesionalEnvioCV extends Model
 
     /**
      * showNoticiasId() devuelve first()
-No hace falta get() ni comparar con $perPage.
+     *No hace falta get() ni comparar con $perPage.
      */
     public static function showCVId($id)
     {

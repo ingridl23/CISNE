@@ -9,18 +9,35 @@ use App\Models\redesHogarModel;
 use App\Models\HogarModel;
 use Illuminate\Support\ViewErrorBag;
 /**
+ * @class HomeController
+ * @brief Controlador de la página principal del sitio Cisne Consultorios.
  *
- @Brief Clase Controller de la Homepage del sitio Cisne Consultorios
- @since 2025,septiembre
- @Author Ingrid Ledesma , Tec.Desarrollo Aplicaciones Informaticas.
+ * Este controlador se encarga de:
+ * - Obtener y mostrar las instituciones (hogares)
+ * - Cargar sus imágenes asociadas
  *
- * @todo  Queda pendiente en caso que se necesite modificar el metodo dei magenes relacionadas con profesionales, en caso
- * que se necesite iterar mas de una imagen por cada uno de ellos.
+ * La información es enviada a la vista principal del sistema (homepage).
+ *
+ * @since 2025-09
+ * @author Ingrid Ledesma
+ *
+ * @todo Evaluar mejoras en la carga de relaciones (imágenes, redes, dirección)
+ * en caso de requerir mayor complejidad en la vista.
  */
 
 
-
 class HomeController extends Controller{
+
+/**
+ * @brief Muestra la página principal del sitio.
+ *
+ * Obtiene las instituciones (hogares) con sus imágenes asociadas
+ * y las envía a la vista principal.
+ *
+ * También incluye los errores de sesión en caso de existir.
+ *
+ * @return \Illuminate\View\View
+ */
     public function index()
     {
         // Traer profesionales con su imagen (solo retrato principal)

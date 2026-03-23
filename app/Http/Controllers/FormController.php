@@ -5,38 +5,77 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
-
-use Illuminate\Contracts\Mail\Mailable;
 use App\Mail\envioDeForm;
 use App\Models\InstitucionContacto;
 use App\Models\Paciente_contacto;
 use App\Models\ProfesionalEnvioCV;
 use App\Http\Requests\validacionFormularioContacto;
 use App\Mail\confirmacionFormulario;
+use Illuminate\Support\Facades\Storage;
 
+/**
+ * @class FormController
+ * @brief Controlador encargado del manejo del formulario de contacto.
+ *
+ * Gestiona el envío de formularios desde la web, contemplando
+ * distintos tipos de usuarios:
+ *
+ * - Profesionales (envío de CV)
+ * - Pacientes/particulares
+ * - Instituciones
+ *
+ * Funcionalidades principales:
+ * - Validación de datos del formulario
+ * - Almacenamiento en base de datos según el tipo
+ * - Subida de archivos (CV)
+ * - Envío de correos (notificación + confirmación)
+ *
+ * @package App\Http\Controllers
+ */
 class FormController extends Controller
 {
     //
-
+/**
+ * @brief Muestra la vista del formulario de contacto.
+ *
+ * @return \Illuminate\View\View
+ */
     function contacto(){
        return view('layouts.formulario');
     }
-/*
-public function enviar(Request $request)
-{
-    Log::info($request->all());
 
-    Mail::raw('Test desde formulario', function ($message) {
-        $message->to('cisneconsultorios@gmail.com')
-                ->subject('Test formulario');
-    });
 
-    return back()->with('success','Mensaje enviado');
-}
-*/
+
+
+    /**
+ * @brief Procesa y envía el formulario de contacto.
+ *
+ * Este método maneja distintos tipos de formularios según el campo "opcion":
+ *
+ * - profesional:
+ *   - Valida y almacena el CV
+ *   - Guarda los datos en la tabla ProfesionalEnvioCV
+ *
+ * - particular:
+ *   - Guarda los datos en la tabla Paciente_contacto
+ *
+ * - institucion:
+ *   - Guarda los datos en la tabla InstitucionContacto
+ *
+ * Funcionalidades adicionales:
+ * - Protección contra bots mediante campo oculto (honeypot)
+ * - Envío de correo al administrador
+ * - Envío de correo de confirmación al usuario
+ *
+ * @param validacionFormularioContacto $request Datos validados del formulario
+ *
+ * @return \Illuminate\Http\RedirectResponse
+ *
+ * @throws \Exception En caso de error en envío de correo o almacenamiento
+ */
 
     function enviar(validacionFormularioContacto $request){
-//dd($request->all());
+
         if ($request->filled('oculto')) {
             return back()->with("error", "Formulario rechazado")->withInput();
         }
@@ -107,7 +146,11 @@ public function enviar(Request $request)
           // confirmación automática al usuario
            Mail::to($request->email)->send(new confirmacionFormulario($data));
             return back()->with('success', 'Enviado correctamente,en la brevedad el equipo Cisne se pondra en contacto.');
-        } catch (\Exception $e) {
+        // BORRAR ARCHIVO LOCAL
+              if ($cvPath) {
+                 Storage::disk('public')->delete($cvPath);
+             }
+            } catch (\Exception $e) {
             Log::error('Error al enviar el formulario: ' . $e->getMessage());
             return back()->with('error', 'Ocurrió un error al enviar el formulario.');
         }

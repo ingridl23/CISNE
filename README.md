@@ -38,11 +38,12 @@ Ambas partes están desarrolladas con **HTML5**, **CSS3** (Flexbox / Grid) y **J
 
 -   **HTML5**
 -   **CSS3** (Flexbox, Grid, Media Queries)
+-   **TailwindCSS**
 -   **JavaScript (ES6)**
 -   **Bootstrap 5**
--   \*\* PHP 6
--   \*\* Laravel 5
--   **CLOUDINARY **
+-   **PHP 6**
+-   **Laravel 5**
+-   **CLOUDINARY**
 
 ---
 
@@ -130,7 +131,7 @@ cd CisneConsultorios
     - **Carrusel**
     - **Profesionales**
 
-4. Haz click en tu avatar para desplegar **Editar perfil** / **Cerrar sesión**.
+
 
 ---
 

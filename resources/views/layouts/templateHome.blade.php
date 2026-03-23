@@ -380,14 +380,14 @@
                     alt="Logo CISNE">
                 <span>PANEL PARA ADMINISTRADOR</span>
 
-                {{-- ✅ Mensaje de éxito --}}
+                {{--  Mensaje de éxito --}}
                 @if (session('success'))
                     <div class="alert alert-success text-center mb-3">
                         {{ session('success') }}
                     </div>
                 @endif
 
-                {{-- ✅ Errores generales --}}
+                {{--  Errores generales --}}
                 @if ($errors->any())
                     <div class="text-center mb-3 alert alert-danger">
                         <ul class="mb-0">
@@ -426,9 +426,9 @@
                     <span class="checkmark">&#10004;</span>
                     <span class="checkmark2">&#10008;</span>
                 </button>
-                <a
-                    id="olvidastepass"href="">
-                    ¿olvidaste la contraseña?</a>
+                <a href="{{ route('password.request') }}">
+                    ¿Olvidaste tu contraseña?
+                  </a>
 
             </form>
         </div>

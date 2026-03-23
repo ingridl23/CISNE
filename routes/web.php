@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
@@ -8,7 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\InstitucionController;
+
 
 /* ==========================
    RUTAS DEL SITIO PÚBLICO
@@ -100,7 +101,6 @@ Route::get('/profesionales/{profesional}/editar',
     Route::put('/noticias/{id}', [AdminController::class, 'editNoticia'])->name('noticias.update');
     Route::delete('/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
     });
-use Illuminate\Support\Facades\Mail;
 /*
 Route::get('/testmail', function () {
     Mail::raw('Correo de prueba desde Laravel', function ($message) {

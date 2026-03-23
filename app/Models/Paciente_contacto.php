@@ -9,7 +9,7 @@ class Paciente_contacto extends Model
 {
     use HasFactory;
 
-    protected $table = 'pacientes'; // tu tabla real
+    protected $table = 'pacientes'; 
     protected $fillable = [
         'nombre',
         'email',
