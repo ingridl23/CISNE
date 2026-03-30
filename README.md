@@ -1,6 +1,6 @@
 # Desarrollo Web Para Consultorios Cisne - Sistema web
 
-![Logo CISNE](./public/assets/logo_cisne_insta-removebg-preview.png)
+![Logo CISNE](documentacion\imagenes\logo_cisne_insta-removebg-preview.png)
 
 ## Objetivo
 #Descripción del Proyecto
@@ -137,62 +137,67 @@ Descripción de carpetas y archivos
 
 
 ```
+📁 Proyecto CISNE
 ├── app/
-   |_______http/
-     |__ Controllers
-     |__ Middleware
-     |__ Requests
-   |_______Mail/
-   |_______Models/
-     |__CategoriasNews
-     |__direccionHogarModel
-     |__hogarModel
-     |__imagesFlyersModel
-     |__imagesHogarModel
-     |__imagesNoticiasModel
-     |__imagesProfesionalesModel
-     |__InstitucionContacto
-     |__noticiasModel
-     |__Paciente_contacto
-     |__profesionalesModel
-     |__redesHogarModel
-     |__redesHogarModel
-     |__User
-     |__Visita
-   |______Notifications/
-   |______Policies/
-   |______Providers/
-   |______View/
-     |__Components
-|__boostrap/
-|__config/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   ├── Middleware/
+│   │   └── Requests/
+│   ├── Mail/
+│   ├── Models/
+│   │   ├── CategoriasNews.php
+│   │   ├── DireccionHogarModel.php
+│   │   ├── HogarModel.php
+│   │   ├── ImagesFlyersModel.php
+│   │   ├── ImagesHogarModel.php
+│   │   ├── ImagesNoticiasModel.php
+│   │   ├── ImagesProfesionalesModel.php
+│   │   ├── InstitucionContacto.php
+│   │   ├── NoticiasModel.php
+│   │   ├── PacienteContacto.php
+│   │   ├── ProfesionalesModel.php
+│   │   ├── RedesHogarModel.php
+│   │   ├── User.php
+│   │   └── Visita.php
+│   ├── Notifications/
+│   ├── Policies/
+│   ├── Providers/
+│   └── View/
+│       └── Components/
+│
+├── bootstrap/
+├── config/
 ├── database/
-|__documentacion/
-|__node_modules/
-
+│   ├── migrations/
+│   └── seeders/
+│
+├── documentacion/
+├── node_modules/
+│
 ├── public/
-├──────css/
-│       ├── style.css         # Estilos sitio público
-│       ├── noticias.css       # Estilos sección Noticias
-│       ├── styles2.css
-│       └── noticiaIndividual.css      
-│       └── app.css   
-├────── js/
-│   ├── scripts.js         # Lógica general (modales, menús)
-│   └── app.js             # Lógica Panel Admin
-|   |__ validacionDireccion.js #Logica select del formulario alta de hogares
-│   |__ validacionOpciones.js  #Logica select del formulario de Contacto
-|   |__carteles/
-|   |__noticias/
-|   |____buscarNoticias.js
-|   |____envioImagenesNoticias.js
-|
-├───────assets/
-├──── iconos/ # imagenes y recursos iconos o avatars
-├──── imgs/                   # Imágenes y recursos estáticos
-└── README.md              # Documentación de este proyecto
+│   ├── css/
+│   │   ├── style.css
+│   │   ├── noticias.css
+│   │   ├── styles2.css
+│   │   ├── noticiaIndividual.css
+│   │   └── app.css
+│   │
+│   ├── js/
+│   │   ├── scripts.js
+│   │   ├── app.js
+│   │   ├── validacionDireccion.js
+│   │   ├── validacionOpciones.js
+│   │   ├── carteles/
+│   │   └── noticias/
+│   │       ├── buscarNoticias.js
+│   │       └── envioImagenesNoticias.js
+│   │
+│   ├── assets/
+│   ├── iconos/
+│   └── imgs/
+│
+└── README.md
 ```
-
 
 ##Secciones
 
@@ -235,27 +240,27 @@ Este repositorio contiene dos secciones:
 
 1. Accede al panel mediante el enlace (acceso administrativo) ubicado cerca del footer.
 
-![formulario login CISNE](documentacion\imagenes\captura(48).png)
+![formulario login CISNE](documentacion/imagenes/captura(48).png)
 2. El panel verifica `sessionStorage.isAdmin` y redirige al login si no existe.
 3. Usa el menú lateral para seleccionar módulos:
 
     - **Dashboard**
     
-![seccion panelCISNE](documentacion\imagenes\captura(49).png)
+![seccion panelCISNE](documentacion/imagenes/captura(49).png)
     - **Novedades**
 
-![seccion novedades admin CISNE](documentacion\imagenes\captura(52).png)
+![seccion novedades admin CISNE](documentacion/imagenes/captura(52).png)
     - **Instituciones**
 
-![seccion instituciones admin CISNE](documentacion\imagenes\captura(53).png)
+![seccion instituciones admin CISNE](documentacion/imagenes/captura(53).png)
 
     - **Profesionales**
 
-![seccion profesionales admin CISNE](documentacion\imagenes\captura(51).png)
+![seccion profesionales admin CISNE](documentacion/imagenes/captura(51).png)
 
 -**Descarga y resumen csv **
 
-![seccion descargas admin CISNE](documentacion\imagenes\captura(50).png)
+![seccion descargas admin CISNE](documentacion/imagenes/captura(50).png)
 
 ---
 
@@ -271,7 +276,7 @@ Este repositorio contiene dos secciones:
 ## | ----------------------------------------------------------------------------------------------------
 
 ### Diagrama Base De Datos
-![base de datos CISNE](documentacion\imagenes\sitioCISNE.png)
+![base de datos CISNE](documentacion/imagenes/sitioCISNE.png)
 
 ## 📍 Rutas
 
