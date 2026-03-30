@@ -216,29 +216,46 @@ Este repositorio contiene dos secciones:
 
 ---
 
-
+#Capturas Del Sitio 
+![seccion servicios CISNE](documentacion\imagenes\captura(42).png)
 
 ## 🎯 Uso del Sitio Público
 
 -   Navega por el menú superior o en móvil haz click en el ícono `☰`.
 -   Envía mensajes desde el formulario de **Contacto**.
 -   Recupera tu cuenta en `olvidaste contraseña`.
+![formulario de contacto](documentacion\imagenes\captura39.png)
+
 -   Explora **Noticias** con buscador y filtros.
 
+![seccion novedades CISNE](documentacion\imagenes\captura(46).png)
 ---
 
 ## 🔐 Panel de Administración
 
-1. Accede al panel mediante el avatar de admin en el header.
+1. Accede al panel mediante el enlace (acceso administrativo) ubicado cerca del footer.
+
+![formulario login CISNE](documentacion\imagenes\captura(48).png)
 2. El panel verifica `sessionStorage.isAdmin` y redirige al login si no existe.
 3. Usa el menú lateral para seleccionar módulos:
 
     - **Dashboard**
-    - **Flyers**
-    - **Carrusel**
+    
+![seccion panelCISNE](documentacion\imagenes\captura(49).png)
+    - **Novedades**
+
+![seccion novedades admin CISNE](documentacion\imagenes\captura(52).png)
+    - **Instituciones**
+
+![seccion instituciones admin CISNE](documentacion\imagenes\captura(53).png)
+
     - **Profesionales**
 
+![seccion profesionales admin CISNE](documentacion\imagenes\captura(51).png)
 
+-**Descarga y resumen csv **
+
+![seccion descargas admin CISNE](documentacion\imagenes\captura(50).png)
 
 ---
 
@@ -253,7 +270,8 @@ Este repositorio contiene dos secciones:
 
 ## | ----------------------------------------------------------------------------------------------------
 
-
+### Diagrama Base De Datos
+![base de datos CISNE](documentacion\imagenes\sitioCISNE.png)
 
 ## 📍 Rutas
 
@@ -286,7 +304,10 @@ Este repositorio contiene dos secciones:
 | POST   | reset-password       | password.update  | Actualizar contraseña    |
 
 ```
+
 ### Panel De Administracion
+
+```
 | Método   | URI                              | Nombre                          | Descripción                      |
 |----------|----------------------------------|--------------------------------|----------------------------------|
 | GET      | admin/panel                      | admin.panel                    | Dashboard admin                  |
@@ -294,8 +315,8 @@ Este repositorio contiene dos secciones:
 | GET      | admin/panel/descargas            | admin.panel.descargas          | Descargar contactos              |
 
 ```
-```
 ### Instituciones
+```
 | Método   | URI                              | Nombre                          | Descripción                      |
 |----------|----------------------------------|--------------------------------|----------------------------------|
 | GET      | admin/instituciones              | admin.instituciones            | Listado de instituciones         |
@@ -306,8 +327,8 @@ Este repositorio contiene dos secciones:
 | DELETE   | admin/instituciones/{id}         | admin.instituciones.destroy    | Eliminar institución             |
 ```
 
-```
 ### Noticias / Novedades
+```
 
 | Método   | URI                                  | Nombre                          | Descripción                      |
 |----------|----------------------------------------|--------------------------------|----------------------------------|
