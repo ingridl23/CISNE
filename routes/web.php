@@ -9,7 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
-
+use Illuminate\Support\Facades\Password;
 
 /* ==========================
    RUTAS DEL SITIO PÚBLICO
@@ -101,6 +101,24 @@ Route::get('/profesionales/{profesional}/editar',
     Route::put('/noticias/{id}', [AdminController::class, 'editNoticia'])->name('noticias.update');
     Route::delete('/noticias/{id}', [AdminController::class, 'deleteNoticia'])->name('noticias.destroy');
     });
+
+
+
+Route::get('/forgot-password', function () {
+    return view('auth.forgot-password');
+})->middleware('guest')->name('password.request');
+
+Route::post('/forgot-password', function (Illuminate\Http\Request $request) {
+    $request->validate(['email' => 'required|email']);
+
+    $status = Password::sendResetLink(
+        $request->only('email')
+    );
+
+    return $status === Password::RESET_LINK_SENT
+        ? back()->with('status', __($status))
+        : back()->withErrors(['email' => __($status)]);
+})->middleware('guest')->name('password.email');
 /*
 Route::get('/testmail', function () {
     Mail::raw('Correo de prueba desde Laravel', function ($message) {

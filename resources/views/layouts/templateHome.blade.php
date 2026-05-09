@@ -240,7 +240,7 @@
 
 
 
-            <h2 class="section-heading text-uppercase text-center">Donde nos encontramos</h2>
+            <h2 class="section-heading text-uppercase text-center">¿Dónde nos encontramos?</h2>
             <p class="especialidad text-center" style="text-align: center;">Estamos Ubicados en Juan Manuel de Rosas
                 1763
                 km 41 Virrey

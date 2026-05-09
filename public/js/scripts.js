@@ -220,7 +220,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
     // =================================================================
     const alerts = document.querySelectorAll(".alert");
     alerts.forEach((alert) => {
-        if (alert.classList.contains("alert-success")) {
+        if (
+
+            alert.classList.contains("alert-success")) {
             setTimeout(() => {
                 alert.style.transition = "opacity 0.5s";
                 alert.style.opacity = "0";
@@ -228,4 +230,26 @@ window.addEventListener("DOMContentLoaded", (event) => {
             }, 4000);
         }
     });
+
+
+    let formActiva = null;
+
+    window.abrirDialogEliminar = function(formId) {
+        formActiva = document.getElementById(formId);
+        document.getElementById('dialog-eliminar').showModal();
+    };
+
+    const confirmarEliminar = document.getElementById("confirmarEliminar");
+
+    if (confirmarEliminar) {
+        confirmarEliminar.addEventListener("click", () => {
+            if (formActiva) {
+                document.getElementById('dialog-eliminar').close();
+                formActiva.submit();
+            }
+        });
+    }
+
+
+
 });

@@ -1,35 +1,40 @@
-@extends('layouts.app')
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('layouts.guest')
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
-        </div>
+@section('content')
 
-        @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
+<h2 class="text-xl font-bold mb-4">Recuperar contraseña</h2>
 
-        <x-jet-validation-errors class="mb-4" />
+{{-- ERRORES (forma segura) --}}
+@if (session('errors'))
+    <div class="bg-red-100 text-red-700 p-2 rounded mb-3">
+        @foreach (session('errors')->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+    </div>
+@endif
 
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
+{{-- STATUS --}}
+@if (session('status'))
+    <div class="bg-green-100 text-green-700 p-2 rounded mb-3">
+        {{ session('status') }}
+    </div>
+@endif
 
-            <div class="block">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
+<form method="POST" action="{{ route('password.email') }}">
+    @csrf
 
-            <div class="flex items-center justify-end mt-4">
-                <x-jet-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+    <input
+        type="email"
+        name="email"
+        value="{{ old('email') }}"
+        placeholder="Tu email"
+        class="w-full border p-2 rounded mb-3"
+        required
+    >
+
+    <button class="w-full bg-emerald-600 text-white p-2 rounded">
+        Enviar enlace
+    </button>
+</form>
+
+@endsection

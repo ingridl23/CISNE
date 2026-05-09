@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-gray-700">Profesionales</h2>
 
-        {{--  Mensaje de éxito --}}
+        {{--  Mensaje de éxito 
         @if (session('success'))
             <div class="alert alert-success text-center mb-3">
                 {{ session('success') }}
@@ -19,7 +19,19 @@
                 {{ session('error') }}
             </div>
         @endif
+--}}
+ {{--  mensaje de exito nuevo --}}
+        @if(session('success') || session('error'))
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const dialog = document.getElementById('dialog-feedback');
+    const mensaje = document.getElementById('feedback-message');
 
+    mensaje.textContent = "{{ session('success') ?? session('error') }}";
+    dialog.showModal();
+});
+</script>
+@endif
         <a href="{{ route('admin.profesionales.create') }}"
             class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded shadow transition">
             ➕ Nuevo Profesional
@@ -79,11 +91,13 @@
                                         ✏️ Editar
                                     </a>
 
-                                    {{-- Eliminar --}}
-                                    <form action="{{ route('admin.profesionales.destroy', $p->id) }}" method="POST"
-                                        onsubmit="return confirm('¿Eliminar profesional?')">
+                                  <form id="form-delete-{{ $p->id }}" action="{{ route('admin.profesionales.destroy', $p->id) }}"
+                                      method="POST"
+                                      class="form-eliminar">
+
                                         @csrf @method('DELETE')
-                                        <button
+                                        <button  type="button"
+                                         onclick="abrirDialogEliminar('form-delete-{{ $p->id }}')"
                                             class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded shadow transition">
                                             🗑 Eliminar
                                         </button>
