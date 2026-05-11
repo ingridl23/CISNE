@@ -18,6 +18,14 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
+# Instalar Node.js y compilar assets
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+ && apt-get install -y nodejs \
+ && npm install \
+ && npm run build \
+ && apt-get remove -y nodejs \
+ && rm -rf /var/lib/apt/lists/* node_modules
+
 # Permisos correctos para Laravel
 RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache \
  && chmod -R 775 /app/storage /app/bootstrap/cache
