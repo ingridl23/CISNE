@@ -24,6 +24,11 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+     
+    
+    if (config('app.env') === 'production') {
+        \URL::forceScheme('https');
+    }
 
         //
     }
