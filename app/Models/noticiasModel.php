@@ -6,7 +6,7 @@ use App\constants;
 use Database\Factories\NoticiasFactory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\imagesNoticiasModel;
+use App\Models\ImagesNoticiasModel;
 use App\Models\CategoriasNews;
 
 /**
@@ -95,7 +95,7 @@ public function categoria()
 
     public function imagenesNoticias()
     {
-        return $this->hasOne(imagesNoticiasModel::class, 'noticia_id');
+        return $this->hasOne(ImagesNoticiasModel::class, 'noticia_id');
     }
 
 

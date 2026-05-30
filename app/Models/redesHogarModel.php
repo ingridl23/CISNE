@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use App\Models\hogarModel;
+use App\Models\HogarModel;
 
 /**
  * @class redesHogarModel
@@ -30,7 +30,7 @@ use App\Models\hogarModel;
  * @package App\Models
  */
 
-class redesHogarModel extends Model
+class RedesHogarModel extends Model
 {
     use HasFactory;
 
@@ -52,7 +52,7 @@ class redesHogarModel extends Model
  */
     public function Hogar(): HasOne
     {
-        return $this->hasOne(hogarModel::class, 'redes_id', 'id');
+        return $this->hasOne(HogarModel::class, 'redes_id', 'id');
     }
 
 
@@ -62,7 +62,7 @@ class redesHogarModel extends Model
     /**
  * @brief Elimina el registro de redes sociales.
  *
- * @param redesHogarModel $redes
+ * @param RedesHogarModel $redes
  * @return bool|null
  */
     public static function editarHogar_Redes($redes)
@@ -96,7 +96,7 @@ class redesHogarModel extends Model
  * @param string|null $instagram
  * @param string|null $facebook
  * @param string|null $whatsapp
- * @return redesHogarModel
+ * @return RedesHogarModel
  */
     public static function crearRedes($instagram, $facebook, $whatsapp)
     {

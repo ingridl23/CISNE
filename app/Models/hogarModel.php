@@ -21,9 +21,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $redes_id
  * @property int $direccion_id
  *
- * @property \Illuminate\Database\Eloquent\Collection|imagesHogarModel[] $imagenes
- * @property direccionHogarModel $direccion
- * @property redesHogarModel $redes
+ * @property \Illuminate\Database\Eloquent\Collection|ImagesHogarModel[] $imagenes
+ * @property DireccionHogarModel $direccion
+ * @property RedesHogarModel $redes
  *
  * @table hogar_mayor
  * @package App\Models
@@ -65,7 +65,7 @@ protected $table = 'hogar_mayor';
 
     public static function crearHogar($nombre, $descripcion, $idRedes, $idDireccion)
     {
-        return hogarModel::create([
+        return HogarModel::create([
             'nombre' => $nombre,
             'descripcion' => $descripcion,
             'redes_id' => $idRedes,
@@ -112,7 +112,7 @@ protected $table = 'hogar_mayor';
 
     public function imagenes()
     {
-        return $this->hasMany(imagesHogarModel::class, 'hogar_id');
+        return $this->hasMany(ImagesHogarModel::class, 'hogar_id');
     }
 
     /**
@@ -124,7 +124,7 @@ protected $table = 'hogar_mayor';
  */
     public function direccion()
     {
-        return $this->belongsTo(direccionHogarModel::class, 'direccion_id');
+        return $this->belongsTo(DireccionHogarModel::class, 'direccion_id');
     }
 
     /**
@@ -136,6 +136,6 @@ protected $table = 'hogar_mayor';
  */
     public function redes()
     {
-        return $this->belongsTo(redesHogarModel::class, 'redes_id');
+        return $this->belongsTo(RedesHogarModel::class, 'redes_id');
     }
 }

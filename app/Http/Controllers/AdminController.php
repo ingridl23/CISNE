@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\validacionNoticia;
+use App\Http\Requests\ValidacionNoticia;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use App\Http\Requests\validacionHogar;
-use App\Models\noticiasModel;
-use App\Models\profesionalesModel;
-use App\Models\hogarModel;
+use App\Http\Requests\ValidacionHogar;
+use App\Models\NoticiasModel;
+use App\Models\ProfesionalesModel;
+use App\Models\HogarModel;
 use App\Models\Paciente_contacto;
 use App\Models\ProfesionalEnvioCV;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Visita;
-use App\Http\Requests\validacionEditarNoticia;
-use App\Http\Requests\validacionProfesional;
-use App\Models\direccionHogarModel;
-use App\Models\imagesProfesionalesModel;
-use App\Models\imagesNoticiasModel;
-use App\Models\imagesHogarModel;
-use App\Models\institucion_contacto;
-use App\Models\redesHogarModel;
+use App\Http\Requests\ValidacionEditarNoticia;
+use App\Http\Requests\ValidacionProfesional;
+use App\Models\DireccionHogarModel;
+use App\Models\ImagesProfesionalesModel;
+use App\Models\ImagesNoticiasModel;
+use App\Models\ImagesHogarModel;
+use App\Models\Institucion_contacto;
+use App\Models\RedesHogarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
@@ -330,7 +330,7 @@ public function descargarContactos(Request $request)
         // Reemplazo de imagen si se envía una nueva
         if ($request->hasFile('imagen')) {
 
-            $imagenActual = imagesProfesionalesModel::where('profesional_id', $profesional->id)->first();
+            $imagenActual = ImagesProfesionalesModel::where('profesional_id', $profesional->id)->first();
 
             if ($imagenActual) {
                 Cloudinary::uploadApi()->destroy($imagenActual->public_id);
@@ -342,7 +342,7 @@ public function descargarContactos(Request $request)
                 ['folder' => 'profesionales']
             );
 
-            imagesProfesionalesModel::create([
+            ImagesProfesionalesModel::create([
                 'profesional_id' => $profesional->id,
                 'url' => $upload->getSecurePath(),
                 'public_id' => $upload->getPublicId()

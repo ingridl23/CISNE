@@ -3,7 +3,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use App\Models\hogarModel;
+use App\Models\HogarModel;
 
 /**
  * @class direccionHogarModel
@@ -28,7 +28,7 @@ use App\Models\hogarModel;
  * @table direccion_hogar
  * @package App\Models
  */
-class direccionHogarModel extends Model
+class DireccionHogarModel extends Model
 {
 
 /**
@@ -60,7 +60,7 @@ protected $table = 'direccion_hogar';
  */
     public function hogar()
     {
-        return $this->hasOne(hogarModel::class, 'direccion_id');
+        return $this->hasOne(HogarModel::class, 'direccion_id');
     }
 
     /**
@@ -71,12 +71,12 @@ protected $table = 'direccion_hogar';
  * @param string $ciudad
  * @param string $calle
  *
- * @return direccionHogarModel
+ * @return DireccionHogarModel
  */
 
     public static function crearDireccion($provincia,$localidad,$ciudad, $calle)
     {
-        $direccion = direccionHogarModel::create([
+        $direccion = DireccionHogarModel::create([
             'provincia'=>$provincia,
             'localidad' => $localidad,
             'ciudad' => $ciudad,
@@ -90,7 +90,7 @@ protected $table = 'direccion_hogar';
     /**
  * @brief Actualiza una dirección existente.
  *
- * @param direccionHogarModel $direccion Instancia de la dirección a actualizar
+ * @param DireccionHogarModel $direccion Instancia de la dirección a actualizar
  * @return bool
  */
     public static function editarEmprendimiento($direccion)
@@ -102,7 +102,7 @@ protected $table = 'direccion_hogar';
     /**
  * @brief Elimina una dirección de la base de datos.
  *
- * @param direccionHogarModel $direccion Instancia de la dirección a eliminar
+ * @param DireccionHogarModel $direccion Instancia de la dirección a eliminar
  * @return bool|null
  */
     public static function eliminarEmprendimiento($direccion)

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ProfesionalesModel;
 use App\Models\HogarModel;
-use App\Models\imagesHogarModel;
+use App\Models\ImagesHogarModel;
 use Illuminate\Support\ViewErrorBag;
 /**
  *

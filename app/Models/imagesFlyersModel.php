@@ -20,7 +20,7 @@ use  Database\Factories\ImagenesFlyersFactory;
  * @table ImagenFlyer
  * @package App\Models
  */
-class imagesFlyersModel extends Model
+class ImagesFlyersModel extends Model
 {
 
 
@@ -66,7 +66,7 @@ protected $table = 'ImagenFlyer';
  */
     public function FlyerImagen()
     {
-        return $this->belongsTo(imagesFlyersModel::class, 'id');
+        return $this->belongsTo(ImagesFlyersModel::class, 'id');
     }
 
 /**
@@ -77,7 +77,7 @@ protected $table = 'ImagenFlyer';
  */
     public static function find($id)
     {
-        $imagenes = imagesFlyersModel::where("id", $id)->get();
+        $imagenes = ImagesFlyersModel::where("id", $id)->get();
         return $imagenes;
     }
 
@@ -89,17 +89,17 @@ protected $table = 'ImagenFlyer';
  */
     public static function buscar($id)
     {
-        $imagenes = imagesFlyersModel::where("id", $id)->get();
+        $imagenes = ImagesFlyersModel::where("id", $id)->get();
         return $imagenes;
     }
 
     /**
  * @brief Elimina una imagen de flyer.
  *
- * @param imagesFlyersModel $imagen
+ * @param ImagesFlyersModel $imagen
  * @return void
  */
-    public static function eliminarImagen(imagesFlyersModel $imagen)
+    public static function eliminarImagen(ImagesFlyersModel $imagen)
     {
         $imagen->delete();
     }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProfesionalesModel;
-use App\Models\imagesProfesionalesModel;
+use App\Models\ImagesProfesionalesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Profesionales;

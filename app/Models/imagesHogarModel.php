@@ -25,7 +25,7 @@ use Database\Factories\ImagenesHogarFactory;
  * @table imagen_hogar
  * @package App\Models
  */
-class imagesHogarModel extends Model
+class ImagesHogarModel extends Model
 {
     use HasFactory;
 
@@ -63,7 +63,7 @@ class imagesHogarModel extends Model
  */
     public function HogaresImagen()
     {
-        return $this->belongsTo(imagesHogarModel::class, 'hogar_id');
+        return $this->belongsTo(ImagesHogarModel::class, 'hogar_id');
     }
 
 /**
@@ -74,7 +74,7 @@ class imagesHogarModel extends Model
  */
     public static function find($id_hogar)
     {
-        $imagen = imagesHogarModel::where("hogar_id", $id_hogar)->get();
+        $imagen = ImagesHogarModel::where("hogar_id", $id_hogar)->get();
         return $imagen;
     }
 
@@ -82,10 +82,10 @@ class imagesHogarModel extends Model
 /**
  * @brief Elimina una imagen de la base de datos.
  *
- * @param imagesHogarModel $imagen
+ * @param ImagesHogarModel $imagen
  * @return bool|null
  */
-    public static function eliminarImagen(imagesHogarModel $imagen)
+    public static function eliminarImagen(ImagesHogarModel $imagen)
     {
         $imagen->delete();
     }

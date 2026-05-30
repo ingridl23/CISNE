@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\profesionalesModel;
+use App\Models\ProfesionalesModel;
 use Database\Factories\ImagenesProfesionalFactory;
 
 
@@ -31,7 +31,7 @@ use Database\Factories\ImagenesProfesionalFactory;
  * @package App\Models
  */
 
-class imagesProfesionalesModel extends Model
+class ImagesProfesionalesModel extends Model
 {
 
 /**
@@ -74,7 +74,7 @@ protected $table = 'imagen_profesional';
  */
     public function ProfesionalImagen()
     {
-        return $this->belongsTo(profesionalesModel::class, 'profesional_id');
+        return $this->belongsTo(ProfesionalesModel::class, 'profesional_id');
     }
 
 
@@ -87,17 +87,17 @@ protected $table = 'imagen_profesional';
 
     public static function buscar($id_emprendedor)
     {
-        $imagenes = imagesProfesionalesModel::where("profesional_id", $id_emprendedor)->get();
+        $imagenes = ImagesProfesionalesModel::where("profesional_id", $id_emprendedor)->get();
         return $imagenes;
     }
 
     /**
  * @brief Elimina una imagen de profesional.
  *
- * @param imagesProfesionalesModel $imagen
+ * @param ImagesProfesionalesModel $imagen
  * @return bool|null
  */
-    public static function eliminarImagen(imagesProfesionalesModel $imagen)
+    public static function eliminarImagen(ImagesProfesionalesModel $imagen)
     {
         $imagen->delete();
     }

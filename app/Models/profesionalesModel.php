@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use  App\Model\imagesProfesionalModel;
+use  App\Model\ImagesProfesionalModel;
 use Database\Factories\ProfesionalFactory;
 use App\Models\Constants;
 
@@ -71,6 +71,6 @@ class ProfesionalesModel extends Model
 
     public function imagenes()
     {
-        return $this->hasMany(imagesProfesionalesModel::class, 'profesional_id');
+        return $this->hasMany(ImagesProfesionalesModel::class, 'profesional_id');
     }
 }

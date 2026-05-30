@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\noticiasModel;
+use App\Models\NoticiasModel;
 use Database\Factories\ImagenesNoticiasFactory;
 
 /**
@@ -27,7 +27,7 @@ use Database\Factories\ImagenesNoticiasFactory;
  * @table imagen_noticias
  * @package App\Models
  */
-class imagesNoticiasModel extends Model
+class ImagesNoticiasModel extends Model
 {
 
 /**
@@ -72,7 +72,7 @@ protected $table = 'imagen_noticias';
  */
     public function NoticiaImagen()
     {
-        return $this->belongsTo(noticiasModel::class, 'noticia_id');
+        return $this->belongsTo(NoticiasModel::class, 'noticia_id');
     }
 
 
@@ -87,7 +87,7 @@ protected $table = 'imagen_noticias';
     /**
      * Elimina una imagen del registro.
      */
-    public static function eliminarImagen(imagesNoticiasModel $imagen)
+    public static function eliminarImagen(ImagesNoticiasModel $imagen)
     {
         $imagen->delete();
     }
