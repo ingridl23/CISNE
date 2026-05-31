@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,6 +6,7 @@ use App\Models\ProfesionalesModel;
 use App\Models\HogarModel;
 use App\Models\ImagesHogarModel;
 use Illuminate\Support\ViewErrorBag;
+
 /**
  *
  *@Brief Clase Controller de la Homepage del sitio Cisne Consultorios
@@ -51,13 +51,18 @@ class HomeController extends Controller
 
     public function index()
     {
+        abort(500, 'PRUEBA-INGRID-2026');
         // Profesionales
         $profesionales = ProfesionalesModel::with('imagenes')->paginate(12);
 
-    dd($profesionales->count());
+  dd([
+        'profesionales_count' => $profesionales->count(),
+        'primer_profesional' => $profesionales->first(),
+    ]);
+
         // Hogares
         $hogares = HogarModel::with('imagenes','direccion','redes')->paginate(12);
-  dd($hogares->count());
+
         return view('layouts.templateHome', [
             'profesionales' => $profesionales,
             'hogares' => $hogares,
