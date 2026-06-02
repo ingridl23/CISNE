@@ -9,8 +9,8 @@ use App\Models\RedesHogarModel;
 use App\Models\HogarModel;
 use Illuminate\Support\ViewErrorBag;
 /**
- * @class HomeController
- * @brief Controlador de la página principal del sitio Cisne Consultorios.
+ * @class InstitucionController
+ * @brief Controlador de la seccion de instituciones  de la página principal del sitio Cisne Consultorios.
  *
  * Este controlador se encarga de:
  * - Obtener y mostrar las instituciones (hogares)
@@ -18,7 +18,7 @@ use Illuminate\Support\ViewErrorBag;
  *
  * La información es enviada a la vista principal del sistema (homepage).
  *
- * @since 2025-09
+ * @since 2025-09 / updated 2026-06
  * @author Ingrid Ledesma
  *
  * @todo Evaluar mejoras en la carga de relaciones (imágenes, redes, dirección)
@@ -26,10 +26,10 @@ use Illuminate\Support\ViewErrorBag;
  */
 
 
-class HomeController extends Controller{
+class InstitucionController extends Controller{
 
 /**
- * @brief Muestra la página principal del sitio.
+ *
  *
  * Obtiene las instituciones (hogares) con sus imágenes asociadas
  * y las envía a la vista principal.
