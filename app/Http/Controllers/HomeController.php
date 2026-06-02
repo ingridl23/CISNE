@@ -55,14 +55,13 @@ class HomeController extends Controller
         // Profesionales
         $profesionales = ProfesionalesModel::with('imagenes')->paginate(12);
 
-  dd([
-        'profesionales_count' => $profesionales->count(),
-        'primer_profesional' => $profesionales->first(),
-    ]);
 
         // Hogares
         $hogares = HogarModel::with('imagenes','direccion','redes')->paginate(12);
-
+dd([
+    'profesionales_count' => $profesionales->count(),
+    'hogares_count' => $hogares->count(),
+]);
         return view('layouts.templateHome', [
             'profesionales' => $profesionales,
             'hogares' => $hogares,
