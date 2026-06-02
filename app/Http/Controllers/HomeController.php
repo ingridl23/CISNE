@@ -58,10 +58,7 @@ class HomeController extends Controller
 
         // Hogares
         $hogares = HogarModel::with('imagenes','direccion','redes')->paginate(12);
-dd([
-    'profesionales_count' => $profesionales->count(),
-    'hogares_count' => $hogares->count(),
-]);
+
         return view('layouts.templateHome', [
             'profesionales' => $profesionales,
             'hogares' => $hogares,
