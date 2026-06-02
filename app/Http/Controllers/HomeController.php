@@ -51,7 +51,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        abort(500, 'PRUEBA-INGRID-2026');
+        
         // Profesionales
         $profesionales = ProfesionalesModel::with('imagenes')->paginate(12);
 
