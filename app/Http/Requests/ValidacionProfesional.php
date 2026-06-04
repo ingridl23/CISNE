@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class validacionProfesional extends FormRequest
+class ValidacionProfesional extends FormRequest
 {
     /**
      * Autorizar el uso del FormRequest.
