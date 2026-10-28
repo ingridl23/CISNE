@@ -1,0 +1,727 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\ValidacionProfesional\:\:\$especialidad\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\ValidacionProfesional\:\:\$matricula\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\ValidacionProfesional\:\:\$nombre\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\validacionNoticia\:\:\$categoria\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\validacionNoticia\:\:\$descripcion\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\validacionNoticia\:\:\$titulo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Builder\|\(Illuminate\\Database\\Eloquent\\Collection&iterable\<Illuminate\\Database\\Eloquent\\Builder\>\)\|Illuminate\\Database\\Eloquent\\Model\:\:\$direccion\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Builder\|\(Illuminate\\Database\\Eloquent\\Collection&iterable\<Illuminate\\Database\\Eloquent\\Builder\>\)\|Illuminate\\Database\\Eloquent\\Model\:\:\$imagenes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Builder\|\(Illuminate\\Database\\Eloquent\\Collection&iterable\<Illuminate\\Database\\Eloquent\\Builder\>\)\|Illuminate\\Database\\Eloquent\\Model\:\:\$redes\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$calleYAltura\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$categoria\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$ciudad\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$descripcion\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$desde\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$especialidad\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$facebook\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$hasta\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$instagram\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$localidad\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$matricula\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$nombre\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$provincia\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$tipo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$titulo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$whatsapp\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\DireccionHogarModel\:\:findOrFail\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\HogarModel\:\:FindOrFail\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\HogarModel\:\:count\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\HogarModel\:\:findOrFail\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesHogarModel\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesHogarModel\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesNoticiasModel\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesNoticiasModel\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesProfesionalesModel\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 3
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesProfesionalesModel\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\NoticiasModel\:\:count\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\NoticiasModel\:\:findOrFail\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\Paciente_contacto\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ProfesionalesModel\:\:count\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ProfesionalesModel\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ProfesionalesModel\:\:findOrFail\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 4
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\RedesHogarModel\:\:findOrFail\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\Visita\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method CloudinaryLabs\\CloudinaryLaravel\\Facades\\Cloudinary\:\:upload\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 7
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Call to an undefined static method CloudinaryLabs\\CloudinaryLaravel\\Facades\\Cloudinary\:\:uploadApi\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 6
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Class App\\Http\\Requests\\ValidacionProfesional referenced with incorrect case\: App\\Http\\Requests\\validacionProfesional\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Class App\\Http\\Requests\\validacionHogar referenced with incorrect case\: App\\Http\\Requests\\ValidacionHogar\.$#'
+			identifier: class.nameCase
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Class App\\Http\\Requests\\validacionNoticia referenced with incorrect case\: App\\Http\\Requests\\ValidacionNoticia\.$#'
+			identifier: class.nameCase
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Class App\\Http\\Requests\\validacionNoticia referenced with incorrect case\: App\\Http\\Requests\\validacionNOticia\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\AdminController\:\:adminPanel\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\AdminController\:\:createHogar\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\AdminController\:\:instituciones\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\AdminController\:\:noticias\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\AdminController\:\:profesionales\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\AdminController\:\:showFormEditarProfesional\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$request$#'
+			identifier: parameter.notFound
+			count: 1
+			path: app/Http/Controllers/AdminController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\validacionFormularioContacto\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 4
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\validacionFormularioContacto\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\validacionFormularioContacto\:\:\$opcion\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Access to an undefined property App\\Http\\Requests\\validacionFormularioContacto\:\:\$tel\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\InstitucionContacto\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\Paciente_contacto\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ProfesionalEnvioCV\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\FormController\:\:contacto\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: app/Http/Controllers/FormController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\HomeController\:\:index\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\InstitucionController\:\:index\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/InstitucionController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\NoticiaController\:\:index3\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/NoticiaController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\NoticiaController\:\:showNoticia\(\) should return Illuminate\\View\\View\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 2
+			path: app/Http/Controllers/NoticiaController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\NoticiaController\:\:showNoticia\(\) should return Illuminate\\View\\View\|null but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/NoticiaController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\ProfesionalController\:\:create\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/ProfesionalController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\ProfesionalController\:\:index\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/ProfesionalController.php
+
+		-
+			message: '#^Method App\\Http\\Middleware\\Authenticate\:\:redirectTo\(\) should return string\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Http/Middleware/Authenticate.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\Visita\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Http/Middleware/TrackVisits.php
+
+		-
+			message: '#^Parameter \#1 \$rules of method Illuminate\\Http\\Request\:\:validate\(\) expects array, Illuminate\\Http\\Request given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Requests/validacionNoticia.php
+
+		-
+			message: '#^PHPDoc type mixed of property App\\Models\\CategoriasNews\:\:\$table is not covariant with PHPDoc type string of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$table\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/CategoriasNews.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ProfesionalEnvioCV\:\:new\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ProfesionalEnvioCV\:\:orderBy\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ProfesionalEnvioCV\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^Deprecated in PHP 8\.0\: Required parameter \$fecha follows optional parameter \$cantidad\.$#'
+			identifier: parameter.requiredAfterOptional
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$created_at\)\: Unexpected token "\$created_at", expected type at offset 150 on line 7$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$cv_path\)\: Unexpected token "\$cv_path", expected type at offset 123 on line 6$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$email\)\: Unexpected token "\$email", expected type at offset 70 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$id\)\: Unexpected token "\$id", expected type at offset 22 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$nombre\)\: Unexpected token "\$nombre", expected type at offset 44 on line 3$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$telefono\)\: Unexpected token "\$telefono", expected type at offset 95 on line 5$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: """
+				#^PHPDoc tag @property has invalid value \\(\\$updated_at\r
+				 \\* @package App\\)\\: Unexpected token "\\$updated_at", expected type at offset 180 on line 8$#
+			"""
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^PHPDoc tag @var above a method has no effect\.$#'
+			identifier: varTag.misplaced
+			count: 1
+			path: app/Models/ProfesionalEnvioCV.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\DireccionHogarModel\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/direccionHogarModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\HogarModel\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/hogarModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesFlyersModel\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: app/Models/imagesFlyersModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesHogarModel\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/imagesHogarModel.php
+
+		-
+			message: '#^Method App\\Models\\ImagesHogarModel\:\:eliminarImagen\(\) should return bool\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Models/imagesHogarModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesNoticiasModel\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/imagesNoticiasModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\ImagesProfesionalesModel\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/imagesProfesionalesModel.php
+
+		-
+			message: '#^Method App\\Models\\ImagesProfesionalesModel\:\:eliminarImagen\(\) should return bool\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Models/imagesProfesionalesModel.php
+
+		-
+			message: '#^PHPDoc tag @param references unknown parameter\: \$id_profesional$#'
+			identifier: parameter.notFound
+			count: 1
+			path: app/Models/imagesProfesionalesModel.php
+
+		-
+			message: '#^PHPDoc tag @var above a method has no effect\.$#'
+			identifier: varTag.misplaced
+			count: 1
+			path: app/Models/imagesProfesionalesModel.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$categoria_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$descripcion\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Http\\Request\:\:\$titulo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\NoticiasModel\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\NoticiasModel\:\:orderBy\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\NoticiasModel\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^Method App\\Models\\NoticiasModel\:\:editNoticia\(\) should return bool but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: """
+				#^PHPDoc tag @property has invalid value \\(\\$categoria_id\r
+				 \\* @package App\\)\\: Unexpected token "\\$categoria_id", expected type at offset 161 on line 7$#
+			"""
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$created_at\)\: Unexpected token "\$created_at", expected type at offset 44 on line 3$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$descripcion\)\: Unexpected token "\$descripcion", expected type at offset 130 on line 6$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$id\)\: Unexpected token "\$id", expected type at offset 22 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$titulo\)\: Unexpected token "\$titulo", expected type at offset 104 on line 5$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^PHPDoc tag @property has invalid value \(\$updated_at\)\: Unexpected token "\$updated_at", expected type at offset 74 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Models/noticiasModel.php
+
+		-
+			message: '#^Call to an undefined static method App\\Models\\RedesHogarModel\:\:create\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: app/Models/redesHogarModel.php
+
+		-
+			message: '#^Call to static method forceScheme\(\) on an unknown class URL\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Class App\\Actions\\Fortify\\CreateNewUser not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: '#^Class App\\Actions\\Fortify\\UpdateUserPassword not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: '#^Class App\\Actions\\Fortify\\UpdateUserProfileInformation not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: '#^Class App\\Actions\\Jetstream\\DeleteUser not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: app/Providers/JetstreamServiceProvider.php
+
+		-
+			message: '#^PHPDoc tag @var above a method has no effect\.$#'
+			identifier: varTag.misplaced
+			count: 1
+			path: app/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Method App\\View\\Components\\AppLayout\:\:render\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/View/Components/AppLayout.php
+
+		-
+			message: '#^Method App\\View\\Components\\GuestLayout\:\:render\(\) should return Illuminate\\View\\View but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\Contracts\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: app/View/Components/GuestLayout.php
