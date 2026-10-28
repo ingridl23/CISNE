@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class validacionFormularioContacto  extends FormRequest
+class ValidacionFormularioContacto  extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -59,7 +59,7 @@ class validacionFormularioContacto  extends FormRequest
             'name.string' => 'Debe ingresar un nombre válido',
             'name.min' => 'Debe ingresar más de una letra',
             'name.max' => 'No se puede ingresar más de 100 caracteres',
-             
+
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El formato del email es inválido.',
             'email.max' => 'El email no puede tener más de 255 caracteres.',
@@ -73,7 +73,7 @@ class validacionFormularioContacto  extends FormRequest
             'tel.digits_between' => 'El número de teléfono debe tener entre 8 y 11 dígitos',
 
             'opcion.required' => 'Debe seleccionar una opción',
-            
+
             'cv.required' => 'Debe subir su currículum en formato PDF.',
             'cv.file' => 'El archivo debe ser válido.',
             'cv.mimes' => 'Solo se acepta formato PDF.',

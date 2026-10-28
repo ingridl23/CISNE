@@ -51,7 +51,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        
+
         // Profesionales
         $profesionales = ProfesionalesModel::with('imagenes')->paginate(12);
 

@@ -34,7 +34,7 @@ protected $table = 'ImagenFlyer';
  */
     use HasFactory;
 
-  
+
 
 /**
  * @brief Define la factory asociada al modelo.
@@ -45,7 +45,7 @@ protected $table = 'ImagenFlyer';
     {
         return ImagenesFlyersFactory::new();
     }
- 
+
 
     protected $fillable = [
         'id',

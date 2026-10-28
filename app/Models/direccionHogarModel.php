@@ -41,7 +41,7 @@ protected $table = 'direccion_hogar';
  */
     use HasFactory;
 
-  
+
 
     protected $fillable = [
         'provincia',

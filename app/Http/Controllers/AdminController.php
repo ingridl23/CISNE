@@ -263,7 +263,7 @@ public function descargarContactos(Request $request)
             'matricula' => $request->matricula,
 
         ]);
-     
+
         if ($request->hasFile('imagen')) {
 
          try {
@@ -595,7 +595,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
     }
 
-    
+
 
     protected function showFormCreateNoticia(){
         $categorias = NoticiasModel::obtenerCategorias();
@@ -623,10 +623,10 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     protected function editNoticia(validacionNOticia $request, $id)
     {
         $noticia = NoticiasModel::findOrFail($id);
-        
+
         //    dd("ENTRÉ AL UPDATE");
         // Validación (la imagen NO es obligatoria)
-      
+
 
         /** ------------------ ACTUALIZAR CAMPOS DE LA NOTICIA ------------------ **/
         $noticia->update([
@@ -889,7 +889,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
     {
-       
+
 
         // Crear redes
         $Redes = redesHogarModel::crearRedes(
@@ -972,13 +972,14 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
             return redirect()
                 ->route('admin.instituciones')
                 ->with('success', 'Institucion publicada correctamente');
-        }
+        }else{
 
-        // Si algo falló en la creación
-        $mensajes = [
-            'titulo' => '¡Error!',
-            'detalle' => 'Ha sucedido un error al publicar la institucion, inténtelo nuevamente.'
-        ];
+            // Si algo falló en la creación
+            $mensajes = [
+                'titulo' => '¡Error!',
+                'detalle' => 'Ha sucedido un error al publicar la institucion, inténtelo nuevamente.'
+            ];
+        }
 
         return redirect('admin/instituciones')
             ->with('error', $mensajes)

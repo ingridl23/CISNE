@@ -42,7 +42,7 @@ protected $table = 'hogar_mayor';
  */
     use HasFactory;
 
-   
+
 
     protected $fillable = [
         'nombre',

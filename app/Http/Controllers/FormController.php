@@ -125,15 +125,15 @@ class FormController extends Controller
             }
             // ========== intitucion  ==========
           elseif ($opcion === 'institucion') {
-              
+
               $data =  $request->all();
-              
+
               $institucionData = [
                   'nombre' => $request->name,
                   'email' => $request->email,
                   'telefono' => $request->tel,
                   ];
-                  
+
                           //    dd($institucionData);
            InstitucionContacto::create($institucionData);
 }
@@ -141,8 +141,8 @@ class FormController extends Controller
 
             // Enviar correo en todos los casos
             Mail::to('cisneconsultorios@gmail.com')->send(new envioDeForm($data));
-          
-            
+
+
           // confirmación automática al usuario
            Mail::to($request->email)->send(new confirmacionFormulario($data));
             return back()->with('success', 'Enviado correctamente,en la brevedad el equipo Cisne se pondra en contacto.');
@@ -155,6 +155,5 @@ class FormController extends Controller
             return back()->with('error', 'Ocurrió un error al enviar el formulario.');
         }
     }
-
 
 }

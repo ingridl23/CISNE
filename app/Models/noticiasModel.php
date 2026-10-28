@@ -38,12 +38,12 @@ class NoticiasModel extends Model
     use HasFactory;
 
     /**
-     * @property $id
-     * @property $created_at
-     * @property $updated_at
-     * @property $titulo
-     * @property $descripcion
-     * @property $categoria_id
+     * @property int $id
+     * @property \Illuminate\Support\Carbon $created_at
+     * @property  \Illuminate\Support\Carbon $updated_at
+     * @property  string $titulo
+     * @property  string $descripcion
+     * @property  int $categoria_id
      *  * @package App
      * @mixin \Illuminate\Database\Eloquent\Builder
      */
@@ -161,7 +161,7 @@ public static function obtenerCategorias()
         return self::all()->groupBy("categoria_id");
     }
 
-  
+
 
     /** ------------------- CRUD ------------------- **/
 

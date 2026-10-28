@@ -27,25 +27,25 @@ class ProfesionalEnvioCV extends Model
     use HasFactory;
 
     /**
-     * @property $id
-     * @property $nombre
-     * @property $email
-     * @property $telefono
-     * @property $cv_path
-     * @property $created_at
-     * @property $updated_at
+     * @property int $id
+     * @property string $nombre
+     * @property string $email
+     * @property string|null $telefono
+     * @property string $cv_path
+     * @property  \Illuminate\Support\Carbon  $created_at
+     * @property   \Illuminate\Support\Carbon $updated_at
      *  * @package App
      * @mixin \Illuminate\Database\Eloquent\Builder
      */
 
 
     protected $perPage = 20;
-    
-    
+
+
     /**
      * @var string $table Nombre de la tabla asociada
     */
-   
+
     protected $table = "profesional_envioCV";
 
 /**
@@ -70,7 +70,7 @@ class ProfesionalEnvioCV extends Model
     /** ------------------- CONSULTAS ------------------- **/
 
 
-    
+
     public static function getUltimosCVS($cantidad)
     {
         return self::orderBy('created_at', 'desc')->paginate($cantidad);

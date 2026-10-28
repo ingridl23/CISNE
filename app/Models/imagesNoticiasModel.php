@@ -40,7 +40,7 @@ protected $table = 'imagen_noticias';
  */
     use HasFactory;
 
-  
+
 
 /**
  * @brief Define la factory asociada al modelo.
@@ -51,7 +51,7 @@ protected $table = 'imagen_noticias';
     {
         return ImagenesNoticiasFactory::new();
     }
-   
+
 
     protected $fillable = [
         'id',

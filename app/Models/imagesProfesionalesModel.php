@@ -42,7 +42,7 @@ protected $table = 'imagen_profesional';
 /**
  * @var array $fillable Campos asignables masivamente
  */
- 
+
 
 /**
  * @brief Define la factory asociada al modelo.
