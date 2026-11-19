@@ -284,6 +284,9 @@ class AdminCrudTest extends TestCase
         $this->actingAs($this->admin)->post('/admin/instituciones', $this->datosInstitucion(['imagen' => $this->imagen()]));
         $hogar = HogarModel::firstOrFail();
 
+        // La imagen también se borra de Cloudinary
+        $this->cloudinary->shouldReceive('borrar')->once()->with('instituciones/img1');
+
         $this->actingAs($this->admin)
             ->delete("/admin/instituciones/{$hogar->id}")
             ->assertRedirect(route('admin.instituciones'))
@@ -293,5 +296,20 @@ class AdminCrudTest extends TestCase
         $this->assertSame(0, ImagesHogarModel::count());
         $this->assertSame(0, DireccionHogarModel::count());
         $this->assertSame(0, RedesHogarModel::count());
+    }
+
+    public function test_eliminar_institucion_aunque_falle_cloudinary()
+    {
+        $this->actingAs($this->admin)->post('/admin/instituciones', $this->datosInstitucion(['imagen' => $this->imagen()]));
+        $hogar = HogarModel::firstOrFail();
+
+        $this->cloudinary->shouldReceive('borrar')->once()->andThrow(new \RuntimeException('Cloudinary caído'));
+
+        $this->actingAs($this->admin)
+            ->delete("/admin/instituciones/{$hogar->id}")
+            ->assertSessionHas('success');
+
+        $this->assertSame(0, HogarModel::count());
+        $this->assertSame(0, ImagesHogarModel::count());
     }
 }

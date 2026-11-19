@@ -989,11 +989,13 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
                 foreach ($hogar->imagenes as $img) {
 
-                    /* Si usás Cloudinary y guardás el public_id, eliminá así:
-
-                $this->cloudinary->borrar($img->public_id);
-
-                */
+                    // Eliminar la imagen de Cloudinary. Si falla, se registra y se
+                    // sigue con el borrado (mismo criterio que en deleteNoticia).
+                    try {
+                        $this->cloudinary->borrar($img->public_id);
+                    } catch (\Exception $e) {
+                        Log::error("Error eliminando imagen de institución en Cloudinary: " . $e->getMessage());
+                    }
 
                     // Eliminar registro en la base
                     $img->delete();

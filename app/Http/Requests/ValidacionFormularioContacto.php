@@ -43,6 +43,11 @@ class ValidacionFormularioContacto  extends FormRequest
         $rules['cv'] = 'required|file|mimes:pdf|max:2048';
     }
 
+    // Un paciente no puede enviar dos consultas con el mismo email
+    if ($opcion === 'particular') {
+        $rules['email'] .= '|unique:pacientes,email';
+    }
+
     return $rules;
 }
 
@@ -63,6 +68,7 @@ class ValidacionFormularioContacto  extends FormRequest
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El formato del email es inválido.',
             'email.max' => 'El email no puede tener más de 255 caracteres.',
+            'email.unique' => 'Ya recibimos una consulta con este email. El equipo CISNE se va a poner en contacto a la brevedad.',
 
             /*'description.required' => 'La descripción es necesaria',
             'description.string' => 'Debe ingresar una descripción válida',

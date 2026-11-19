@@ -41,6 +41,32 @@ class FormularioContactoTest extends TestCase
         Mail::assertSent(ConfirmacionFormulario::class, fn ($m) => $m->hasTo('juan@example.com'));
     }
 
+    public function test_paciente_no_puede_enviar_dos_veces_el_mismo_email()
+    {
+        $datos = ['opcion' => 'particular', 'name' => 'Juan Gómez', 'email' => 'juan@example.com', 'tel' => '3415551234'];
+
+        $this->from('/')->post('/contacto', $datos)->assertSessionHas('success');
+        Mail::assertSentCount(2);
+
+        // Segundo envío con el mismo email: error de validación claro, sin mails ni registro nuevo
+        $this->from('/')->post('/contacto', $datos)
+            ->assertRedirect('/')
+            ->assertSessionHasErrors(['email' => 'Ya recibimos una consulta con este email. El equipo CISNE se va a poner en contacto a la brevedad.']);
+
+        $this->assertSame(1, Paciente_Contacto::count());
+        Mail::assertSentCount(2);
+    }
+
+    public function test_el_mismo_email_puede_usarse_como_institucion_o_profesional()
+    {
+        $this->from('/')->post('/contacto', ['opcion' => 'particular', 'name' => 'Juan Gómez', 'email' => 'juan@example.com']);
+
+        // La restricción es solo para pacientes
+        $this->from('/')->post('/contacto', ['opcion' => 'institucion', 'name' => 'Hogar Juan', 'email' => 'juan@example.com'])
+            ->assertSessionHasNoErrors()
+            ->assertSessionHas('success');
+    }
+
     public function test_institucion_guarda_contacto()
     {
         // El navegador manda el teléfono vacío como '' (se convierte a null)
