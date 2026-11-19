@@ -1,6 +1,7 @@
 <?php
 namespace App\Exports;
 use App\Models\Paciente_Contacto;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -16,7 +17,7 @@ class PacienteExport implements FromCollection, WithHeadings, WithMapping
         $this->hasta = $hasta;
     }
 
-    public function collection()
+    public function collection(): Collection
     {
         $query = Paciente_Contacto::query();
 
@@ -42,7 +43,7 @@ class PacienteExport implements FromCollection, WithHeadings, WithMapping
         ];
     }
 
-    public function map($paciente): array
+    public function map(mixed $paciente): array
     {
         return [
             $paciente->id,
