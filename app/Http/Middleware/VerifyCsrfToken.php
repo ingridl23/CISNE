@@ -2,8 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as Middleware;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery as Middleware;
 
+/**
+ * Protección CSRF. En Laravel 13 la clase base se llama PreventRequestForgery
+ * (VerifyCsrfToken quedó como alias obsoleto).
+ */
 class VerifyCsrfToken extends Middleware
 {
     /**

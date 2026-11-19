@@ -84,9 +84,9 @@ class ProfesionalEnvioCV extends Model
     {
         return self::where('id', $id)->first();
     }
-    public static function obtenerUltimosCVSPorFecha($cantidad = 10,$fecha )
+    public static function obtenerUltimosCVSPorFecha($cantidad = 10)
     {
-        return self::orderBy('created_at','desc' , $fecha)->take($cantidad)->get();
+        return self::orderBy('created_at', 'desc')->take($cantidad)->get();
     }
 
     public static function obtenerPorEmail($email)
