@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DireccionHogarModel;
-use App\Models\Institucion_contacto;
+use App\Models\Institucion_Contacto;
 use App\Models\RedesHogarModel;
 use App\Models\HogarModel;
 use Illuminate\Support\ViewErrorBag;

@@ -24,9 +24,10 @@ use App\Models\CategoriasNews;
  * @property string $titulo
  * @property string $descripcion
  * @property int $categoria_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ * @package App
+ * @mixin \Illuminate\Database\Eloquent\Build
  * @property CategoriasNews $categoria
  * @property ImagesNoticiasModel $imagenesNoticias
  *
@@ -36,18 +37,6 @@ use App\Models\CategoriasNews;
 class NoticiasModel extends Model
 {
     use HasFactory;
-
-    /**
-     * @property $id
-     * @property $created_at
-     * @property $updated_at
-     * @property $titulo
-     * @property $descripcion
-     * @property $categoria_id
-     *  * @package App
-     * @mixin \Illuminate\Database\Eloquent\Builder
-     */
-
 
     protected $perPage = 20;
     protected $table = "noticia";
@@ -161,7 +150,7 @@ public static function obtenerCategorias()
         return self::all()->groupBy("categoria_id");
     }
 
-  
+
 
     /** ------------------- CRUD ------------------- **/
 

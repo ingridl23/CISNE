@@ -8,7 +8,7 @@ use App\Http\Requests\ValidacionHogar;
 use App\Models\NoticiasModel;
 use App\Models\ProfesionalesModel;
 use App\Models\HogarModel;
-use App\Models\Paciente_contacto;
+use App\Models\Paciente_Contacto;
 use App\Models\ProfesionalEnvioCV;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Visita;
@@ -18,7 +18,7 @@ use App\Models\DireccionHogarModel;
 use App\Models\ImagesProfesionalesModel;
 use App\Models\ImagesNoticiasModel;
 use App\Models\ImagesHogarModel;
-use App\Models\Institucion_contacto;
+use App\Models\Institucion_Contacto;
 use App\Models\RedesHogarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -263,7 +263,7 @@ public function descargarContactos(Request $request)
             'matricula' => $request->matricula,
 
         ]);
-     
+
         if ($request->hasFile('imagen')) {
 
          try {
@@ -595,7 +595,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
     }
 
-    
+
 
     protected function showFormCreateNoticia(){
         $categorias = NoticiasModel::obtenerCategorias();
@@ -623,10 +623,10 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
     protected function editNoticia(validacionNOticia $request, $id)
     {
         $noticia = NoticiasModel::findOrFail($id);
-        
+
         //    dd("ENTRÉ AL UPDATE");
         // Validación (la imagen NO es obligatoria)
-      
+
 
         /** ------------------ ACTUALIZAR CAMPOS DE LA NOTICIA ------------------ **/
         $noticia->update([
@@ -889,7 +889,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
     {
-       
+
 
         // Crear redes
         $Redes = redesHogarModel::crearRedes(
@@ -974,11 +974,6 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
                 ->with('success', 'Institucion publicada correctamente');
         }
 
-        // Si algo falló en la creación
-        $mensajes = [
-            'titulo' => '¡Error!',
-            'detalle' => 'Ha sucedido un error al publicar la institucion, inténtelo nuevamente.'
-        ];
 
         return redirect('admin/instituciones')
             ->with('error', $mensajes)
