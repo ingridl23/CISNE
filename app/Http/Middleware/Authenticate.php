@@ -15,7 +15,8 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            // El login es un modal en la home (no hay página de login aparte)
+            return route('home');
         }
     }
 }

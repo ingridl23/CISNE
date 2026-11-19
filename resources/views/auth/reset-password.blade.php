@@ -1,36 +1,58 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('layouts.guest')
 
-        <x-jet-validation-errors class="mb-4" />
+@section('title', 'Restablecer contraseña')
 
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
+@section('content')
 
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
+<h2 class="text-xl font-bold mb-4">Restablecer contraseña</h2>
 
-            <div class="block">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
-            </div>
+@if ($errors->any())
+    <div class="bg-red-100 text-red-700 p-2 rounded mb-3">
+        @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+    </div>
+@endif
 
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
+<form method="POST" action="{{ route('password.update') }}">
+    @csrf
 
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
+    <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <div class="flex items-center justify-end mt-4">
-                <x-jet-button>
-                    {{ __('Reset Password') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+    <label for="email" class="block mb-1">Email</label>
+    <input
+        id="email"
+        type="email"
+        name="email"
+        value="{{ old('email', $request->email) }}"
+        class="w-full border p-2 rounded mb-3"
+        required
+        autofocus
+    >
+
+    <label for="password" class="block mb-1">Nueva contraseña</label>
+    <input
+        id="password"
+        type="password"
+        name="password"
+        class="w-full border p-2 rounded mb-3"
+        required
+        autocomplete="new-password"
+    >
+
+    <label for="password_confirmation" class="block mb-1">Confirmar contraseña</label>
+    <input
+        id="password_confirmation"
+        type="password"
+        name="password_confirmation"
+        class="w-full border p-2 rounded mb-3"
+        required
+        autocomplete="new-password"
+    >
+
+    <button class="w-full bg-emerald-600 text-white p-2 rounded">
+        Restablecer contraseña
+    </button>
+</form>
+
+@endsection

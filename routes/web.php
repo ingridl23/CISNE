@@ -33,14 +33,12 @@ Route::get("/noticias/{id}", [NoticiaController::class, "showNoticia"]);
    FORMULARIO DE CONTACTO
    ========================== */
 
-Route::get('/formar/parte', [FormController::class, "contacto"]);
 Route::post('/contacto', [FormController::class, 'enviar'])->name('enviar');
 
 /* ==========================
    LOGIN
    ========================== */
 
-Route::get('/showlogin', [HomeController::class, 'showloginForm']);
 Route::post('/login',  [LoginController::class, 'login'])->name("login");
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

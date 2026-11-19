@@ -144,17 +144,10 @@ return [
     |
     */
 
+    // Solo se usa Fortify para restablecer la contraseña. El login y el logout
+    // los maneja App\Http\Controllers\Auth\LoginController (modal de la home).
     'features' => [
-        Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
-        Features::updateProfileInformation(),
-        Features::updatePasswords(),
-        Features::twoFactorAuthentication([
-            'confirm' => true,
-            'confirmPassword' => true,
-            // 'window' => 0,
-        ]),
     ],
 
 ];

@@ -34,18 +34,6 @@ use Illuminate\Support\Facades\Storage;
  */
 class FormController extends Controller
 {
-    //
-/**
- * @brief Muestra la vista del formulario de contacto.
- *
- * @return \Illuminate\View\View
- */
-    function contacto(){
-       return view('layouts.formulario');
-    }
-
-
-
 
     /**
  * @brief Procesa y envía el formulario de contacto.
