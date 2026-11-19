@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
-use App\Mail\envioDeForm;
+use App\Mail\EnvioDeForm;
 use App\Models\InstitucionContacto;
 use App\Models\Paciente_Contacto;
 use App\Models\ProfesionalEnvioCV;
@@ -67,14 +67,14 @@ class FormController extends Controller
  * - Envío de correo al administrador
  * - Envío de correo de confirmación al usuario
  *
- * @param validacionFormularioContacto $request Datos validados del formulario
+ * @param ValidacionFormularioContacto $request Datos validados del formulario
  *
  * @return \Illuminate\Http\RedirectResponse
  *
  * @throws \Exception En caso de error en envío de correo o almacenamiento
  */
 
-    function enviar(validacionFormularioContacto $request){
+    function enviar(ValidacionFormularioContacto $request){
 
         if ($request->filled('oculto')) {
             return back()->with("error", "Formulario rechazado")->withInput();
@@ -121,7 +121,7 @@ class FormController extends Controller
 
                 ];
 
-                 Paciente_contacto::create($pacienteData);
+                 Paciente_Contacto::create($pacienteData);
             }
             // ========== intitucion  ==========
           elseif ($opcion === 'institucion') {
@@ -140,17 +140,19 @@ class FormController extends Controller
 
 
             // Enviar correo en todos los casos
-            Mail::to('cisneconsultorios@gmail.com')->send(new envioDeForm($data));
+            Mail::to('cisneconsultorios@gmail.com')->send(new EnvioDeForm($data));
 
 
           // confirmación automática al usuario
-           Mail::to($request->email)->send(new confirmacionFormulario($data));
+            Mail::to($request->email)->send(new ConfirmacionFormulario($data));
+
+            // Borrar el CV local: ya se envió como adjunto en el correo
+            if ($cvPath) {
+                Storage::disk('public')->delete($cvPath);
+            }
+
             return back()->with('success', 'Enviado correctamente,en la brevedad el equipo Cisne se pondra en contacto.');
-        // BORRAR ARCHIVO LOCAL
-              if ($cvPath) {
-                 Storage::disk('public')->delete($cvPath);
-             }
-            } catch (\Exception $e) {
+        } catch (\Exception $e) {
             Log::error('Error al enviar el formulario: ' . $e->getMessage());
             return back()->with('error', 'Ocurrió un error al enviar el formulario.');
         }

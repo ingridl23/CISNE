@@ -12,13 +12,11 @@ use App\Models\Paciente_Contacto;
 use App\Models\ProfesionalEnvioCV;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use App\Models\Visita;
-use App\Http\Requests\ValidacionEditarNoticia;
 use App\Http\Requests\ValidacionProfesional;
 use App\Models\DireccionHogarModel;
 use App\Models\ImagesProfesionalesModel;
 use App\Models\ImagesNoticiasModel;
 use App\Models\ImagesHogarModel;
-use App\Models\Institucion_Contacto;
 use App\Models\RedesHogarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -26,7 +24,6 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PacienteExport;
 use App\Exports\ProfesionalExport;
 use App\Exports\InstitucionExport;
-use function PHPUnit\Framework\isEmpty;
 
 
 /**
@@ -162,7 +159,7 @@ class AdminController extends Controller
     {
         return response()->json([
             'visitasUltimoMes' => Visita::where('fecha', '>=', now()->subMonth())->count(),
-            'contactosUltimoMes' => Paciente_contacto::where('created_at', '>=', now()->subMonth())->count(),
+            'contactosUltimoMes' => Paciente_Contacto::where('created_at', '>=', now()->subMonth())->count(),
             'profesionales' => ProfesionalesModel::count(),
             'noticias' => NoticiasModel::count(),
             'hogares' => HogarModel::count(),
@@ -248,10 +245,10 @@ public function descargarContactos(Request $request)
  * - Sube la imagen a Cloudinary (si existe)
  * - Guarda la referencia de la imagen
  *
- * @param validacionProfesional $request Datos validados
+ * @param ValidacionProfesional $request Datos validados
  * @return \Illuminate\Http\RedirectResponse
  */
-    public function store(validacionProfesional $request)
+    public function store(ValidacionProfesional $request)
     {
 
         $data = $request->validated();
@@ -278,7 +275,7 @@ public function descargarContactos(Request $request)
     return back()->with('error', 'Error subiendo imagen: '.$e->getMessage());
 }
 
-            imagesProfesionalesModel::create([
+            ImagesProfesionalesModel::create([
                 'profesional_id' => $prof->id,
                 'url' => $upload->getSecurePath(),
                 'public_id' => $upload->getPublicId()
@@ -435,7 +432,7 @@ public function descargarContactos(Request $request)
             return back()->with('info', 'No se cargó una nueva imagen');
         }
 
-        $imagenActual = imagesProfesionalesModel::where('profesional_id', $id)->first();
+        $imagenActual = ImagesProfesionalesModel::where('profesional_id', $id)->first();
 
         try {
             if ($imagenActual) {
@@ -447,7 +444,7 @@ public function descargarContactos(Request $request)
                 'folder' => 'profesionales'
             ]);
 
-            imagesProfesionalesModel::create([
+            ImagesProfesionalesModel::create([
                 'profesional_id' => $id,
                 'url' => $upload->getSecurePath(),
                 'public_id' => $upload->getPublicId(),
@@ -582,7 +579,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
         // Guardar en BD imagen_noticia
 
-        $imgnoticia= new imagesNoticiasModel();
+        $imgnoticia= new ImagesNoticiasModel();
         $imgnoticia->noticia_id = $noticia->id;
 
         $imgnoticia->url = $url;
@@ -616,7 +613,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
  *   - Elimina la anterior
  *   - Guarda la nueva
  *
- * @param validacionNoticia $request Datos validados
+ * @param ValidacionNoticia $request Datos validados
  * @param int $id ID de la noticia
  */
 
@@ -638,7 +635,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         /** ------------------ IMAGEN ------------------ **/
 
         // Buscar imagen actual
-        $imagen = imagesNoticiasModel::where('noticia_id', $noticia->id)->first();
+        $imagen = ImagesNoticiasModel::where('noticia_id', $noticia->id)->first();
 
         // ¿Se sube nueva imagen?
         if ($request->hasFile('imagen')) {
@@ -670,7 +667,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
                 ]);
             } else {
                 // Crear si no existe
-                imagesNoticiasModel::create([
+                ImagesNoticiasModel::create([
                     'noticia_id' => $noticia->id,
                     'url' => $url,
                     'public_id' => $publicId,
@@ -697,7 +694,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         $noticia = NoticiasModel::findOrFail($id);
 
         // 2) Buscar la imagen asociada
-        $imagen = imagesNoticiasModel::where('noticia_id', $id)->first();
+        $imagen = ImagesNoticiasModel::where('noticia_id', $id)->first();
 
         // 3) Si existe imagen: eliminar de Cloudinary y de la BD
         if ($imagen) {
@@ -795,7 +792,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         ]);
 
 
-        $redes= redesHogarModel::findOrFail($hogar->redes_id);
+        $redes= RedesHogarModel::findOrFail($hogar->redes_id);
 
         $redes->update([
           'instagram'=>$request->instagram,
@@ -803,7 +800,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
           'whatsapp'=>$request->whatsapp
         ]);
 
-        $direccion = direccionHogarModel::findOrFail($hogar->direccion_id);
+        $direccion = DireccionHogarModel::findOrFail($hogar->direccion_id);
 
         $direccion->update([
             'provincia'=>$request->provincia,
@@ -817,7 +814,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         // Buscar imagen actual
 
 
-        $imagen = imagesHogarModel::where('hogar_id', $hogar->id)->first();
+        $imagen = ImagesHogarModel::where('hogar_id', $hogar->id)->first();
 
 
         // ¿Se sube nueva imagen?
@@ -850,7 +847,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
                 ]);
             } else {
                 // Crear si no existe
-                imagesHogarModel::create([
+                ImagesHogarModel::create([
                     'hogar_id' => $hogar->id,
                     'url' => $url,
                     'public_id' => $publicId,
@@ -892,14 +889,14 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
 
         // Crear redes
-        $Redes = redesHogarModel::crearRedes(
+        $Redes = RedesHogarModel::crearRedes(
             $request->instagram,
             $request->facebook,
             $request->whatsapp
         );
 
         // Crear dirección
-        $Direccion = direccionHogarModel::crearDireccion(
+        $Direccion = DireccionHogarModel::crearDireccion(
             $request->provincia,
             $request->localidad,
             $request->ciudad,
@@ -948,7 +945,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         // Guardar imagen en BD
         try {
 
-            $imghogar = new imagesHogarModel();
+            $imghogar = new ImagesHogarModel();
             $imghogar->hogar_id = $hogar->id;
             $imghogar->url = $url;
             $imghogar->public_id = $publicId;
@@ -966,18 +963,10 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
                 ->withInput();
         }
 
-        // Si todo salió bien
-        if ($Redes && $Direccion && $hogar) {
-
-            return redirect()
-                ->route('admin.instituciones')
-                ->with('success', 'Institucion publicada correctamente');
-        }
-
-
-        return redirect('admin/instituciones')
-            ->with('error', $mensajes)
-            ->withInput();
+        // Si todo salió bien (create() lanza excepción si falla, nunca devuelve null)
+        return redirect()
+            ->route('admin.instituciones')
+            ->with('success', 'Institucion publicada correctamente');
     }
 
 

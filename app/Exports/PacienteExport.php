@@ -1,6 +1,6 @@
 <?php
 namespace App\Exports;
-use App\Models\Paciente_contacto;
+use App\Models\Paciente_Contacto;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -18,7 +18,7 @@ class PacienteExport implements FromCollection, WithHeadings, WithMapping
 
     public function collection()
     {
-        $query = Paciente_contacto::query();
+        $query = Paciente_Contacto::query();
 
         if ($this->desde) {
             $query->whereDate('created_at', '>=', $this->desde);
