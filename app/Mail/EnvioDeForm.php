@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class envioDeForm extends Mailable
+class EnvioDeForm extends Mailable
 {
     use Queueable, SerializesModels;
 
