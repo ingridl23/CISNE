@@ -10,7 +10,7 @@ use App\Models\ProfesionalesModel;
 use App\Models\HogarModel;
 use App\Models\Paciente_Contacto;
 use App\Models\ProfesionalEnvioCV;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use App\Services\CloudinaryService;
 use App\Models\Visita;
 use App\Http\Requests\ValidacionProfesional;
 use App\Models\DireccionHogarModel;
@@ -55,7 +55,7 @@ class AdminController extends Controller
  * @return void
  */
 
-    public function __construct()
+    public function __construct(private CloudinaryService $cloudinary)
     {
         $this->middleware('auth');
         $this->middleware('can:crear profesional', [
@@ -265,9 +265,9 @@ public function descargarContactos(Request $request)
 
          try {
 
-    $upload = Cloudinary::upload(
+    $upload = $this->cloudinary->subir(
         $request->file('imagen')->getRealPath(),
-        ['folder' => 'profesionales']
+        'profesionales'
     );
 
 } catch (\Exception $e) {
@@ -277,8 +277,8 @@ public function descargarContactos(Request $request)
 
             ImagesProfesionalesModel::create([
                 'profesional_id' => $prof->id,
-                'url' => $upload->getSecurePath(),
-                'public_id' => $upload->getPublicId()
+                'url' => $upload['url'],
+                'public_id' => $upload['public_id']
             ]);
            // dd($request->hasFile('imagen'), $request->file('imagen'));
         }
@@ -330,19 +330,19 @@ public function descargarContactos(Request $request)
             $imagenActual = ImagesProfesionalesModel::where('profesional_id', $profesional->id)->first();
 
             if ($imagenActual) {
-                Cloudinary::uploadApi()->destroy($imagenActual->public_id);
+                $this->cloudinary->borrar($imagenActual->public_id);
                 $imagenActual->delete();
             }
 
-            $upload = Cloudinary::upload(
+            $upload = $this->cloudinary->subir(
                 $request->file('imagen')->getRealPath(),
-                ['folder' => 'profesionales']
+                'profesionales'
             );
 
             ImagesProfesionalesModel::create([
                 'profesional_id' => $profesional->id,
-                'url' => $upload->getSecurePath(),
-                'public_id' => $upload->getPublicId()
+                'url' => $upload['url'],
+                'public_id' => $upload['public_id']
             ]);
         }
 
@@ -436,18 +436,16 @@ public function descargarContactos(Request $request)
 
         try {
             if ($imagenActual) {
-                Cloudinary::uploadApi()->destroy($imagenActual->public_id);
+                $this->cloudinary->borrar($imagenActual->public_id);
                 $imagenActual->delete();
             }
 
-            $upload = Cloudinary::upload($archivo->getRealPath(), [
-                'folder' => 'profesionales'
-            ]);
+            $upload = $this->cloudinary->subir($archivo->getRealPath(), 'profesionales');
 
             ImagesProfesionalesModel::create([
                 'profesional_id' => $id,
-                'url' => $upload->getSecurePath(),
-                'public_id' => $upload->getPublicId(),
+                'url' => $upload['url'],
+                'public_id' => $upload['public_id'],
             ]);
 
             return back()->with('success', 'Imagen actualizada correctamente');
@@ -474,7 +472,7 @@ public function descargarContactos(Request $request)
 
         foreach ($profesional->imagenes as $img) {
             if ($img->public_id) {
-                Cloudinary::uploadApi()->destroy($img->public_id);
+                $this->cloudinary->borrar($img->public_id);
             }
 
             $img->delete();
@@ -569,13 +567,11 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         $noticia->descripcion = $request->descripcion;
         $noticia->save();
         // Cargar imagen en Cloudinary
-        $resultado = Cloudinary::upload($request->file('imagen')->getRealPath(), [
-            'folder' => 'noticias'
-        ]);
+        $resultado = $this->cloudinary->subir($request->file('imagen')->getRealPath(), 'noticias');
 
         // Obtener datos de la imagen
-        $url = $resultado->getSecurePath();
-        $publicId = $resultado->getPublicId();
+        $url = $resultado['url'];
+        $publicId = $resultado['public_id'];
 
         // Guardar en BD imagen_noticia
 
@@ -617,7 +613,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
  * @param int $id ID de la noticia
  */
 
-    protected function editNoticia(validacionNOticia $request, $id)
+    protected function editNoticia(ValidacionNoticia $request, $id)
     {
         $noticia = NoticiasModel::findOrFail($id);
 
@@ -643,20 +639,20 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
             // Si existe imagen previa → la elimino de Cloudinary
             if ($imagen && $imagen->public_id) {
                 try {
-                    Cloudinary::uploadApi()->destroy($imagen->public_id);
+                    $this->cloudinary->borrar($imagen->public_id);
                 } catch (\Exception $e) {
                     Log::error("Error al eliminar imagen anterior: " . $e->getMessage());
                 }
             }
 
             // Subir nueva
-            $upload = Cloudinary::upload(
+            $upload = $this->cloudinary->subir(
                 $request->file('imagen')->getRealPath(),
-                ['folder' => 'noticias']
+                'noticias'
             );
 
-            $url = $upload->getSecurePath();
-            $publicId = $upload->getPublicId();
+            $url = $upload['url'];
+            $publicId = $upload['public_id'];
 
             // Guardar en tabla imagen_noticias
             if ($imagen) {
@@ -699,7 +695,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         // 3) Si existe imagen: eliminar de Cloudinary y de la BD
         if ($imagen) {
             try {
-                Cloudinary::uploadApi()->destroy($imagen->public_id);
+                $this->cloudinary->borrar($imagen->public_id);
             } catch (\Exception $e) {
                 Log::error("Error eliminando imagen en Cloudinary: " . $e->getMessage());
             }
@@ -823,20 +819,20 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
             // Si existe imagen previa → la elimino de Cloudinary
             if ($imagen && $imagen->public_id) {
                 try {
-                    Cloudinary::uploadApi()->destroy($imagen->public_id);
+                    $this->cloudinary->borrar($imagen->public_id);
                 } catch (\Exception $e) {
                     Log::error("Error al eliminar imagen anterior: " . $e->getMessage());
                 }
             }
 
             // Subir nueva
-            $upload = Cloudinary::upload(
+            $upload = $this->cloudinary->subir(
                 $request->file('imagen')->getRealPath(),
-                ['folder' => 'instituciones']
+                'instituciones'
             );
 
-            $url = $upload->getSecurePath();
-            $publicId = $upload->getPublicId();
+            $url = $upload['url'];
+            $publicId = $upload['public_id'];
 
             // Guardar en tabla imagen_noticias
             if ($imagen) {
@@ -921,13 +917,13 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
         if ($request->hasFile('imagen')) {
 
             try {
-                $resultado = Cloudinary::upload(
+                $resultado = $this->cloudinary->subir(
                     $request->file('imagen')->getRealPath(),
-                    ['folder' => 'instituciones']
+                    'instituciones'
                 );
 
-                $url = $resultado->getSecurePath();
-                $publicId = $resultado->getPublicId();
+                $url = $resultado['url'];
+                $publicId = $resultado['public_id'];
             } catch (\Exception $e) {
 
                 $mensajes = [
@@ -995,7 +991,7 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
 
                     /* Si usás Cloudinary y guardás el public_id, eliminá así:
 
-                \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::destroy($img->public_id);
+                $this->cloudinary->borrar($img->public_id);
 
                 */
 
