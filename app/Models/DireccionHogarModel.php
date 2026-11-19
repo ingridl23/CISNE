@@ -58,7 +58,7 @@ protected $table = 'direccion_hogar';
  *
  * @return \Illuminate\Database\Eloquent\Relations\HasOne
  */
-    public function hogar()
+    public function hogar(): HasOne
     {
         return $this->hasOne(HogarModel::class, 'direccion_id');
     }

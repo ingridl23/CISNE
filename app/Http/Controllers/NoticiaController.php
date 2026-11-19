@@ -49,20 +49,21 @@ class NoticiaController extends Controller
  * Valida que el ID sea numérico y mayor a cero.
  * Si la noticia existe, retorna la vista con sus datos.
  *
- * @param int $id ID de la noticia
- * @return \Illuminate\View\View|null
+ * Si no existe (o el id no es válido) responde 404.
+ *
+ * @param string $id ID de la noticia (viene de la URL)
+ * @return \Illuminate\View\View
  */
 
-    public function showNoticia($id)
+    public function showNoticia(string $id)
     {
-        if (is_numeric($id) && $id > 0) {
-            $noticia = NoticiasModel::showNoticiasId($id);
-            if ($noticia != null) {
-                return view("layouts.NoticiaIndividual", compact('noticia'),[
-                    'errors' => session()->get('errors') ?: new ViewErrorBag,
-                ]);
-            }
-        }
+        $noticia = ctype_digit($id) ? NoticiasModel::showNoticiasId((int) $id) : null;
+
+        abort_if($noticia === null, 404);
+
+        return view("layouts.NoticiaIndividual", compact('noticia'), [
+            'errors' => session()->get('errors') ?: new ViewErrorBag,
+        ]);
     }
 
 
@@ -95,7 +96,7 @@ class NoticiaController extends Controller
             ];
         });
 
-     return response()->json($noticias ?? []);
+     return response()->json($noticias);
 }
 
 
@@ -126,7 +127,7 @@ public function filterNoticiasByCategory(Request $request)
                 'updated_at' => $n->updated_at,
             ];
         });
-     return response()->json($noticias ?? []);
+     return response()->json($noticias);
 }
 
 
@@ -158,6 +159,6 @@ public function filterNoticiasByDate(Request $request)
             ];
         });
 
-     return response()->json($noticias ?? []);
+     return response()->json($noticias);
 }
 }

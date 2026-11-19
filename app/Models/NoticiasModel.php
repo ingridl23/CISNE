@@ -27,7 +27,7 @@ use App\Models\CategoriasNews;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @package App
- * @mixin \Illuminate\Database\Eloquent\Build
+ * @mixin \Illuminate\Database\Eloquent\Builder
  * @property CategoriasNews $categoria
  * @property ImagesNoticiasModel $imagenesNoticias
  *
@@ -67,7 +67,7 @@ class NoticiasModel extends Model
  *
  * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
  */
-public function categoria()
+public function categoria(): BelongsTo
 {
     return $this->belongsTo(CategoriasNews::class, 'categoria_id');
 }
@@ -82,7 +82,7 @@ public function categoria()
  * @return \Illuminate\Database\Eloquent\Relations\HasOne
  */
 
-    public function imagenesNoticias()
+    public function imagenesNoticias(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(ImagesNoticiasModel::class, 'noticia_id');
     }
@@ -180,7 +180,7 @@ public static function obtenerCategorias()
 
     public static function editNoticia($noticia)
     {
-        $noticia->save();
+        return $noticia->save();
     }
 
 

@@ -455,14 +455,9 @@ public function descargarContactos(Request $request)
     }
 
 /**
- * @brief Actualiza la imagen del profesional.
- *
- * - Elimina la imagen anterior
- * - Sube la nueva a Cloudinary
- * - Guarda la nueva referencia
+ * @brief Elimina un profesional y sus imágenes (Cloudinary + BD).
  *
  * @param int $id ID del profesional
- * @param Request $request Contiene la imagen
  * @return \Illuminate\Http\RedirectResponse
  */
 
@@ -985,21 +980,18 @@ Borra la imagen de Cloudinary y el registro asociado antes de eliminar la notici
             /* ------------------------------------------------------
            1) ELIMINAR IMÁGENES
         ------------------------------------------------------ */
-            if ($hogar->imagenes && $hogar->imagenes->count() > 0) {
+            foreach ($hogar->imagenes as $img) {
 
-                foreach ($hogar->imagenes as $img) {
-
-                    // Eliminar la imagen de Cloudinary. Si falla, se registra y se
-                    // sigue con el borrado (mismo criterio que en deleteNoticia).
-                    try {
-                        $this->cloudinary->borrar($img->public_id);
-                    } catch (\Exception $e) {
-                        Log::error("Error eliminando imagen de institución en Cloudinary: " . $e->getMessage());
-                    }
-
-                    // Eliminar registro en la base
-                    $img->delete();
+                // Eliminar la imagen de Cloudinary. Si falla, se registra y se
+                // sigue con el borrado (mismo criterio que en deleteNoticia).
+                try {
+                    $this->cloudinary->borrar($img->public_id);
+                } catch (\Exception $e) {
+                    Log::error("Error eliminando imagen de institución en Cloudinary: " . $e->getMessage());
                 }
+
+                // Eliminar registro en la base
+                $img->delete();
             }
 
             /* ------------------------------------------------------

@@ -25,7 +25,7 @@ use App\Models\Constants;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
- * @property \Illuminate\Database\Eloquent\Collection $imagenes
+ * @property \Illuminate\Database\Eloquent\Collection<int, ImagesProfesionalesModel> $imagenes
  *
  * @table profesional
  * @package App\Models
@@ -69,7 +69,8 @@ class ProfesionalesModel extends Model
         return $profesionalEliminar;
     }
 
-    public function imagenes()
+    /** @return \Illuminate\Database\Eloquent\Relations\HasMany<ImagesProfesionalesModel, $this> */
+    public function imagenes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ImagesProfesionalesModel::class, 'profesional_id');
     }

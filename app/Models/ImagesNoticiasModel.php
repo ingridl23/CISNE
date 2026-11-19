@@ -70,7 +70,7 @@ protected $table = 'imagen_noticias';
  *
  * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
  */
-    public function NoticiaImagen()
+    public function NoticiaImagen(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(NoticiasModel::class, 'noticia_id');
     }

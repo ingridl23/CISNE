@@ -21,9 +21,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $redes_id
  * @property int $direccion_id
  *
- * @property \Illuminate\Database\Eloquent\Collection|ImagesHogarModel[] $imagenes
- * @property DireccionHogarModel $direccion
- * @property RedesHogarModel $redes
+ * @property \Illuminate\Database\Eloquent\Collection<int, ImagesHogarModel> $imagenes
+ * @property DireccionHogarModel|null $direccion
+ * @property RedesHogarModel|null $redes
  *
  * @table hogar_mayor
  * @package App\Models
@@ -107,10 +107,10 @@ protected $table = 'hogar_mayor';
  *
  * Un hogar puede tener múltiples imágenes asociadas.
  *
- * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany<ImagesHogarModel, $this>
  */
 
-    public function imagenes()
+    public function imagenes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(ImagesHogarModel::class, 'hogar_id');
     }
@@ -120,9 +120,9 @@ protected $table = 'hogar_mayor';
  *
  * Un hogar pertenece a una dirección.
  *
- * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<DireccionHogarModel, $this>
  */
-    public function direccion()
+    public function direccion(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(DireccionHogarModel::class, 'direccion_id');
     }
@@ -132,9 +132,9 @@ protected $table = 'hogar_mayor';
  *
  * Un hogar pertenece a un registro de redes sociales.
  *
- * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<RedesHogarModel, $this>
  */
-    public function redes()
+    public function redes(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(RedesHogarModel::class, 'redes_id');
     }

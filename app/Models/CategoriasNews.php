@@ -17,16 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CategoriasNews extends Model
 {
-    /**
- * @var string $table
- * Nombre de la tabla asociada al modelo.
- */
-/**
- * @var array $fillable
- * Campos asignables masivamente.
- */
+    /** @var string Nombre de la tabla asociada al modelo. */
     protected $table = 'categorias_news';
 
+    /** @var list<string> Campos asignables masivamente. */
     protected $fillable = ['nombre'];
 
 
@@ -37,7 +31,7 @@ class CategoriasNews extends Model
  *
  * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
-    public function noticias()
+    public function noticias(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(NoticiasModel::class, 'categoria_id');
     }

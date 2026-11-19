@@ -48,12 +48,9 @@ class ProfesionalEnvioCV extends Model
 
     protected $table = "profesional_envioCV";
 
-/**
- * @var array $fillable Campos asignables masivamente
- */
     protected static function newFactory()
     {
-        return ProfesionalEnvioCV::new();
+        return \Database\Factories\ProfesionalEnvioCV::new();
     }
 
 

@@ -40,11 +40,6 @@ class ImagesProfesionalesModel extends Model
 protected $table = 'imagen_profesional';
 
 /**
- * @var array $fillable Campos asignables masivamente
- */
- 
-
-/**
  * @brief Define la factory asociada al modelo.
  *
  * @return \Database\Factories\ImagenesProfesionalFactory
@@ -72,7 +67,7 @@ protected $table = 'imagen_profesional';
  *
  * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
  */
-    public function ProfesionalImagen()
+    public function ProfesionalImagen(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(ProfesionalesModel::class, 'profesional_id');
     }
@@ -81,7 +76,7 @@ protected $table = 'imagen_profesional';
 /**
  * @brief Obtiene las imágenes asociadas a un profesional.
  *
- * @param int $id_profesional ID del profesional
+ * @param int $id_emprendedor ID del profesional
  * @return \Illuminate\Database\Eloquent\Collection
  */
 
@@ -99,6 +94,6 @@ protected $table = 'imagen_profesional';
  */
     public static function eliminarImagen(ImagesProfesionalesModel $imagen)
     {
-        $imagen->delete();
+        return $imagen->delete();
     }
 }

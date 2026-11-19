@@ -61,9 +61,9 @@ class ImagesHogarModel extends Model
  *
  * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
  */
-    public function HogaresImagen()
+    public function HogaresImagen(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(ImagesHogarModel::class, 'hogar_id');
+        return $this->belongsTo(HogarModel::class, 'hogar_id');
     }
 
 /**
@@ -87,6 +87,6 @@ class ImagesHogarModel extends Model
  */
     public static function eliminarImagen(ImagesHogarModel $imagen)
     {
-        $imagen->delete();
+        return $imagen->delete();
     }
 }

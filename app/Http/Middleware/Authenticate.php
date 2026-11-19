@@ -14,9 +14,12 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
-            // El login es un modal en la home (no hay página de login aparte)
-            return route('home');
+        // Las peticiones JSON reciben 401 en vez de una redirección
+        if ($request->expectsJson()) {
+            return null;
         }
+
+        // El login es un modal en la home (no hay página de login aparte)
+        return route('home');
     }
 }
